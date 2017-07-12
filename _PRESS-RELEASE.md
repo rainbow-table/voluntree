@@ -1,4 +1,4 @@
-# Project Name #
+# Voluntree #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,16 +17,19 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+Match and manage interactions between volunteers with non-profits.
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+Audience: 
+* Non-profits looking for volunteer help
+* Volunteers looking for non-profits to help
+* Non-profits looking for a place to manage volunteer schedules and/or communication between volunteers
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+One-stop-shop for volunteers and non-profits to communicate and create harmony in the community. 
 
 ## Problem ##
-  > Describe the problem your product solves.
+People looking to make a difference in their community need look no further than our non-profit finder. There they can communicate with all nearby non-profits looking for volunteers and manage their schedules once signed up. On the same token, non-profits requiring volunteered help from the community need look no further than our volunteer finder. 
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
