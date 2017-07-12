@@ -1,12 +1,12 @@
-# Project Name
+# Voluntree
 
-> Pithy project description
+> One-stop-shop to match and manage interactions between volunteers with non-profits.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Tourné Torres
+  - __Scrum Master__: Daniel Baker
+  - __Development Team Members__: Daniel Weill
 
 ## Table of Contents
 
