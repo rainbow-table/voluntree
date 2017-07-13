@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djbaker/volunteer.git"
+    "url": "git+https://github.com/rainbow-table/volunteer.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/djbaker/volunteer/issues"
+    "url": "https://github.com/rainbow-table/volunteer/issues"
   },
-  "homepage": "https://github.com/djbaker/volunteer#readme"
+  "homepage": "https://github.com/rainbow-table/volunteer#readme"
 }
