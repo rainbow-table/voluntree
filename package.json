@@ -1,0 +1,24 @@
+{
+  "name": "volunteer",
+  "version": "1.0.0",
+  "description": "> Pithy project description",
+  "main": "index.js",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.21",
+    "eslint": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"fake test passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djbaker/volunteer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djbaker/volunteer/issues"
+  },
+  "homepage": "https://github.com/djbaker/volunteer#readme"
+}
