@@ -26,11 +26,24 @@
 ## Requirements
 
 - Node 8.1.4
-- grapgQl 0.10.3
+- graphQl 0.10.3
 - Angular 2.0.0
 - ionic 2.0.0
 - typescript 2.4.1
 - Cordova 7.0.1
+- Redis 3.2.8
+- TravisCI 
+- Mocha 3.4.2
+- Chai 4.1.0
+- Docker 17.06.0
+- AWS ec2
+- RabbitMQ 
+- express 4.15.3
+- Google Maps API
+- Google Calendar API
+- propublica API
+- Facebook auth API
+
 ## Development
 
 ### Installing Dependencies
