@@ -1,47 +1,30 @@
-# Voluntree #
+ # Voluntree #
 
-<!-- 
-> This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
-
-There is an approach called "working backwards" that is widely used at Amazon. They work backwards from the customer, rather than starting with an idea for a product and trying to bolt customers onto it. While working backwards can be applied to any specific product decision, using this approach is especially important when developing new products or features.
-
-For new initiatives a product manager typically starts by writing an internal press release announcing the finished product. The target audience for the press release is the new/updated product's customers, which can be retail customers or internal users of a tool or technology. Internal press releases are centered around the customer problem, how current solutions (internal or external) fail, and how the new product will blow away existing solutions.
-
-If the benefits listed don't sound very interesting or exciting to customers, then perhaps they're not (and shouldn't be built). Instead, the product manager should keep iterating on the press release until they've come up with benefits that actually sound like benefits. Iterating on a press release is a lot less expensive than iterating on the product itself (and quicker!).
-
-If the press release is more than a page and a half, it is probably too long. Keep it simple. 3-4 sentences for most paragraphs. Cut out the fat. Don't make it into a spec. You can accompany the press release with a FAQ that answers all of the other business or execution questions so the press release can stay focused on what the customer gets. My rule of thumb is that if the press release is hard to write, then the product is probably going to suck. Keep working at it until the outline for each paragraph flows. 
-
-Oh, and I also like to write press-releases in what I call "Oprah-speak" for mainstream consumer products. Imagine you're sitting on Oprah's couch and have just explained the product to her, and then you listen as she explains it to her audience. That's "Oprah-speak", not "Geek-speak".
-
-Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
- -->
- 
 ## Heading ##
-Match and manage interactions between volunteers with non-profits.
+Branch the roots of your community.
 
 ## Sub-Heading ##
 Audience: 
-* Non-profits looking for volunteer help
-* Volunteers looking for non-profits to help
-* Non-profits looking for a place to manage volunteer schedules and/or communication between volunteers
+* Non-profits looking to post open volunteer shifts and manage their volunteer schedule
+* Volunteers looking to fill open volunteer shifts, manage their schedule, and connect with other schedulers over social media, recieving badges for completed shifts at different non-profits.
 
 ## Summary ##
-One-stop-shop for volunteers and non-profits to communicate and create harmony in the community. 
+One-stop-shop to match and manage interactions between volunteers with non-profits.
 
 ## Problem ##
-People looking to make a difference in their community need look no further than our non-profit finder. There they can communicate with all nearby non-profits looking for volunteers and manage their schedules once signed up. On the same token, non-profits requiring volunteered help from the community need look no further than our volunteer finder. 
+Non-profits struggle to keep track of their volunteers and have more important things to manage than a schedule. On the same token, it can be harder for people to reach out to help causes they're passionate about, when they aren't aware of what's available to them or even what non-profts are in proximity to their location.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+Our app takes care of the vetting and scheduling process for non-profits and connects volunteers to open opportunities they're passionate about.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+ "We're achieving a more cohesive bond between volunteer and nonprofit in our city than ever before. In fact, non profits are now able to put more of that hard earned money where it matters most instead of hiring more in-house staff!" - Tourné Torres, CFO
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+ It's so easy to get started - head to voluntree.us and signup with your facebook or linked in credetials as a volunteer or non-profit. We take care of the rest of it for you!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+"Being able to find exactly what type of organizations to get involved with has been extrememly lucky for my friends and I who were looking for something to do after class on Friday. Midcity Soup Kitchen is right down the street and needed our help immediately!"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+ To connect with non-profit that needs YOUR help or to schedule a volunteer to help your orgnaization as soon as TODAY, climb over to Voluntree.us right now! Earn badges to share your volunteer experiences on Facebook or LinkedIn today!
