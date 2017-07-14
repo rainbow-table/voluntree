@@ -1,7 +1,7 @@
  # Voluntree #
 
 ## Heading ##
-Branch the roots of your community.
+Be the growth you want to see in the world.
 
 ## Sub-Heading ##
 Audience: 
@@ -21,7 +21,7 @@ Our app takes care of the vetting and scheduling process for non-profits and con
  "We're achieving a more cohesive bond between volunteer and nonprofit in our city than ever before. In fact, non profits are now able to put more of that hard earned money where it matters most instead of hiring more in-house staff!" - Tourné Torres, CFO
 
 ## How to Get Started ##
- It's so easy to get started - head to voluntree.us and signup with your facebook or linked in credetials as a volunteer or non-profit. We take care of the rest of it for you!
+ It's so easy to get started - head to voluntree.us and signup with your facebook or linked in credentials as a volunteer or non-profit. We take care of the rest of it for you!
 
 ## Customer Quote ##
 "Being able to find exactly what type of organizations to get involved with has been extrememly lucky for my friends and I who were looking for something to do after class on Friday. Midcity Soup Kitchen is right down the street and needed our help immediately!"
