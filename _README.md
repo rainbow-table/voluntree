@@ -20,16 +20,17 @@
 
 ## Usage
 
-> Some usage instructions
+> Login as either a nonprofit or volunteer.
+  Volunteers will be provided with volunteering opportunities in their locale. Non-profits will be able to post those oppotunities.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
-
+- Node 8.1.4
+- grapgQl 0.10.3
+- Angular 2.0.0
+- ionic 2.0.0
+- typescript 2.4.1
+- Cordova 7.0.1
 ## Development
 
 ### Installing Dependencies
@@ -37,14 +38,12 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/rainbow-table/volunteer/issues)
 
 
 ## Contributing
