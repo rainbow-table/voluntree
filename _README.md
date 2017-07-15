@@ -23,6 +23,7 @@
 > Login as either a nonprofit or volunteer.
   Volunteers will be provided with volunteering opportunities in their locale. Non-profits will be able to post those oppotunities.
 
+  ![img](http://i67.tinypic.com/2wfnwaa.png)s
 ## Requirements
 
 - Node 8.1.4
