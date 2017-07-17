@@ -28,6 +28,7 @@
 
 - Node 8.1.4
 - graphQl 0.10.3
+- porstgreSQL 9.6.3
 - Angular 2.0.0
 - ionic 2.0.0
 - typescript 2.4.1
@@ -43,7 +44,7 @@
 - Google Maps API
 - Google Calendar API
 - propublica API
-- Facebook auth API
+- passport 0.3.2
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
