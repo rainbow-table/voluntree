@@ -38,3 +38,11 @@ plugins/ios.json
 resources/android
 resources/ios
 
+inter-*
+*.min.js*
+
+*~
+sauce_connect.log
+test.html
+
+
