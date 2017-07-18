@@ -32,3 +32,9 @@ platforms/
 plugins/
 .DS_Store
 .env
+hooks/
+plugins/android.json
+plugins/ios.json
+resources/android
+resources/ios
+
