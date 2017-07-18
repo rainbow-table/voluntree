@@ -27,4 +27,14 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
+www/build/
+platforms/
+plugins/
+.DS_Store
 .env
+hooks/
+plugins/android.json
+plugins/ios.json
+resources/android
+resources/ios
+
