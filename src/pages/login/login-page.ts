@@ -1,5 +1,7 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NpDashPage } from "../np-dash/np-dash";
+import { NavParams } from 'ionic-angular';
  
 @Component({
   selector: 'page-login',
@@ -63,7 +65,13 @@ export class LoginPage {
   formState: any = "in";
  
   constructor(public navCtrl: NavController) {
- 
+
   }
- 
+  goToNpDash(){
+    // push another page on to the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+    this.navCtrl.push(NpDashPage);
+  }
 }
+ 

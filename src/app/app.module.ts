@@ -7,6 +7,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login-page';
+import { NpDashPage } from '../pages/np-dash/np-dash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    LoginPage
+    LoginPage,
+    NpDashPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    LoginPage
+    LoginPage,
+    NpDashPage
   ],
   providers: [
     StatusBar,
