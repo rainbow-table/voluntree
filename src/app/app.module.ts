@@ -12,8 +12,13 @@ import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { Calendar } from '@ionic-native/calendar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { CalendarComponent } from '../components/calendar/calendar';
+import { NgCalendarModule } from 'ionic2-calendar';
+// import { CalendarModule } from 'angular-calendar';
+
 
 @NgModule({
   declarations: [
@@ -23,11 +28,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListPage,
     LoginPage,
     NpDashPage,
-    VolunteerDashPage
+    VolunteerDashPage,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgCalendarModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
