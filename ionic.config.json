@@ -1,5 +1,12 @@
 {
   "name": "voluntree",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/propublic",
+      "proxyUrl": "https://projects.propublica.org/nonprofits/api/v2/search.json"
+    }  
+  ]
 }
+

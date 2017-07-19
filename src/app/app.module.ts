@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
@@ -15,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
     BrowserModule,
     BrowserAnimationsModule,
     NgCalendarModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -45,7 +48,8 @@ import { NgCalendarModule } from 'ionic2-calendar';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProPubServiceProvider
   ]
 })
 export class AppModule {}
