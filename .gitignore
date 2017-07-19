@@ -39,11 +39,15 @@ resources/android
 resources/ios
 .idea/
 
+.env
+
 inter-*
 *.min.js*
 
 *~
 sauce_connect.log
 test.html
+
+
 
 
