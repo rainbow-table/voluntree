@@ -4,6 +4,9 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login-page';
+import { NpDashPage } from '../pages/np-dash/np-dash';
+import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,8 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
-  rootPage = HelloIonicPage;
+  rootPage = LoginPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -30,7 +32,11 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Dashboard', component: HelloIonicPage },
-      { title: 'Nearby Opportunities', component: ListPage }
+      { title: 'Nearby Opportunities', component: ListPage },
+      { title: 'Login Page', component: LoginPage },
+      { title: 'Non-Profit Dash', component: NpDashPage },
+      { title: 'Volunteer Dash', component: VolunteerDashPage }
+
     ];
   }
 
