@@ -6,6 +6,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login-page';
 import { NpDashPage } from '../pages/np-dash/np-dash';
+import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +34,9 @@ export class MyApp {
       { title: 'Dashboard', component: HelloIonicPage },
       { title: 'Nearby Opportunities', component: ListPage },
       { title: 'Login Page', component: LoginPage },
-      { title: 'Non-Profit Dash', component: NpDashPage} 
+      { title: 'Non-Profit Dash', component: NpDashPage },
+      { title: 'Volunteer Dash', component: VolunteerDashPage }
+
     ];
   }
 

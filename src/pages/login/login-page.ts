@@ -2,6 +2,7 @@ import { Component, trigger, state, style, transition, animate, keyframes } from
 import { NavController } from 'ionic-angular';
 import { NpDashPage } from "../np-dash/np-dash";
 import { NavParams } from 'ionic-angular';
+import { VolunteerDashPage } from "../volunteer-dash/volunteer-dash";
  
 @Component({
   selector: 'page-login',
@@ -72,6 +73,13 @@ export class LoginPage {
     // causing the nav controller to transition to the new page
     // optional data can also be passed to the pushed page.
     this.navCtrl.push(NpDashPage);
+  }
+
+  goToVolunteerDash(){
+    // push another page on to the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+    this.navCtrl.push(VolunteerDashPage);
   }
 }
  
