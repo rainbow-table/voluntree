@@ -1,5 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
+import { Geolocation, Coordinates } from '@ionic-native/geolocation';
+// import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
+
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -13,33 +17,81 @@ import { NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-volunteer-dash',
   templateUrl: 'volunteer-dash.html',
+  providers: [ ProPubServiceProvider, Geolocation]
 })
 export class VolunteerDashPage {
 
+  public propublic: any;
+  public npAddress: any;
+
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  coords:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation) {
+        geolocation.getCurrentPosition().then((pos) => {
+      console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+      this.coords = pos.coords;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+    
+    this.loadProPublic();
+    // this.findAddressofNp();
   }
 
   ionViewDidLoad() {
+    
     this.loadMap();
+    this.loadProPublic();
     console.log('ionViewDidLoad VolunteerDashPage');
   }
 
-  loadMap(){
+loadMap(){
  
-    let latLng = new google.maps.LatLng(29.9459, -90.0700);
+    this.geolocation.getCurrentPosition().then((position) => {
  
-    let mapOptions = {
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      let mapOptions = {
       center: latLng,
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
  
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
  
+    }, (err) => {
+      console.log(err);
+    });
+ 
+  }
+
+  addInfoWindow(marker, content){
+ 
+  let infoWindow = new google.maps.InfoWindow({
+    content: content
+  });
+ 
+  google.maps.event.addListener(marker, 'click', () => {
+    infoWindow.open(this.map, marker);
+  });
+ 
+}
+
+  // findAddressofNp(){
+  //   this.GetNpAddressrProvider.load()
+  //   .then(data => {
+  //     this.npAddress = data;
+  //     console.log(this.npAddress.address);
+  //   });
+  // }
+
+  loadProPublic(){
+    this.ProPubServiceProvider.load()
+    .then(data => {
+      this.propublic = data;
+    });
   }
 }
 

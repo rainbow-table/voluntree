@@ -27,7 +27,7 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
-www/build/
+www/
 platforms/
 plugins/
 .DS_Store
@@ -47,6 +47,8 @@ inter-*
 *~
 sauce_connect.log
 test.html
+
+docker-compose.yml
 
 
 
