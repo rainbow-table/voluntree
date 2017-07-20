@@ -41,6 +41,8 @@
 - Google Calendar API
 - propublica API
 - passport 0.3.2
+- Karma
+- Jasmine
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
