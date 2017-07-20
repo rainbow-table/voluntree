@@ -8,10 +8,12 @@
 
   <ion-navbar>
     <ion-title>Non-Profit Dash</ion-title>
+    <ion-buttons end>
+    <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br> Events</button>
+    <ion-icon style="font-size: 40px; margin-right: 10px;" name="md-clipboard"></ion-icon>
+     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-header>
@@ -38,7 +40,7 @@
               step="30">
     </calendar>
              <ion-content>
-            <button ion-button (click)="loadNpEvents()">Load Current Events from DB</button>  
+            <button class="np-dash-button" ion-button (click)="loadNpEvents()">Load Current Events from DB</button>  
    <ion-item *ngFor="let item of npevents; let i = index;">
       <!-- <ion-avatar item-left>
           <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  

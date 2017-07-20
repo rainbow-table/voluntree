@@ -1,0 +1,28 @@
+<!--
+  Generated template for the ManageEventsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Manage Events</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <button class="np-dash-button" ion-button (click)="loadNpEvents()">View Scheduled Events</button>  
+    <ion-content *ngIf="hide" padding>
+     <ion-item *ngFor="let item of npevents; let i = index;">
+      <!-- <ion-avatar item-left>
+          <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  
+      </ion-avatar> -->
+       
+        <h2>{{item.description}}</h2> 
+      <p>{{item.event_start}} to {{item.event_end}}</p>
+    </ion-item>
+    </ion-content>
+</ion-content>

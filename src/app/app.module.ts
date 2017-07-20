@@ -20,6 +20,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
 import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
 import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events';
+import { ManageEventsPage } from "../pages/manage-events/manage-events";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events
     LoginPage,
     NpDashPage,
     VolunteerDashPage,
+    ManageEventsPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events
     ListPage,
     LoginPage,
     NpDashPage,
-    VolunteerDashPage
+    VolunteerDashPage,
+    ManageEventsPage
   ],
   providers: [
     StatusBar,

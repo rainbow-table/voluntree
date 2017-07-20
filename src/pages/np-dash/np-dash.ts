@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
+import { ManageEventsPage } from "../manage-events/manage-events";
 
 
 
@@ -29,6 +30,14 @@ export class NpDashPage {
     
     console.log('ionViewDidLoad NpDashPage');
   }
+
+    goToManageEventsPage(){
+    // push another page on to the navigation stack
+    // causing the nav controller to transition to the new page
+    // optional data can also be passed to the pushed page.
+      this.navCtrl.push(ManageEventsPage);
+    }
+
   eventSource;
     viewTitle;
     isToday: boolean;
