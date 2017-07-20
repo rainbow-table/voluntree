@@ -34,4 +34,9 @@ export class ManageEventsPage {
         console.log(this.npevents);
     });
   }
+
+  removeEventFromDB(event_id) {
+    this.GrabNpEventsProvider.deleteEvent(event_id);
+    console.log(event_id);
+  }
 }
