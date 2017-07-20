@@ -14,7 +14,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.session({ secret: mySecret }));s
+// app.use(express.session({ secret: mySecret }));
 app.use(passport.initialize());
 app.use(passport.session());
 

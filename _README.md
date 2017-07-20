@@ -28,27 +28,25 @@
 
 - Node 8.1.4
 - graphQl 0.10.3
+- porstgreSQL 9.6.3
 - Angular 2.0.0
 - ionic 2.0.0
 - typescript 2.4.1
 - Cordova 7.0.1
-- Redis 3.2.8
 - TravisCI 
 - Mocha 3.4.2
 - Chai 4.1.0
 - Docker 17.06.0
 - AWS ec2
-- RabbitMQ 
 - express 4.15.3
 - Google Maps API
 - Google Calendar API
 - propublica API
-- Facebook auth API
+- passport 0.3.2
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
   ![img](http://i.imgur.com/HGVMcvI.jpg)
-  ![img](http://i.imgur.com/qVImrYi.png)
   ![img](http://i.imgur.com/xRyRSzZ.png)
   ![img](http://i.imgur.com/IbTUTeV.png)
   ![img](http://i.imgur.com/8F2dCMu.png)
