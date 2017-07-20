@@ -10,6 +10,7 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login-page';
 import { NpDashPage } from '../pages/np-dash/np-dash';
 import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,6 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCalendarModule } from 'ionic2-calendar';
 import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
+import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
 
 @NgModule({
   declarations: [
@@ -48,8 +50,10 @@ import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-serv
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProPubServiceProvider
+    ProPubServiceProvider,
+    GetNpAddressrProvider
   ]
 })
 export class AppModule {}

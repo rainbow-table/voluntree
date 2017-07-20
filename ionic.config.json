@@ -5,8 +5,12 @@
   "proxies": [
     {
       "path": "/propublic",
-      "proxyUrl": "https://projects.propublica.org/nonprofits/api/v2/search.json"
-    }  
+      "proxyUrl": "https://projects.propublica.org/nonprofits/api/v2/search.json?"
+    },
+    {
+      "path": "/propublicORG",
+      "proxyUrl": "https://projects.propublica.org/nonprofits/api/v2/organizations/"
+    }    
   ]
 }
 
