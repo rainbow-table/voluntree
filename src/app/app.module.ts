@@ -21,6 +21,9 @@ import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-serv
 import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events';
 import { ManageEventsPage } from "../pages/manage-events/manage-events";
+import { HttpModule, JsonpModule } from '@angular/http';
+import { NpCalProvider } from '../providers/np-cal/np-cal';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { ManageEventsPage } from "../pages/manage-events/manage-events";
     NgCalendarModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    HttpModule,
+    JsonpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +63,8 @@ import { ManageEventsPage } from "../pages/manage-events/manage-events";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProPubServiceProvider,
     GetNpAddressrProvider,
-    GrabNpEventsProvider
+    GrabNpEventsProvider,
+    NpCalProvider
   ]
 })
 export class AppModule {}

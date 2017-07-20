@@ -5,6 +5,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { ManageEventsPage } from "../manage-events/manage-events";
 
+import { NpCalProvider } from '../../providers/np-cal/np-cal';
 
 
 /**
@@ -17,10 +18,11 @@ import { ManageEventsPage } from "../manage-events/manage-events";
 @Component({
   selector: 'page-np-dash',
   templateUrl: 'np-dash.html',
+  providers: [NpCalProvider]
 })
 export class NpDashPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
   }
   
   public npevents: any;
@@ -46,7 +48,14 @@ export class NpDashPage {
         currentDate: new Date()
     }; // these are the variable used by the calendar.
     loadEvents() {
-        this.eventSource = this.createRandomEvents();
+        this.eventSource = this.NpCalProvider.getCalEvents({query: `{event{
+            id
+            ngo_id
+            description
+            event_start
+            event_end}}`
+        });
+        console.log(this.eventSource);
     }
     onViewTitleChanged(title) {
         this.viewTitle = title;
