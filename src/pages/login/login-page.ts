@@ -1,7 +1,7 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NpDashPage } from "../np-dash/np-dash";
-import { NavParams } from 'ionic-angular';
+// import { NavParams } from 'ionic-angular';
 import { VolunteerDashPage } from "../volunteer-dash/volunteer-dash";
  
 @Component({
