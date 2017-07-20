@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
+import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 
 
 
@@ -18,11 +19,14 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 })
 export class NpDashPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider) {
   }
-
+  
+  public npevents: any;
 
   ionViewDidLoad() {
+    // this.loadNpEvents();
+    
     console.log('ionViewDidLoad NpDashPage');
   }
   eventSource;
@@ -101,5 +105,13 @@ export class NpDashPage {
         current.setHours(0, 0, 0);
         return date < current;
     };
+
+    loadNpEvents(){
+      this.GrabNpEventsProvider.load()
+      .then(data => {
+        this.npevents = data.data.event;
+        console.log(this.npevents);
+    });
+  }
 
 }

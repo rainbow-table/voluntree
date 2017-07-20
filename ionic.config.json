@@ -10,7 +10,11 @@
     {
       "path": "/propublicORG",
       "proxyUrl": "https://projects.propublica.org/nonprofits/api/v2/organizations/"
-    }    
+    },
+    {
+      "path": "/graphQL",
+      "proxyUrl": "http://localhost:3000"
+    }        
   ]
 }
 

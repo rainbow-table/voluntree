@@ -48,6 +48,8 @@ inter-*
 sauce_connect.log
 test.html
 
+docker-compose.yml
+
 
 
 

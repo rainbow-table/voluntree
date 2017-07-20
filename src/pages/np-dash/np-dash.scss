@@ -1,3 +1,9 @@
 page-np-dash {
+  .ios, .md {
+      height: 100%;
 
+    np-dash-button {
+        margin-top: -200px;
+    }
+  }
 }

@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCalendarModule } from 'ionic2-calendar';
 import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
 import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
+import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addre
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProPubServiceProvider,
-    GetNpAddressrProvider
+    GetNpAddressrProvider,
+    GrabNpEventsProvider
   ]
 })
 export class AppModule {}
