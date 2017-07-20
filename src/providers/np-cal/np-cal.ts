@@ -20,11 +20,17 @@ export class NpCalProvider {
     public dbUrl = 'http://localhost:3000/graphql';
     public events;
 
-  getCalEvents(body: Object){
+  getCalEvents(body: Object): Promise<any>{ 
+  return new Promise(resolve => {
     this.http.post(this.dbUrl, body)
-    .map((res) => {
-      return res.json()
-    }).subscribe(data => this.events = data.data);
-    return this.events;
+    .map(res => res.json())
+    .subscribe(data => {
+      console.log(data.data, 'heyo sweet thang baby');
+      this.events = data.data;
+      resolve(data.data);
+      return this.events;
+    })
+  }).then(response => response);
+    
   }
 }

@@ -21,8 +21,6 @@
 <ion-content padding>
   <div #map id="map"></div>  
      <div *ngIf="coords">
-    <div>Latitude {{coords.latitude}}</div>
-    <div>Longitude {{coords.longitude}}</div>
   </div>
 
 <ion-content padding class="propublic">
@@ -34,7 +32,6 @@
        <h2>{{item.name}}</h2> 
       <p>{{item.address}} 
         {{item.city}}, {{item.state}}</p>
-      <b>EIN: {{item.ein}}</b>
     </ion-item>
   </ion-list>
 </ion-content>
