@@ -21,11 +21,14 @@ export class NpCalProvider {
     public events;
 
   getCalEvents(body: Object): Promise<any>{ 
+     if (this.events) {
+      // already loaded data
+      return Promise.resolve(this.events);
+    }
   return new Promise(resolve => {
     this.http.post(this.dbUrl, body)
     .map(res => res.json())
     .subscribe(data => {
-      console.log(data.data, 'heyo sweet thang baby');
       this.events = data.data;
       resolve(data.data);
       return this.events;

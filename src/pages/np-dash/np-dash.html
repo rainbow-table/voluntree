@@ -24,7 +24,7 @@
             <button ion-button (click)="changeMode('month')">M</button>
             <button ion-button (click)="changeMode('week')">W</button>
             <button ion-button (click)="changeMode('day')">D</button>
-            <button ion-button (click)="loadEvents()">Load Events</button>
+            <!-- <button ion-button (click)="loadEvents()">Load Events</button> -->
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -40,7 +40,7 @@
               step="30">
     </calendar>
              <ion-content>
-            <button class="np-dash-button" ion-button (click)="loadNpEvents()">Load Current Events from DB</button>  
+            <!-- <button class="np-dash-button" ion-button (click)="loadNpEvents()">Load Current Events from DB</button>   -->
    <ion-item *ngFor="let item of npevents; let i = index;">
       <!-- <ion-avatar item-left>
           <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  
