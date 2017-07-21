@@ -22,7 +22,6 @@ export class NpCalProvider {
 
   getCalEvents(body: Object): Promise<any>{ 
      if (this.events) {
-      // already loaded data
       return Promise.resolve(this.events);
     }
   return new Promise(resolve => {
@@ -31,9 +30,8 @@ export class NpCalProvider {
     .subscribe(data => {
       this.events = data.data;
       resolve(data.data);
-      // return this.events;
     })
-  }).then(response => response);
+  })
     
   }
 }

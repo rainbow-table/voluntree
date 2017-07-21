@@ -61,6 +61,7 @@ export class NpDashPage {
                 value.event_start = null;
                 value.endTime = new Date(value.event_end);
                 value.event_end = null;
+                value.title = value.description;
                 console.log(value, 'im the value');
                 return value;
             });
