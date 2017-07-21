@@ -31,7 +31,7 @@ export class NpCalProvider {
     .subscribe(data => {
       this.events = data.data;
       resolve(data.data);
-      return this.events;
+      // return this.events;
     })
   }).then(response => response);
     

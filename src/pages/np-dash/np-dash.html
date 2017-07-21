@@ -30,7 +30,8 @@
 </ion-header>
  
 <ion-content class="has-header">
-    <calendar [eventSource]="eventSource"
+    <calendar 
+              [eventSource]="eventSource"  
               [calendarMode]="calendar.mode"
               [currentDate]="calendar.currentDate"
               (onCurrentDateChanged)="onCurrentDateChanged($event)"
@@ -41,14 +42,14 @@
     </calendar>
              <ion-content>
             <!-- <button class="np-dash-button" ion-button (click)="loadNpEvents()">Load Current Events from DB</button>   -->
-   <ion-item *ngFor="let item of npevents; let i = index;">
+    <ion-item *ngFor="let item of npevents; let i = index;">
       <!-- <ion-avatar item-left>
           <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  
       </ion-avatar> -->
        
         <h2>{{item.description}}</h2> 
       <p>{{item.event_start}} to {{item.event_end}}</p>
-    </ion-item>
+    </ion-item> 
   
   </ion-content>
 </ion-content>
