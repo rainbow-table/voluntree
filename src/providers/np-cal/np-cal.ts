@@ -17,7 +17,7 @@ export class NpCalProvider {
   constructor(public http: Http) {
     console.log('Hello NpCalProvider Provider');
   }
-    public dbUrl = 'http://localhost:3000/graphql';
+    public dbUrl = '/graphql';
     public events;
 
   getCalEvents(body: Object): Promise<any>{ 
@@ -25,7 +25,7 @@ export class NpCalProvider {
       return Promise.resolve(this.events);
     }
   return new Promise(resolve => {
-    this.http.post(this.dbUrl, body)
+    this.http.post('/graphql', body)
     .map(res => res.json())
     .subscribe(data => {
       this.events = data.data;
