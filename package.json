@@ -37,6 +37,7 @@
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-geolocation": "^2.4.3",
+        "cordova-plugin-googlemaps": "^1.4.3",
         "cordova-plugin-nativegeocoder": "^1.0.2",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
@@ -99,7 +100,10 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-calendar": {},
             "cordova-plugin-nativegeocoder": {},
-            "cordova-plugin-geolocation": {}
+            "cordova-plugin-geolocation": {},
+            "cordova-plugin-googlemaps": {
+                "API_KEY_FOR_ANDROID": "AIzaSyDU6szZid8qf0rcQdLgnYWg17VS0czDRTA"
+            }
         },
         "platforms": [
             "android"
