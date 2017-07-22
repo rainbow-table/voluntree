@@ -17,7 +17,7 @@ export class NpCalProvider {
   constructor(public http: Http) {
     console.log('Hello NpCalProvider Provider');
   }
-    public dbUrl = 'http://localhost:3000/graphql';
+    public dbUrl = 'http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql';
     public events;
 
   getCalEvents(body: Object): Promise<any>{ 

@@ -36,7 +36,7 @@ export class GrabNpEventsProvider {
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
       this.http
-        .get("/graphQL" + `/graphql?query=${query}`)
+        .get("http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql" + `/graphql?query=${query}`)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data

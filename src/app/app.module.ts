@@ -22,6 +22,7 @@ import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events
 import { ManageEventsPage } from "../pages/manage-events/manage-events";
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NpCalProvider } from '../providers/np-cal/np-cal';
+import { CreateEventPage } from '../pages/create-event/create-event';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NpCalProvider } from '../providers/np-cal/np-cal';
     LoginPage,
     NpDashPage,
     VolunteerDashPage,
-    ManageEventsPage
+    ManageEventsPage,
+    CreateEventPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { NpCalProvider } from '../providers/np-cal/np-cal';
     LoginPage,
     NpDashPage,
     VolunteerDashPage,
-    ManageEventsPage
+    ManageEventsPage,
+    CreateEventPage
   ],
   providers: [
     StatusBar,

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { ManageEventsPage } from "../manage-events/manage-events";
 
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
+import { CreateEventPage } from '../create-event/create-event';
 
 
 /**
@@ -22,7 +23,7 @@ import { NpCalProvider } from '../../providers/np-cal/np-cal';
 })
 export class NpDashPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
   }
   
   public npevents: any;
@@ -137,10 +138,16 @@ export class NpDashPage {
 
     loadNpEvents(){
       this.GrabNpEventsProvider.load()
-      .then(data => {
-        this.npevents = data.data.event;
-        console.log(this.npevents);
-    });
-  }
+			.then(data => {
+					this.npevents = data.data.event;
+					console.log(this.npevents);
+			});
+    }
+
+    addEvent() {
+			let myModal = this.ModalController.create(CreateEventPage);
+			myModal.present();
+      console.log('Event Added!')
+    }
 
 }
