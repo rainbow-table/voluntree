@@ -14,5 +14,22 @@
 
 
 <ion-content padding>
-  <button ion-button block (click)="closeModal()">Close Modal</button>
+  <button ion-button block icon-only (click)="closeModal()">
+    <ion-icon  md="md-arrow-round-back"></ion-icon>
+  </button>
+  <ion-item>
+    <ion-label>Event Description</ion-label>
+    <ion-input type="text" [(ngModel)]="event.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Start</ion-label>
+    <ion-select [(ngModel)]="event.start">
+      <ion-option [value]="event.start">now</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>End</ion-label>
+    <ion-select [(ngModel)]="event.end"></ion-select>
+  </ion-item>
+  <button ion-button type="submit" block (click)="postNewEvent()">submit</button>
 </ion-content>

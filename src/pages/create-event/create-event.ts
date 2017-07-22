@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-
+import { NpCalProvider } from '../../providers/np-cal/np-cal';
 /**
  * Generated class for the CreateEventPage page.
  *
@@ -11,10 +11,18 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 @Component({
   selector: 'page-create-event',
   templateUrl: 'create-event.html',
+  providers: [NpCalProvider]
 })
 export class CreateEventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider) {
+  }
+  public event = {
+    description: "",
+    start: "",
+    end: "",
+    location: ""
+    
   }
 
   ionViewDidLoad() {
@@ -22,6 +30,12 @@ export class CreateEventPage {
   }
     closeModal() {
       this.ViewController.dismiss();
+    }
+    
+    postNewEvent() {
+      console.log(this.event.description)
+      this.NpCalProvider.postCalEvent({})
+      this.closeModal();
     }
 
 }
