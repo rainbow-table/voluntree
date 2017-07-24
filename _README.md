@@ -34,8 +34,6 @@
 - typescript 2.4.1
 - Cordova 7.0.1
 - TravisCI 
-- Mocha 3.4.2
-- Chai 4.1.0
 - Docker 17.06.0
 - AWS ec2
 - express 4.15.3
@@ -43,6 +41,8 @@
 - Google Calendar API
 - propublica API
 - passport 0.3.2
+- Karma
+- Jasmine
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
@@ -53,7 +53,6 @@
   ![img](http://i.imgur.com/8w1TekC.png)
   ![img](http://i.imgur.com/cLffpWj.png)
   ![img](http://i.imgur.com/eVMI7sR.png)
-  ![img](http://i.imgur.com/RZ4NAnn.png)
   ![img](http://i.imgur.com/7I5dTJ6.png)
   
 ## Development
