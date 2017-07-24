@@ -15,16 +15,15 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.test.json",
       "prefix": "app",
-      "mobile": false,
+      "mobile": true,
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
-      "environments": {
-        "source": "environment/environment.ts",
-        "dev": "environment/environment.ts",
-        "prod": "environment/environment.prod.ts"
-      }
+"environmentSource": "environments/environment.ts",
+"environments": {
+  "dev": "environments/environment.ts",
+  "prod": "environments/environment.prod.ts"
+}
     }
   ],
   "addons": [],
