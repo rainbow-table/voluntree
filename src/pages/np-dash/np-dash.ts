@@ -55,7 +55,9 @@ export class NpDashPage {
             ngo_id
             description
             event_start
-            event_end}}`
+            event_end
+            event_address
+        }}`
         }).then(response => {
             this.eventSource = response.event.map((value, i, array) => {
                 value.startTime = new Date(value.event_start);
@@ -147,7 +149,6 @@ export class NpDashPage {
     addEvent() {
 			let myModal = this.ModalController.create(CreateEventPage);
 			myModal.present();
-      console.log('Event Added!')
     }
 
 }
