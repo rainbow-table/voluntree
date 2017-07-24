@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, Platform, NavParams } from 'ionic-angular';
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 
 
@@ -20,16 +21,22 @@ import { Geolocation, Coordinates } from '@ionic-native/geolocation';
   providers: [ ProPubServiceProvider, Geolocation]
 })
 export class VolunteerDashPage {
+  map: GoogleMap;
 
   public propublic: any;
   public npAddress: any;
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  // map: any;
   coords:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation) {
-        geolocation.getCurrentPosition().then((pos) => {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform) {
+        
+      platform.ready().then(() => {
+            this.loadMap();
+        });
+    
+    geolocation.getCurrentPosition().then((pos) => {
       console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
       this.coords = pos.coords;
     }).catch((error) => {

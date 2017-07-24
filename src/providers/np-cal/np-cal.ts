@@ -25,7 +25,7 @@ export class NpCalProvider {
       return Promise.resolve(this.events);
     }
   return new Promise(resolve => {
-    this.http.post('/graph', body)
+    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql/', body)
     .map(res => res.json())
     .subscribe(data => {
       this.events = data.data;
