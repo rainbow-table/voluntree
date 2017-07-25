@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HttpModule } from '@angular/http';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
@@ -11,14 +10,20 @@ import { NpDashPage } from '../pages/np-dash/np-dash';
 import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash';
 import { NploginPage } from '../pages/nplogin/nplogin';
 import { VolunteerloginPage } from '../pages/volunteerlogin/volunteerlogin';
-
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCalendarModule } from 'ionic2-calendar';
 import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
+import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
+import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
+import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events';
+import { ManageEventsPage } from "../pages/manage-events/manage-events";
+import { HttpModule, JsonpModule } from '@angular/http';
+import { NpCalProvider } from '../providers/np-cal/np-cal';
+
 
 @NgModule({
   declarations: [
@@ -31,14 +36,17 @@ import { Config } from '../config';
     VolunteerDashPage,
     NploginPage,
     VolunteerloginPage,
+    ManageEventsPage,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgCalendarModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     OAuthModule,
     HttpModule,
+    JsonpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,12 +59,18 @@ import { Config } from '../config';
     VolunteerDashPage,
     NploginPage,
     VolunteerloginPage,
+    ManageEventsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Config,
+    Geolocation,
+    ProPubServiceProvider,
+    GetNpAddressrProvider,
+    GrabNpEventsProvider,
+    NpCalProvider,
   ]
 })
 export class AppModule {}

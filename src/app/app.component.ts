@@ -13,6 +13,8 @@ import { VolunteerloginPage } from '../pages/volunteerlogin/volunteerlogin';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list.page';
+import { Geolocation } from '@ionic-native/geolocation';
+import { ManageEventsPage } from "../pages/manage-events/manage-events";
 
 
 @Component({
@@ -29,6 +31,7 @@ export class MyApp {
     public menu: MenuController,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    private geolocation: Geolocation
   ) {
     this.initializeApp();
 
@@ -39,9 +42,7 @@ export class MyApp {
       // { title: 'Login Page', component: LoginPage },
       { title: 'Non-Profit Dash', component: NpDashPage },
       { title: 'Volunteer Dash', component: VolunteerDashPage },
-      // { title: 'NGO Login', component: NploginPage },
-      // { title: 'Volunteer Login', component: VolunteerloginPage },
-      // { title: 'OAuth', component: OAuthProvidersListPage },
+      { title: 'Manage Events', component: ManageEventsPage }
     ];
   }
 

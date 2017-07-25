@@ -4,8 +4,8 @@ import { NploginPage } from '../nplogin/nplogin';
 import { VolunteerloginPage } from '../volunteerlogin/volunteerlogin';
 import {OAuthProvidersListPage} from '../oauth/list/oauth-providers.list.page';
 import { NavParams } from 'ionic-angular';
-import { VolunteerDashPage } from '../volunteer-dash/volunteer-dash';
-import { NpDashPage } from '../np-dash/np-dash';
+// import { VolunteerDashPage } from '../volunteer-dash/volunteer-dash';
+// import { NpDashPage } from '../np-dash/np-dash';
 
 @Component({
   selector: 'page-login',
