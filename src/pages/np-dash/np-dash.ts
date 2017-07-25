@@ -2,12 +2,15 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
+import { OAuthProfile } from '../oauth/models/oauth-profile.model';
+import { OAuthService } from '../oauth/oauth.service';
+import { LoginPage } from '../login/login-page';
+import { Http } from '@angular/http';
+import 'rxjs/Rx';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { ManageEventsPage } from "../manage-events/manage-events";
-
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { CreateEventPage } from '../create-event/create-event';
-
 
 /**
  * Generated class for the NpDashPage page.
@@ -19,15 +22,35 @@ import { CreateEventPage } from '../create-event/create-event';
 @Component({
   selector: 'page-np-dash',
   templateUrl: 'np-dash.html',
-  providers: [NpCalProvider]
+  providers: [ OAuthService, NpCalProvider ]
 })
 export class NpDashPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
+    private oauthService: OAuthService;
+    profile: OAuthProfile;
+    private http: Http;
+  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
+    this.http = http;
+    this.oauthService = oauthService;
+    oauthService.getProfile()
+        .then(profile => this.profile = profile)
+        .then(() => {
+            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+            }).map(data => {
+                if (data.json().data.ngo.length === 0) {
+                    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                        query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
+                    }).toPromise();
+                }
+            }).toPromise();
+        })
   }
   
   public npevents: any;
 
+  logout() {
+    this.navCtrl.push(LoginPage)
+  }
   ionViewDidLoad() {
     this.loadNpEvents();
     this.loadEvents();

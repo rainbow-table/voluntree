@@ -1,9 +1,12 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NpDashPage } from "../np-dash/np-dash";
-// import { NavParams } from 'ionic-angular';
-import { VolunteerDashPage } from "../volunteer-dash/volunteer-dash";
- 
+import { NploginPage } from '../nplogin/nplogin';
+import { VolunteerloginPage } from '../volunteerlogin/volunteerlogin';
+import {OAuthProvidersListPage} from '../oauth/list/oauth-providers.list.page';
+import { NavParams } from 'ionic-angular';
+// import { VolunteerDashPage } from '../volunteer-dash/volunteer-dash';
+// import { NpDashPage } from '../np-dash/np-dash';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login-page.html',
@@ -68,18 +71,25 @@ export class LoginPage {
   constructor(public navCtrl: NavController) {
 
   }
-  goToNpDash(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
-    this.navCtrl.push(NpDashPage);
-  }
+  // goToNpDash(){
+  //   // push another page on to the navigation stack
+  //   // causing the nav controller to transition to the new page
+  //   // optional data can also be passed to the pushed page.
+  //   this.navCtrl.push(NpDashPage);
+  // }
 
-  goToVolunteerDash(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
-    this.navCtrl.push(VolunteerDashPage);
+  // goToVolunteerDash(){
+  //   // push another page on to the navigation stack
+  //   // causing the nav controller to transition to the new page
+  //   // optional data can also be passed to the pushed page.
+  //   this.navCtrl.push(VolunteerDashPage);
+  // }
+
+  goToNploginPage() {
+    this.navCtrl.push(NploginPage)
+  }
+  goToVolunteerloginPage() {
+    this.navCtrl.push(VolunteerloginPage)
   }
 }
  

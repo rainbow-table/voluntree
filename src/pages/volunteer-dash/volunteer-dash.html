@@ -33,13 +33,21 @@
 
   <ion-navbar>
     <ion-title>Volunteer Dash</ion-title>
+         <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-buttons end>
       <button ion-button><ion-icon name="add"></ion-icon>Search</button>
     </ion-buttons>  
   </ion-navbar>
-
+<!--   <ion-list *ngIf="!!profile">
+  <img src={{profile.photo.data.url}}/>
+    <ion-item>
+      <h2>Name</h2>
+      <p>{{profile.firstName}} {{profile.lastName}}</p>
+    </ion-item>
+  </ion-list> -->
 </ion-header>
-
 
 <ion-content padding>
   <!-- <div #map id="map"></div>   -->
@@ -61,3 +69,7 @@
   </ion-list>
 </ion-content>
 </ion-content>
+
+    <div>
+      <button class="logout-button" (click)="logout()">Log out</button>
+    </div>
