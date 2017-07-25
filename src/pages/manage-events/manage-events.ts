@@ -23,7 +23,6 @@ export class ManageEventsPage {
 
   ionViewDidLoad() {
     // this.loadNpEvents()
-    console.log('ionViewDidLoad ManageEventsPage');
   }
 
   loadNpEvents(){
@@ -31,12 +30,10 @@ export class ManageEventsPage {
       this.GrabNpEventsProvider.load()
       .then(data => {
         this.npevents = data.data.event;
-        console.log(this.npevents);
     });
   }
 
   removeEventFromDB(event_id) {
     this.GrabNpEventsProvider.deleteEvent(event_id);
-    console.log(event_id);
   }
 }

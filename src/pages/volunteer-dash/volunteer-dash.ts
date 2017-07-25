@@ -62,10 +62,9 @@ export class VolunteerDashPage {
             this.loadMap();
         });
     geolocation.getCurrentPosition().then((pos) => {
-      console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
       this.coords = pos.coords;
     }).catch((error) => {
-      console.log('Error getting location', error);
+      console.error('Error getting location', error);
     });
     
     this.loadProPublic();
@@ -76,43 +75,33 @@ export class VolunteerDashPage {
   }  
 
   ionViewDidLoad() {
-    
     this.loadMap();
     this.loadProPublic();
-    console.log('ionViewDidLoad VolunteerDashPage');
   }
 
-loadMap(){
- 
+  loadMap(){
     this.geolocation.getCurrentPosition().then((position) => {
- 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
- 
       let mapOptions = {
-      center: latLng,
-      zoom: 12,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
- 
+        center: latLng,
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
     }, (err) => {
-      console.log(err);
+      console.error(err);
     });
- 
   }
 
   addInfoWindow(marker, content){
- 
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
- 
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.open(this.map, marker);
-  });
- 
-}
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+   
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
 
   // findAddressofNp(){
   //   this.GetNpAddressrProvider.load()

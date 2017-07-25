@@ -54,8 +54,6 @@ export class NpDashPage {
   ionViewDidLoad() {
     this.loadNpEvents();
     this.loadEvents();
-    
-    console.log('ionViewDidLoad NpDashPage');
   }
 
     goToManageEventsPage(){
@@ -88,17 +86,15 @@ export class NpDashPage {
                 value.endTime = new Date(value.event_end);
                 value.event_end = null;
                 value.title = value.description;
-                console.log(value, 'im the value');
                 return value;
-            });
-            console.log(this.eventSource);            
+            });           
         });
     }
     onViewTitleChanged(title) {
         this.viewTitle = title;
     }
     onEventSelected(event) {
-        console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+        // console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
     }
     changeMode(mode) {
         this.calendar.mode = mode;
@@ -107,8 +103,8 @@ export class NpDashPage {
         this.calendar.currentDate = new Date();
     }
     onTimeSelected(ev) {
-        console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
-            (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
+        // console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
+            // (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
     }
     onCurrentDateChanged(event:Date) {
         var today = new Date();
@@ -153,7 +149,7 @@ export class NpDashPage {
     //     return events;
     // }
     onRangeChanged(ev) {
-        console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
+        // console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
     }
     markDisabled = (date:Date) => {
         var current = new Date();
@@ -165,7 +161,7 @@ export class NpDashPage {
       this.GrabNpEventsProvider.load()
 			.then(data => {
 					this.npevents = data.data.event;
-					console.log(this.npevents);
+					// console.log(this.npevents);
 			});
     }
 

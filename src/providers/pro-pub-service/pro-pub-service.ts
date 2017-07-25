@@ -18,7 +18,6 @@ export class ProPubServiceProvider {
   [x: string]: any;
 
   constructor(public http: Http) {
-    console.log("Hello ProPubServiceProvider Provider");
   }
   
 

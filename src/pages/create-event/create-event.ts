@@ -53,12 +53,10 @@ export class CreateEventPage {
   public timesOfDay=['AM', 'PM']
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateEventPage');
     this.getDays();
     this.getYears();
   }
   getDays() {
-    console.log(this.month, 'Iam the month');
     this.allDays = [];
     for (let i = 1; i < 32; i++) {
       if (this.month === 'February' && i === 29) {
@@ -103,7 +101,6 @@ export class CreateEventPage {
       let startDate = new Date(startInfo);
       let endDate = new Date(endInfo);
       let start = startDate.toString();
-      console.log(start);
       let end = endDate.toString();
       let description = this.event.description;
       let location = this.event.location;
@@ -114,8 +111,8 @@ export class CreateEventPage {
         event_address
         ngo_id
         id
-      }}`}).then(response => console.log(response, 'i am response'))
-      .catch(err => console.log(err));
+      }}`}).then(()=> {})
+      .catch(err => console.error(err));
       this.closeModal();
     }
 
