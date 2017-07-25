@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { ViewController, NavController, NavParams, ModalController } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
@@ -29,23 +29,9 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
-  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
+  constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
     this.http = http;
     this.oauthService = oauthService;
-    oauthService.getProfile()
-        .then(profile => this.profile = profile)
-        .then(() => {
-            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
-            }).map(data => {
-                if (data.json().data.ngo.length === 0) {
-                    this.navCtrl.push(EinPage)
-                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
-                    // }).toPromise();
-                }
-            }).toPromise();
-        })
   }
   
   public npevents: any;
@@ -54,6 +40,23 @@ export class NpDashPage {
     this.navCtrl.push(LoginPage)
   }
   ionViewDidLoad() {
+    this.oauthService.getProfile()
+        .then(profile => this.profile = profile)
+        .then(() => {
+            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+            }).map(data => {
+                if (data.json().data.ngo.length === 0) {
+                    // this.navCtrl.remove(this.viewCtrl.index)
+                    this.navCtrl
+                    .push(EinPage)
+                    .then(() => this.navCtrl.remove(this.viewCtrl.index))
+                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
+                    // }).toPromise();
+                }
+            }).toPromise();
+        })      
     this.loadNpEvents();
     this.loadEvents();
   }
