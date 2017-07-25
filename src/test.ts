@@ -17,9 +17,6 @@ import { ConfigMock } from './mocks';
 declare var __karma__: any;
 declare var require: any;
 
-require.config({
-    callback: __karma__.start
-});
  
 // Prevent Karma from running prematurely.
 __karma__.loaded = function (): void {
@@ -38,6 +35,9 @@ let context: any = require.context('./', true, /\.spec\.ts/);
 // And load the modules.
 context.keys().map(context);
 
+require.config({
+    callback: __karma__.start
+});
 
  
 // Finally, start Karma to run the tests.
