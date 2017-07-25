@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import * as moment from 'moment';
 import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
@@ -24,6 +25,7 @@ import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events
 import { ManageEventsPage } from "../pages/manage-events/manage-events";
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NpCalProvider } from '../providers/np-cal/np-cal';
+import { CreateEventPage } from '../pages/create-event/create-event';
 
 
 
@@ -39,6 +41,7 @@ import { NpCalProvider } from '../providers/np-cal/np-cal';
     NploginPage,
     VolunteerloginPage,
     ManageEventsPage,
+    CreateEventPage
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { NpCalProvider } from '../providers/np-cal/np-cal';
     NploginPage,
     VolunteerloginPage,
     ManageEventsPage,
+    CreateEventPage
   ],
   providers: [
     StatusBar,

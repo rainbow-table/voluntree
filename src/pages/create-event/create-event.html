@@ -1,0 +1,87 @@
+<!--
+  Generated template for the CreateEventPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>create-event</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button block (click)="closeModal()">Back</button>
+  <ion-item>
+    <ion-label>Event Name</ion-label>
+    <ion-input type="text" [(ngModel)]="event.description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Event Location</ion-label>
+    <ion-input type="text" [(ngModel)]="event.location"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Start Month</ion-label>
+    <ion-select [(ngModel)]="event.start.month" [(ngModel)]="month" (ionChange)="getDays()">
+      <ion-option *ngFor="let startMonth of allMonths" [value]="startMonth">{{startMonth}}</ion-option>
+    </ion-select>
+  </ion-item>
+   <ion-item>
+     <ion-label>Start Day</ion-label>
+    <ion-select [(ngModel)]="event.start.day" [(ngModel)]="day">
+      <ion-option *ngFor="let startDay of allDays" [value]="startDay">{{startDay}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Start Year</ion-label>
+    <ion-select [(ngModel)]="event.start.year">
+      <ion-option *ngFor="let startYear of allYears" [value]="startYear">{{startYear}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Start Time</ion-label>
+    <ion-select [(ngModel)]="event.start.hour">
+      <ion-option *ngFor="let startHour of allHours" [value]="startHour">{{startHour}}</ion-option>
+    </ion-select>
+    <ion-select [(ngModel)]="event.start.minute">
+      <ion-option *ngFor="let startMinute of allMinutes" [value]="startMinute">{{startMinute}}</ion-option>
+    </ion-select>
+    <ion-select [(ngModel)]="event.start.timeOfDay">
+      <ion-option *ngFor="let startTimeOfDay of timesOfDay" [value]="startTimeOfDay">{{startTimeOfDay}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>End Month</ion-label>
+    <ion-select [(ngModel)]="event.end.month" [(ngModel)]="month" (ionChange)="getDays()">
+      <ion-option *ngFor="let endMonth of allMonths" [value]="endMonth">{{endMonth}}</ion-option>
+    </ion-select>
+  </ion-item>
+   <ion-item>
+     <ion-label>End Day</ion-label>
+    <ion-select [(ngModel)]="event.end.day" [(ngModel)]="day">
+      <ion-option *ngFor="let endDay of allDays" [value]="endDay">{{endDay}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>End Year</ion-label>
+    <ion-select [(ngModel)]="event.end.year">
+      <ion-option *ngFor="let endYear of allYears" [value]="endYear">{{endYear}}</ion-option>
+    </ion-select>
+  </ion-item>
+   <ion-item>
+    <ion-label>End Time</ion-label>
+    <ion-select [(ngModel)]="event.end.hour">
+      <ion-option *ngFor="let endHour of allHours" [value]="endHour">{{endHour}}</ion-option>
+    </ion-select>
+    <ion-select [(ngModel)]="event.end.minute">
+      <ion-option *ngFor="let endMinute of allMinutes" [value]="endMinute">{{endMinute}}</ion-option>
+    </ion-select>
+    <ion-select [(ngModel)]="event.end.timeOfDay">
+      <ion-option *ngFor="let endTimeOfDay of timesOfDay" [value]="endTimeOfDay">{{endTimeOfDay}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <button ion-button type="submit" block (click)="postNewEvent()">submit</button>
+</ion-content>

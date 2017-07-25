@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
@@ -10,6 +10,7 @@ import 'rxjs/Rx';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { ManageEventsPage } from "../manage-events/manage-events";
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
+import { CreateEventPage } from '../create-event/create-event';
 
 /**
  * Generated class for the NpDashPage page.
@@ -27,7 +28,7 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
-  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
+  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
     this.http = http;
     this.oauthService = oauthService;
     oauthService.getProfile()
@@ -77,7 +78,9 @@ export class NpDashPage {
             ngo_id
             description
             event_start
-            event_end}}`
+            event_end
+            event_address
+        }}`
         }).then(response => {
             this.eventSource = response.event.map((value, i, array) => {
                 value.startTime = new Date(value.event_start);
@@ -160,9 +163,15 @@ export class NpDashPage {
 
     loadNpEvents(){
       this.GrabNpEventsProvider.load()
-      .then(data => {
-        this.npevents = data.data.event;
-        console.log(this.npevents);
-    });
-  }
+			.then(data => {
+					this.npevents = data.data.event;
+					console.log(this.npevents);
+			});
+    }
+
+    addEvent() {
+			let myModal = this.ModalController.create(CreateEventPage);
+			myModal.present();
+    }
+
 }
