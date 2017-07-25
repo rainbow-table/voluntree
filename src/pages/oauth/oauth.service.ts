@@ -1,7 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
-import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
+import { FacebookOauthProvider } from './facebook-oauth.provider';
 import { IOathProvider } from './oauth.provider.interface';
-import { GoogleOauthProvider } from './google/google-oauth.provider';
 import { OAuthToken } from './models/oauth-token.model';
 import { OAuthProfile } from './models/oauth-profile.model';
 
@@ -15,7 +14,6 @@ export class OAuthService {
 	}
 
 	login(source: string): Promise<OAuthToken> {
-		console.log('hit...................................................')
 		return this.getOAuthService(source).login().then(accessToken => {
 			if (!accessToken) {
 				return Promise.reject<OAuthToken>('No access token found');
@@ -48,8 +46,6 @@ export class OAuthService {
 		switch (source) {
 			case 'facebook':
 				return this.injector.get(FacebookOauthProvider);
-			case 'google':
-				return this.injector.get(GoogleOauthProvider);
 			default:
 				throw new Error(`Source '${source}' is not valid`);
 		}

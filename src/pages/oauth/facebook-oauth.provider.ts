@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { IOathProvider } from '../oauth.provider.interface';
-import { OAuthProfile } from '../models/oauth-profile.model';
+import { IOathProvider } from './oauth.provider.interface';
+import { OAuthProfile } from './models/oauth-profile.model';
 import { OauthCordova } from 'ng2-cordova-oauth/platform/cordova'
 import { Facebook } from 'ng2-cordova-oauth/provider/facebook';
-import { Config } from '../../../config';
+import { Config } from './../../config';
 import 'rxjs/Rx';
 
 interface ILoginResponse {
