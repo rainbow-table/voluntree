@@ -41,7 +41,7 @@ export class CreateEventPage {
     location: ''
     
   }
-  public month = new Date().getMonth().toString();
+  public month = this.allMonths[new Date().getMonth().toString()];
   public allDays = [];
   public day = new Date().getDay();
   public allYears = [];
@@ -89,21 +89,32 @@ export class CreateEventPage {
     }
     
     postNewEvent() {
-      let now = moment();
-      console.log(now);
-      let start = this.event.start.day + " " + this.event.start.month + " " + this.event.start.year.toString() + " " + (this.event.start.hour + ":" + this.event.start.minute + " " + this.event.start.timeOfDay);
+      let myStartMonth = (this.allMonths.indexOf(this.event.start.month) + 1).toString();
+      if (myStartMonth.length < 2) {
+        myStartMonth = '0' + myStartMonth;
+      }
+      let myEndMonth = (this.allMonths.indexOf(this.event.end.month) + 1).toString();
+      if (myEndMonth.length < 2) {
+        myEndMonth = '0' + myEndMonth;
+      }
+      let startInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.start.hour + ":" + this.event.start.minute + " " + this.event.start.timeOfDay);
+      let endInfo = this.event.end.year.toString() +'/' + myEndMonth + '/' + this.event.end.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
+      let startDate = new Date(startInfo);
+      let endDate = new Date(endInfo);
+      let start = startDate.toString();
       console.log(start);
-      let end = this.event.end.day + " " + this.event.end.month + " " + this.event.end.year.toString() + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
+      let end = endDate.toString();
       let description = this.event.description;
       let location = this.event.location;
-      // this.NpCalProvider.postCalEvent({mutation: `{event (event_start: start, event_end: end, description: description, event_address: location ngo_id: 1){
-      //   event_start
-      //   event_end
-      //   description
-      //   event_address
-      //   ngo_id
-      //   id
-      // }}`})
+      this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: 1){
+        event_start
+        event_end
+        description
+        event_address
+        ngo_id
+        id
+      }}`}).then(response => console.log(response, 'i am response'))
+      .catch(err => console.log(err));
       this.closeModal();
     }
 
