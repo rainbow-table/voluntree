@@ -34,6 +34,13 @@
      reporters: config.angularCli && config.angularCli.codeCoverage
               ? ['progress', 'coverage-istanbul']
               : ['progress', 'kjhtml'],
+
+     customLaunchers: {
+       Chrome_travis_ci: {
+         base: 'Chrome',
+         flags: ['--no-sandbox'],
+       },
+     },
      browserNoActivityTimeout: 60000,
      browsers: ['Chrome'],
      port: 9876,
