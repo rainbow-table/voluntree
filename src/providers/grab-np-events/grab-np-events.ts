@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 // let endp = "http://myapi/graphql?query="
-let query = "{event{id description ngo_id event_start event_end}}"
+let query = "{event{id description ngo_id event_start event_end event_address}}"
 /*
   Generated class for the ProPubServiceProvider provider.
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
