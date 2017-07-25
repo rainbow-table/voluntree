@@ -1,14 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-<<<<<<< HEAD
 import { NavController, NavParams } from 'ionic-angular';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
 import { OAuthService } from '../oauth/oauth.service';
 import { LoginPage } from '../login/login-page';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
-=======
 import { NavController, Platform, NavParams } from 'ionic-angular';
->>>>>>> a6bb6b8bb90ca7178ace42d83679afe1f98d26a7
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
