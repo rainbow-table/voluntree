@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
-import * as moment from 'moment';
+import { NpDashPage } from '../np-dash/np-dash';
+// import * as moment from 'moment';
 /**
  * Generated class for the CreateEventPage page.
  *

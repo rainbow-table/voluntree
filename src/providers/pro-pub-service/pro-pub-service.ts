@@ -34,7 +34,7 @@ export class ProPubServiceProvider {
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
       this.http
-        .get(`/propublic/${tail}`)
+        .get(`https://projects.propublica.org/nonprofits/api/v2/search.json${tail}`)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data

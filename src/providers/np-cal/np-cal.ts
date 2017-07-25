@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/RX';
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -26,7 +24,7 @@ export class NpCalProvider {
       return Promise.resolve(this.events);
     }
   return new Promise(resolve => {
-    this.http.post(this.dbUrl, body)
+    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql/', body)
     .map(res => res.json())
     .subscribe(data => {
       this.events = data.data;
