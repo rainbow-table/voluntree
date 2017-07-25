@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform, NavParams } from 'ionic-angular';
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 
 
@@ -30,7 +30,7 @@ export class VolunteerDashPage {
   // map: any;
   coords:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform, private googleMaps: GoogleMaps) {
         
       platform.ready().then(() => {
             this.loadMap();
@@ -49,30 +49,38 @@ export class VolunteerDashPage {
 
   ionViewDidLoad() {
     
-    this.loadMap();
+    // this.loadMap();
     this.loadProPublic();
     console.log('ionViewDidLoad VolunteerDashPage');
   }
 
-loadMap(){
+// loadMap(){
  
-    this.geolocation.getCurrentPosition().then((position) => {
+//     this.geolocation.getCurrentPosition().then((position) => {
  
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+//       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
  
-      let mapOptions = {
-      center: latLng,
-      zoom: 12,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+//       let mapOptions = {
+//       center: latLng,
+//       zoom: 12,
+//       mapTypeId: google.maps.MapTypeId.ROADMAP
+//     }
  
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+//       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
  
-    }, (err) => {
-      console.log(err);
-    });
+//     }, (err) => {
+//       console.log(err);
+//     });
  
-  }
+//   }
+
+loadMap() {
+  this.map = new GoogleMap('map');
+
+  this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+    console.log('Map is ready!');
+  });
+}
 
   addInfoWindow(marker, content){
  
@@ -101,5 +109,4 @@ loadMap(){
     });
   }
 }
-
 
