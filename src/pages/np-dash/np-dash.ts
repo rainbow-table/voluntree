@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
-
-
+import { OAuthProfile } from '../oauth/models/oauth-profile.model';
+import { OAuthService } from '../oauth/oauth.service';
+import { LoginPage } from '../login/login-page';
+import { Http } from '@angular/http';
+import 'rxjs/Rx';
 /**
  * Generated class for the NpDashPage page.
  *
@@ -14,13 +17,34 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 @Component({
   selector: 'page-np-dash',
   templateUrl: 'np-dash.html',
+  providers: [OAuthService],
 })
 export class NpDashPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule) {
+    private oauthService: OAuthService;
+    profile: OAuthProfile;
+    private http: Http;
+  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService) {
+    this.http = http;
+    this.oauthService = oauthService;
+    oauthService.getProfile()
+        .then(profile => this.profile = profile)
+        .then(() => {
+            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+            }).map(data => {
+                if (data.json().data.ngo.length === 0) {
+                    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                        query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
+                    }).toPromise();
+                }
+            }).toPromise();
+        })
   }
 
 
+  logout() {
+    this.navCtrl.push(LoginPage)
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad NpDashPage');
   }
