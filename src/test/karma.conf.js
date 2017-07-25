@@ -40,7 +40,13 @@
          base: 'Chrome',
          flags: ['--no-sandbox'],
        },
+
      },
+
+  //   if(process.env.TRAVIS) {
+  //   configuration.browsers = ['Chrome_travis_ci'];
+  // },
+
      browserNoActivityTimeout: 60000,
      browsers: ['Chrome'],
      port: 9876,
@@ -49,4 +55,9 @@
      autoWatch: true,
      singleRun: false,
    });
+
+   if (process.env.TRAVIS) {
+     config.browsers = ['Chrome_travis_ci'];
+   }
  };
+
