@@ -35,7 +35,7 @@
               ? ['progress', 'coverage-istanbul']
               : ['progress', 'kjhtml'],
      browserNoActivityTimeout: 60000,
-     browser: ['Chrome'],
+     browsers: ['Chrome'],
      port: 9876,
      colors: true,
      logLevel: config.LOG_INFO,
