@@ -1,12 +1,17 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+<<<<<<< HEAD
 import { NavController, NavParams } from 'ionic-angular';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
 import { OAuthService } from '../oauth/oauth.service';
 import { LoginPage } from '../login/login-page';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
+=======
+import { NavController, Platform, NavParams } from 'ionic-angular';
+>>>>>>> a6bb6b8bb90ca7178ace42d83679afe1f98d26a7
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 
 
@@ -29,16 +34,16 @@ export class VolunteerDashPage {
   profile: OAuthProfile;
   private http: Http;
   img: string;
+  map: GoogleMap;
 
   public propublic: any;
   public npAddress: any;
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  // map: any;
   coords:any;
 
-
-  constructor(public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService) {
+  constructor(public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -57,6 +62,9 @@ export class VolunteerDashPage {
               }
             }).toPromise();
         })
+    platform.ready().then(() => {
+            this.loadMap();
+        });
     geolocation.getCurrentPosition().then((pos) => {
       console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
       this.coords = pos.coords;

@@ -11,6 +11,7 @@ import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash';
 import { NploginPage } from '../pages/nplogin/nplogin';
 import { VolunteerloginPage } from '../pages/volunteerlogin/volunteerlogin';
 import { Geolocation } from '@ionic-native/geolocation';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +24,7 @@ import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events
 import { ManageEventsPage } from "../pages/manage-events/manage-events";
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NpCalProvider } from '../providers/np-cal/np-cal';
+
 
 
 @NgModule({

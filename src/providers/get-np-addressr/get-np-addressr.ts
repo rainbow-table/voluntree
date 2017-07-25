@@ -30,7 +30,7 @@ export class GetNpAddressrProvider {
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
       this.http
-        .get(`/propublicORG/`)
+        .get(`https://projects.propublica.org/nonprofits/api/v2/organizations/`)
         .map(res => res.json())
         .subscribe(data => {
 
