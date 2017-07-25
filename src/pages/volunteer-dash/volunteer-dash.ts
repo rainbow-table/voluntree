@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
 import { OAuthService } from '../oauth/oauth.service';
 import { LoginPage } from '../login/login-page';
@@ -40,7 +39,7 @@ export class VolunteerDashPage {
   // map: any;
   coords:any;
 
-  constructor(public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform) {
+  constructor(private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
