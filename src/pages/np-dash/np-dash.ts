@@ -11,6 +11,7 @@ import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-eve
 import { ManageEventsPage } from "../manage-events/manage-events";
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { CreateEventPage } from '../create-event/create-event';
+import { EinPage } from '../ein/ein';
 
 /**
  * Generated class for the NpDashPage page.
@@ -38,9 +39,10 @@ export class NpDashPage {
                 query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
             }).map(data => {
                 if (data.json().data.ngo.length === 0) {
-                    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                        query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
-                    }).toPromise();
+                    this.navCtrl.push(EinPage)
+                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
+                    // }).toPromise();
                 }
             }).toPromise();
         })

@@ -23,7 +23,7 @@ import { ManageEventsPage } from "../pages/manage-events/manage-events";
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NpCalProvider } from '../providers/np-cal/np-cal';
 import { CreateEventPage } from '../pages/create-event/create-event';
-
+import { EinPage } from '../pages/ein/ein';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import { CreateEventPage } from '../pages/create-event/create-event';
     NpDashPage,
     VolunteerDashPage,
     ManageEventsPage,
-    CreateEventPage
+    CreateEventPage,
+    EinPage,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,8 @@ import { CreateEventPage } from '../pages/create-event/create-event';
     NpDashPage,
     VolunteerDashPage,
     ManageEventsPage,
-    CreateEventPage
+    CreateEventPage,
+    EinPage,
   ],
   providers: [
     StatusBar,
