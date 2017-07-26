@@ -170,7 +170,10 @@ export class NpDashPage {
     }
 
     addEvent() {
-			let myModal = this.ModalController.create(CreateEventPage);
+            let myModal = this.ModalController.create(CreateEventPage);
+            myModal.onDidDismiss(() => {
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            })
 			myModal.present();
     }
 
