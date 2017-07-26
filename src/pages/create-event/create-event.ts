@@ -102,6 +102,14 @@ export class CreateEventPage {
       let endInfo = this.event.end.year.toString() +'/' + myEndMonth + '/' + this.event.end.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
       let startDate = new Date(startInfo);
       let endDate = new Date(endInfo);
+      if (endDate.getTime() < startDate.getTime()) {
+        alert('Your event is over before it begins. Please select a different start or end time.');
+        return;
+      }
+      if (startDate.getTime() < Date.now()) {
+        alert('There\'s no going back. Please select a different start time.')
+        return;
+      }
       let start = startDate.toString();
       console.log(start);
       let end = endDate.toString();
