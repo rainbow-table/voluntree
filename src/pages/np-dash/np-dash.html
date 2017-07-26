@@ -13,8 +13,18 @@
     <ion-icon style="font-size: 40px; margin-right: 10px;" name="md-clipboard"></ion-icon>
      </ion-buttons>
   </ion-navbar>
-</ion-header>
-
+     <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+<!--   <ion-list *ngIf="!!profile">
+  <img src={{profile.photo.data.url}}/>
+    <ion-item>
+      <h2>Name</h2>
+      <p>{{profile.firstName}} {{profile.lastName}}</p>
+    </ion-item>
+  </ion-list> -->
+  </ion-header>
+<br/>
 <ion-content padding>
   <ion-header>
     <ion-navbar color="primary">
@@ -53,6 +63,9 @@
     </ion-item> 
   
   </ion-content>
+      <div>
+      <button class="logout-button" (click)="logout()">Log out</button>
+    </div>
 </ion-content>
 
 

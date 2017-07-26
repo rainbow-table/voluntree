@@ -3,7 +3,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import * as moment from 'moment';
 import { MyApp } from './app.component';
-
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
@@ -11,13 +10,12 @@ import { LoginPage } from '../pages/login/login-page';
 import { NpDashPage } from '../pages/np-dash/np-dash';
 import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { OAuthModule } from '../pages/oauth/oauth.module';
+import { Config } from '../config';
 import { ProPubServiceProvider } from '../providers/pro-pub-service/pro-pub-service';
 import { GetNpAddressrProvider } from '../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../providers/grab-np-events/grab-np-events';
@@ -46,6 +44,7 @@ import { CreateEventPage } from '../pages/create-event/create-event';
     NgCalendarModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    OAuthModule,
     HttpModule,
     JsonpModule
   ],
@@ -64,12 +63,13 @@ import { CreateEventPage } from '../pages/create-event/create-event';
   providers: [
     StatusBar,
     SplashScreen,
-    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Config,
+    Geolocation,
     ProPubServiceProvider,
     GetNpAddressrProvider,
     GrabNpEventsProvider,
-    NpCalProvider
+    NpCalProvider,
   ]
 })
 export class AppModule {}
