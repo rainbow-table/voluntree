@@ -1,16 +1,14 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NploginPage } from '../nplogin/nplogin';
-import { VolunteerloginPage } from '../volunteerlogin/volunteerlogin';
-import {OAuthProvidersListPage} from '../oauth/list/oauth-providers.list.page';
 import { NavParams } from 'ionic-angular';
-// import { VolunteerDashPage } from '../volunteer-dash/volunteer-dash';
-// import { NpDashPage } from '../np-dash/np-dash';
+import { VolunteerDashPage } from '../volunteer-dash/volunteer-dash';
+import { NpDashPage } from '../np-dash/np-dash';
+import { OAuthService } from '../oauth/oauth.service';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login-page.html',
- 
+  providers: [OAuthService],
   animations: [
  
     //For the logo
@@ -62,14 +60,16 @@ import { NavParams } from 'ionic-angular';
   ]
 })
 export class LoginPage {
- 
+  private oauthService: OAuthService;
+  private nav: NavController; 
   logoState: any = "in";
   cloudState: any = "in";
   loginState: any = "in";
   formState: any = "in";
  
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, oauthService: OAuthService, nav: NavController) {
+    this.oauthService = oauthService;
+    this.nav = nav;    
   }
   // goToNpDash(){
   //   // push another page on to the navigation stack
@@ -85,11 +85,20 @@ export class LoginPage {
   //   this.navCtrl.push(VolunteerDashPage);
   // }
 
-  goToNploginPage() {
-    this.navCtrl.push(NploginPage)
+  public goToNploginPage(source: string) {
+    this.oauthService.login(source)
+      .then(
+        () => this.nav.setRoot(NpDashPage),
+        error => alert(error)
+      );    
   }
-  goToVolunteerloginPage() {
-    this.navCtrl.push(VolunteerloginPage)
+  public goToVolunteerloginPage(source: string) {
+    this.oauthService.login(source)
+      .then(
+        () => this.nav.setRoot(VolunteerDashPage),
+        error => alert(error)
+      );     
   }
+  
 }
  
