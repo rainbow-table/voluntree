@@ -23,6 +23,7 @@ export class ManageEventsPage {
 
   ionViewDidLoad() {
     this.loadNpEvents()
+    console.log('ionViewDidLoad ManageEventsPage');
   }
 
   loadNpEvents(){
