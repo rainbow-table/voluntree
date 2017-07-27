@@ -21,6 +21,7 @@ export class CreateEventPage {
   }
   public allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
+  public allStates = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   public event = {
     description: '',
     start: {
@@ -51,6 +52,10 @@ export class CreateEventPage {
   public hour;
   public allMinutes = ['00', '15', '30', '45'];
   public timesOfDay=['AM', 'PM']
+  public streetAddress;
+  public city;
+  public state;
+  public zipCode;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateEventPage');
@@ -90,6 +95,23 @@ export class CreateEventPage {
     }
     
     postNewEvent() {
+      if (this.streetAddress.length < 0) {
+        alert('Your event is nowhere. Please add a street address.');
+        return;
+      }
+      if (this.city.length < 0) {
+        alert('Your event is nowhere. Please add a city.');
+        return;
+      }
+      if (this.zipCode.length < 5) {
+        alert('Your zipcode is invalid. Please enter a valid zipcode.');
+        return;
+      }
+      if (this.state.length < 2) {
+        alert('Please select a state.');
+        return;
+      }
+      this.event.location = this.streetAddress + " " + this.city + ', ' + this.state + " " + this.zipCode;
       let myStartMonth = (this.allMonths.indexOf(this.event.start.month) + 1).toString();
       if (myStartMonth.length < 2) {
         myStartMonth = '0' + myStartMonth;
@@ -114,6 +136,10 @@ export class CreateEventPage {
       console.log(start);
       let end = endDate.toString();
       let description = this.event.description;
+      if (description.length < 1) {
+        alert('Your event has no name. Please add one.');
+        return;
+      }
       let location = this.event.location;
       this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: 1){
         event_start
