@@ -54,11 +54,18 @@ export class NpDashPage {
                     // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                     //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
                     // }).toPromise();
+                } else {
+                    this.loadNpEvents();
+                    this.loadEvents();
                 }
-            }).toPromise();
-        })      
-    this.loadNpEvents();
-    this.loadEvents();
+            }).map(() => {
+                // this.loadNpEvents();
+                // this.loadEvents();
+            })
+            .toPromise();
+        })     
+    // this.loadNpEvents();
+    // this.loadEvents();
   }
 
     goToManageEventsPage(){

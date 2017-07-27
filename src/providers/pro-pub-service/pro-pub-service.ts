@@ -20,6 +20,14 @@ export class ProPubServiceProvider {
   constructor(public http: Http) {
   }
   
+  findSingle(ein) {
+    return new Promise (resolve => {
+      this.http
+        .get(`https://projects.propublica.org/nonprofits/api/v2/organizations/${ein}.json`)
+        .map(res => res.json())
+        .subscribe((data: any) => resolve(data), (error: any) => resolve(error))
+    })
+  }
 
   load() {
     if (this.data) {
