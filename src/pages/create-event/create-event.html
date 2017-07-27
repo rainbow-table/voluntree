@@ -20,8 +20,22 @@
     <ion-input type="text" [(ngModel)]="event.description"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Event Location</ion-label>
-    <ion-input type="text" [(ngModel)]="event.location"></ion-input>
+    <ion-label>Street Address</ion-label>
+    <ion-input type="text" [(ngModel)]="streetAddress"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>City</ion-label>
+    <ion-input type="text" [(ngModel)]="city"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>State</ion-label>
+    <ion-select [(ngModel)]="state">
+      <ion-option *ngFor="let eventState of allStates">{{eventState}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Zip Code</ion-label>
+    <ion-input type="text" [(ngModel)]="zipCode"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Start Month</ion-label>
@@ -29,15 +43,15 @@
       <ion-option *ngFor="let startMonth of allMonths" [value]="startMonth">{{startMonth}}</ion-option>
     </ion-select>
   </ion-item>
-   <ion-item>
-     <ion-label>Start Day</ion-label>
+  <ion-item>
+    <ion-label>Start Day</ion-label>
     <ion-select [(ngModel)]="event.start.day" [(ngModel)]="day">
       <ion-option *ngFor="let startDay of allDays" [value]="startDay">{{startDay}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>Start Year</ion-label>
-    <ion-select [(ngModel)]="event.start.year">
+    <ion-select [(ngModel)]="event.start.year" [(ngModel)]="year" (ionChange)="getDays()">
       <ion-option *ngFor="let startYear of allYears" [value]="startYear">{{startYear}}</ion-option>
     </ion-select>
   </ion-item>

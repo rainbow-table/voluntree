@@ -52,7 +52,7 @@ export class NpDashPage {
     this.navCtrl.push(LoginPage)
   }
   ionViewDidLoad() {
-    this.loadNpEvents();
+    // this.loadNpEvents();
     this.loadEvents();
     
     console.log('ionViewDidLoad NpDashPage');
@@ -161,16 +161,19 @@ export class NpDashPage {
         return date < current;
     };
 
-    loadNpEvents(){
-      this.GrabNpEventsProvider.load()
-			.then(data => {
-					this.npevents = data.data.event;
-					console.log(this.npevents);
-			});
-    }
+    // loadNpEvents(){
+    //   this.GrabNpEventsProvider.load()
+	// 		.then(data => {
+	// 				this.npevents = data.data.event;
+	// 				console.log(this.npevents);
+	// 		});
+    // }
 
     addEvent() {
-			let myModal = this.ModalController.create(CreateEventPage);
+            let myModal = this.ModalController.create(CreateEventPage);
+            myModal.onDidDismiss(() => {
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            })
 			myModal.present();
     }
 
