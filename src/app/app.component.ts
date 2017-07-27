@@ -7,11 +7,11 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login-page';
 import { NpDashPage } from '../pages/np-dash/np-dash';
 import { VolunteerDashPage } from '../pages/volunteer-dash/volunteer-dash'
-
+import { EinPage } from '../pages/ein/ein';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ManageEventsPage } from "../pages/manage-events/manage-events";
+import { ManageEventsPage } from '../pages/manage-events/manage-events';
 
 
 @Component({

@@ -17,7 +17,6 @@ export class CalendarComponent {
   
 
   constructor() {
-    console.log('Hello CalendarComponent Component');
     this.text = 'Hello World';
     this.today = new Date().toISOString();
   }

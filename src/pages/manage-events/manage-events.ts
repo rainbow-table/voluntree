@@ -16,27 +16,24 @@ import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-eve
 })
 export class ManageEventsPage {
   npevents: any;
-  hide:boolean = true;
+  // hide:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public GrabNpEventsProvider: GrabNpEventsProvider) {
   }
 
   ionViewDidLoad() {
-    // this.loadNpEvents()
-    console.log('ionViewDidLoad ManageEventsPage');
+    this.loadNpEvents()
   }
 
   loadNpEvents(){
-    this.hide = !this.hide;
+    // this.hide = !this.hide;
       this.GrabNpEventsProvider.load()
       .then(data => {
         this.npevents = data.data.event;
-        console.log(this.npevents);
     });
   }
 
   removeEventFromDB(event_id) {
     this.GrabNpEventsProvider.deleteEvent(event_id);
-    console.log(event_id);
   }
 }

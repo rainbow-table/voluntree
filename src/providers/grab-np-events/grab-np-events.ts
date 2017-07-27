@@ -16,8 +16,6 @@ export class GrabNpEventsProvider {
 
 
   constructor(public http: Http) {
-    console.log("Hello GrabNpEventsProvider Provider");
-    
   }
 
   
@@ -31,7 +29,6 @@ export class GrabNpEventsProvider {
 
     // don't have the data yet
     return new Promise(resolve => {
-      console.log(query);
       // We're using Angular HTTP provider to request the data,
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
@@ -59,7 +56,6 @@ export class GrabNpEventsProvider {
        let headers = new Headers();
        headers.append('Content-Type', 'application/json');
        let deleteMutation = {"query":`mutation{event(action:"delete",id:${event_id}){id}}`}
-       console.log(deleteMutation);
       //  {"query":"mutation{event(action:\"delete\",id:4){id}}"}
       // We're using Angular HTTP provider to request the data,
       // then on the response, it'll map the JSON data to a parsed JS object.

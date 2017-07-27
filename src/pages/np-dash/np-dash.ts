@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { ViewController, NavController, NavParams, ModalController } from 'ionic-angular';
 // import { CalendarComponent } from "../../components/calendar/calendar";
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
@@ -11,6 +11,7 @@ import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-eve
 import { ManageEventsPage } from "../manage-events/manage-events";
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { CreateEventPage } from '../create-event/create-event';
+import { EinPage } from '../ein/ein';
 
 /**
  * Generated class for the NpDashPage page.
@@ -28,22 +29,9 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
-  constructor(http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
+  constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
     this.http = http;
     this.oauthService = oauthService;
-    oauthService.getProfile()
-        .then(profile => this.profile = profile)
-        .then(() => {
-            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
-            }).map(data => {
-                if (data.json().data.ngo.length === 0) {
-                    this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                        query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
-                    }).toPromise();
-                }
-            }).toPromise();
-        })
   }
   
   public npevents: any;
@@ -52,10 +40,30 @@ export class NpDashPage {
     this.navCtrl.push(LoginPage)
   }
   ionViewDidLoad() {
-    // this.loadNpEvents();
-    this.loadEvents();
-    
-    console.log('ionViewDidLoad NpDashPage');
+    this.oauthService.getProfile()
+        .then(profile => this.profile = profile)
+        .then(() => {
+            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+            }).map(data => {
+                if (data.json().data.ngo.length === 0) {
+                    // this.navCtrl.remove(this.viewCtrl.index)
+                    this.navCtrl
+                    .push(EinPage)
+                    .then(() => this.navCtrl.remove(this.viewCtrl.index))
+                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
+                    // }).toPromise();
+                } else {
+                    // this.loadNpEvents();
+                    this.loadEvents();
+                }
+            }).map(() => {
+                // this.loadNpEvents();
+                // this.loadEvents();
+            })
+            .toPromise();
+        })     
   }
 
     goToManageEventsPage(){
@@ -88,17 +96,15 @@ export class NpDashPage {
                 value.endTime = new Date(value.event_end);
                 value.event_end = null;
                 value.title = value.description;
-                console.log(value, 'im the value');
                 return value;
-            });
-            console.log(this.eventSource);            
+            });           
         });
     }
     onViewTitleChanged(title) {
         this.viewTitle = title;
     }
     onEventSelected(event) {
-        console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+        // console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
     }
     changeMode(mode) {
         this.calendar.mode = mode;
@@ -107,8 +113,8 @@ export class NpDashPage {
         this.calendar.currentDate = new Date();
     }
     onTimeSelected(ev) {
-        console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
-            (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
+        // console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
+            // (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
     }
     onCurrentDateChanged(event:Date) {
         var today = new Date();
@@ -153,7 +159,7 @@ export class NpDashPage {
     //     return events;
     // }
     onRangeChanged(ev) {
-        console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
+        // console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
     }
     markDisabled = (date:Date) => {
         var current = new Date();
@@ -168,6 +174,7 @@ export class NpDashPage {
 	// 				console.log(this.npevents);
 	// 		});
     // }
+
 
     addEvent() {
             let myModal = this.ModalController.create(CreateEventPage);
