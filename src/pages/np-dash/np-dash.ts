@@ -55,7 +55,7 @@ export class NpDashPage {
                     //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
                     // }).toPromise();
                 } else {
-                    this.loadNpEvents();
+                    // this.loadNpEvents();
                     this.loadEvents();
                 }
             }).map(() => {
@@ -64,8 +64,6 @@ export class NpDashPage {
             })
             .toPromise();
         })     
-    // this.loadNpEvents();
-    // this.loadEvents();
   }
 
     goToManageEventsPage(){
@@ -169,16 +167,20 @@ export class NpDashPage {
         return date < current;
     };
 
-    loadNpEvents(){
-      this.GrabNpEventsProvider.load()
-			.then(data => {
-					this.npevents = data.data.event;
-					// console.log(this.npevents);
-			});
-    }
+    // loadNpEvents(){
+    //   this.GrabNpEventsProvider.load()
+	// 		.then(data => {
+	// 				this.npevents = data.data.event;
+	// 				console.log(this.npevents);
+	// 		});
+    // }
+
 
     addEvent() {
-			let myModal = this.ModalController.create(CreateEventPage);
+            let myModal = this.ModalController.create(CreateEventPage);
+            myModal.onDidDismiss(() => {
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            })
 			myModal.present();
     }
 
