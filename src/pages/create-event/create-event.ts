@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { NpDashPage } from '../np-dash/np-dash';
+import { Storage } from '@ionic/storage';
 // import * as moment from 'moment';
 /**
  * Generated class for the CreateEventPage page.
@@ -17,7 +18,7 @@ import { NpDashPage } from '../np-dash/np-dash';
 })
 export class CreateEventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
   }
   public allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
@@ -56,11 +57,17 @@ export class CreateEventPage {
   public city;
   public state;
   public zipCode;
+  public grabber;
+  public id;
 
-  ionViewDidLoad() {
+  
+
+async ionViewDidLoad() {
     this.getDays();
     this.getYears();
+  this.id = await this.storage.get('id');
   }
+
   getDays() {
     this.allDays = [];
     for (let i = 1; i < 32; i++) {
@@ -93,6 +100,12 @@ export class CreateEventPage {
     }
     
     postNewEvent() {
+      if (!this.id) {
+        alert('there is no id. try again.');
+        return;
+      } else {
+        alert(`this is id: ${this.id}`);
+      }
       if (this.streetAddress.length < 0) {
         alert('Your event is nowhere. Please add a street address.');
         return;
@@ -138,7 +151,7 @@ export class CreateEventPage {
         return;
       }
       let location = this.event.location;
-      this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: 1){
+      this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: ${this.id}){
         event_start
         event_end
         description
