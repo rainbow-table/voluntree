@@ -12,6 +12,7 @@ import { ManageEventsPage } from "../manage-events/manage-events";
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { CreateEventPage } from '../create-event/create-event';
 import { EinPage } from '../ein/ein';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the NpDashPage page.
@@ -29,13 +30,13 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
-  constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
+  constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.http = http;
     this.oauthService = oauthService;
   }
   
   public npevents: any;
-
+  public id;
   logout() {
     this.navCtrl.push(LoginPage)
   }
@@ -46,21 +47,17 @@ export class NpDashPage {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                 query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
             }).map(data => {
+                let id = data.json().data.ngo[0].id;
+                this.id = data.json().data.ngo[0].id;
+                this.storage.set('id', id);
                 if (data.json().data.ngo.length === 0) {
-                    // this.navCtrl.remove(this.viewCtrl.index)
                     this.navCtrl
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
-                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
-                    // }).toPromise();
                 } else {
-                    // this.loadNpEvents();
                     this.loadEvents();
                 }
             }).map(() => {
-                // this.loadNpEvents();
-                // this.loadEvents();
             })
             .toPromise();
         })     
@@ -81,7 +78,7 @@ export class NpDashPage {
         currentDate: new Date()
     }; // these are the variable used by the calendar.
     loadEvents() {
-        this.NpCalProvider.getCalEvents({query: `{event{
+        this.NpCalProvider.getCalEvents({query: `{event(ngo_id: ${this.id}){
             id
             ngo_id
             description
@@ -122,42 +119,6 @@ export class NpDashPage {
         event.setHours(0, 0, 0, 0);
         this.isToday = today.getTime() === event.getTime();
     }
-    // createRandomEvents() {
-    //     var events = [];
-    //     for (var i = 0; i < 50; i += 1) {
-    //         var date = new Date();
-    //         var eventType = Math.floor(Math.random() * 2);
-    //         var startDay = Math.floor(Math.random() * 90) - 45;
-    //         var endDay = Math.floor(Math.random() * 2) + startDay;
-    //         var startTime;
-    //         var endTime;
-    //         if (eventType === 0) {
-    //             startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-    //             if (endDay === startDay) {
-    //                 endDay += 1;
-    //             }
-    //             endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-    //             events.push({
-    //                 title: 'All Day - ' + i,
-    //                 startTime: startTime,
-    //                 endTime: endTime,
-    //                 allDay: true
-    //             });
-    //         } else {
-    //             var startMinute = Math.floor(Math.random() * 24 * 60);
-    //             var endMinute = Math.floor(Math.random() * 180) + startMinute;
-    //             startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-    //             endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-    //             events.push({
-    //                 title: 'Event - ' + i,
-    //                 startTime: startTime,
-    //                 endTime: endTime,
-    //                 allDay: false
-    //             });
-    //         }
-    //     }
-    //     return events;
-    // }
     onRangeChanged(ev) {
         // console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
     }
@@ -166,15 +127,6 @@ export class NpDashPage {
         current.setHours(0, 0, 0);
         return date < current;
     };
-
-    // loadNpEvents(){
-    //   this.GrabNpEventsProvider.load()
-	// 		.then(data => {
-	// 				this.npevents = data.data.event;
-	// 				console.log(this.npevents);
-	// 		});
-    // }
-
 
     addEvent() {
             let myModal = this.ModalController.create(CreateEventPage);

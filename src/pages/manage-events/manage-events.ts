@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ManageEventsPage page.
@@ -16,9 +17,8 @@ import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-eve
 })
 export class ManageEventsPage {
   npevents: any;
-  // hide:boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public GrabNpEventsProvider: GrabNpEventsProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public GrabNpEventsProvider: GrabNpEventsProvider, public storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -27,7 +27,6 @@ export class ManageEventsPage {
   }
 
   loadNpEvents(){
-    // this.hide = !this.hide;
       this.GrabNpEventsProvider.load()
       .then(data => {
         this.npevents = data.data.event;
