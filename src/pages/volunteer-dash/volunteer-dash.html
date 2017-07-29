@@ -6,7 +6,8 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button><ion-icon name="add"></ion-icon>Search</button>
+      <button ion-button (click)="search()"><ion-icon name="add"></ion-icon>Search</button>
+      <ion-input type="text" placeholder="Search Here..." [(ngModel)]="finder"></ion-input>
     </ion-buttons>  
   </ion-navbar>
 </ion-header>
@@ -15,16 +16,27 @@
   <div id="map"></div>
      <div *ngIf="coords">
   </div>
-  <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
-  <p>{{profile.firstName}} {{profile.lastName}}</p>
+<!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
+  <p>{{profile.firstName}} {{profile.lastName}}</p> -->
+<ion-content *ngIf="searched">
+  <ion-label>Search results</ion-label>
+  <ion-list class="border">
+    <ion-item *ngFor="let search of results; let i = index;">
+      <h2>{{search.description}}</h2> 
+       <p>{{search.event_address}} 
+        {{search.event_start}}, {{search.event_end}}</p> 
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of propublic; let i = index;">
+    <ion-item *ngFor="let item of npEvents; let i = index;">
       <ion-avatar item-left>
          <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
       </ion-avatar>
-       <h2>{{item.name}}</h2> 
-      <p>{{item.address}} 
-        {{item.city}}, {{item.state}}</p>
+       <h2>{{item.description}}</h2> 
+      <p>{{item.event_address}} 
+        {{item.event_start}}, {{item.event_end}}</p>
     </ion-item>
   </ion-list>
     <div>

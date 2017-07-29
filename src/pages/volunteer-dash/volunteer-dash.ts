@@ -9,7 +9,8 @@ import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-s
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
-
+import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
+import { NpCalProvider } from '../../providers/np-cal/np-cal';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -23,7 +24,7 @@ import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 @Component({
   selector: 'page-volunteer-dash',
   templateUrl: 'volunteer-dash.html',
-  providers: [ OAuthService, ProPubServiceProvider, Geolocation]
+  providers: [ OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider]
 })
 export class VolunteerDashPage {
   private oauthService: OAuthService;
@@ -34,12 +35,16 @@ export class VolunteerDashPage {
 
   public propublic: any;
   public npAddress: any;
+  public npEvents: any;
+  public finder: any;
+  public results: any;
+  public searched: boolean = false;
 
   @ViewChild('map') mapElement: ElementRef;
   // map: any;
   coords:any;
 
-  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform) {
+  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -77,7 +82,8 @@ export class VolunteerDashPage {
 
   ionViewDidLoad() {
     this.loadMap();
-    this.loadProPublic();
+    // this.loadProPublic();
+    this.loadNpEvents();
   }
 
   loadMap(){
@@ -118,6 +124,36 @@ export class VolunteerDashPage {
       this.propublic = data;
     });
   }
+  loadNpEvents() {
+  this.GrabNpEventsProvider.load()
+  .then(data => {
+    this.npEvents = data.data.event;
+  })
+  }
+  search() {
+    this.searched = true;
+    this.results = [];
+    this.NpCalProvider.getCalEvents({query: `{event{
+            id
+            ngo_id
+            description
+            event_start
+            event_end
+            event_address
+        }}`
+        }).then(response => {
+            response.event.map((value, i, array) => {
+                if (this.finder.toLowerCase() === value.description.toLowerCase()) {
+                  this.results.push(value);
+                }
+                if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
+                  this.results.push(value);
+                }
+            });           
+        });
+
+  }
 }
+
 
 
