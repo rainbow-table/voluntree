@@ -29,47 +29,59 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
+    timeoutHandler: any; 
+    description: string; 
+    edit: any;
+    newDescription: string;
   constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
     this.http = http;
     this.oauthService = oauthService;
+    this.edit = false;
+    this.oauthService.getProfile()
+    .then(profile => this.profile = profile)
   }
+
+  public mouseup() {
+    if (this.timeoutHandler) {
+      clearInterval(this.timeoutHandler);
+      this.timeoutHandler = null;
+    }
+  }
+
+  public mousedown() {
+    this.timeoutHandler = setInterval(() => {
+      this.addEvent();
+    }, 500);
+  }  
   
   public npevents: any;
 
   logout() {
     this.navCtrl.push(LoginPage)
+    .then(() => this.navCtrl.remove(this.viewCtrl.index))
   }
   ionViewDidLoad() {
     this.oauthService.getProfile()
         .then(profile => this.profile = profile)
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description}}`
             }).map(data => {
                 if (data.json().data.ngo.length === 0) {
-                    // this.navCtrl.remove(this.viewCtrl.index)
                     this.navCtrl
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
-                    // this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                    //     query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", email: "${this.profile.email}") {id name}}`
-                    // }).toPromise();
                 } else {
-                    // this.loadNpEvents();
+                    this.description = data.json().data.ngo[0].description;
                     this.loadEvents();
                 }
             }).map(() => {
-                // this.loadNpEvents();
-                // this.loadEvents();
             })
             .toPromise();
         })     
   }
 
     goToManageEventsPage(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
       this.navCtrl.push(ManageEventsPage);
     }
 
@@ -97,7 +109,7 @@ export class NpDashPage {
                 value.event_end = null;
                 value.title = value.description;
                 return value;
-            });           
+            });
         });
     }
     onViewTitleChanged(title) {
@@ -122,42 +134,7 @@ export class NpDashPage {
         event.setHours(0, 0, 0, 0);
         this.isToday = today.getTime() === event.getTime();
     }
-    // createRandomEvents() {
-    //     var events = [];
-    //     for (var i = 0; i < 50; i += 1) {
-    //         var date = new Date();
-    //         var eventType = Math.floor(Math.random() * 2);
-    //         var startDay = Math.floor(Math.random() * 90) - 45;
-    //         var endDay = Math.floor(Math.random() * 2) + startDay;
-    //         var startTime;
-    //         var endTime;
-    //         if (eventType === 0) {
-    //             startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-    //             if (endDay === startDay) {
-    //                 endDay += 1;
-    //             }
-    //             endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-    //             events.push({
-    //                 title: 'All Day - ' + i,
-    //                 startTime: startTime,
-    //                 endTime: endTime,
-    //                 allDay: true
-    //             });
-    //         } else {
-    //             var startMinute = Math.floor(Math.random() * 24 * 60);
-    //             var endMinute = Math.floor(Math.random() * 180) + startMinute;
-    //             startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-    //             endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-    //             events.push({
-    //                 title: 'Event - ' + i,
-    //                 startTime: startTime,
-    //                 endTime: endTime,
-    //                 allDay: false
-    //             });
-    //         }
-    //     }
-    //     return events;
-    // }
+
     onRangeChanged(ev) {
         // console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
     }
@@ -167,21 +144,30 @@ export class NpDashPage {
         return date < current;
     };
 
-    // loadNpEvents(){
-    //   this.GrabNpEventsProvider.load()
-	// 		.then(data => {
-	// 				this.npevents = data.data.event;
-	// 				console.log(this.npevents);
-	// 		});
-    // }
-
-
     addEvent() {
-            let myModal = this.ModalController.create(CreateEventPage);
-            myModal.onDidDismiss(() => {
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
-            })
-			myModal.present();
+        let myModal = this.ModalController.create(CreateEventPage);
+        myModal.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        })
+        myModal.present();
+    }
+    editDescription() {
+      this.edit = !this.edit
+    }
+    submitDescription() {
+        console.log(this.newDescription)
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+            query: `mutation {ngo (action: "update", name: "${this.profile.firstName} ${this.profile.lastName}", description: "${this.newDescription}") {description}}`
+        })
+        .map(data => {
+            this.edit = !this.edit
+            this.description = data.json().data.ngo.description
+        })
+        .map(() => {
+
+        })
+        .toPromise()
     }
 
 }

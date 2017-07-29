@@ -57,7 +57,7 @@ export class EinPage {
   submit() {
     let address = `${(this.propubdata as any).organization.address}, ${(this.propubdata as any).organization.city}, ${(this.propubdata as any).organization.state}, ${(this.propubdata as any).organization.zipcode}`
     return this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-      query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: " ", ngo_address: "${address}", ein: ${(this.propubdata as any).organization.ein} email: "${this.profile.email}") {id}}`
+      query: `mutation {ngo(name: "${this.profile.firstName} ${this.profile.lastName}", description: "bulllllllllshit", ngo_address: "${address}", ein: ${(this.propubdata as any).organization.ein} email: "${this.profile.email}", profile_img: "${this.profile.photo.data.url}") {id}}`
     })
     .subscribe(data => {
       this.navCtrl.push(NpDashPage)

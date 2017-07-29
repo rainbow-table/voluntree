@@ -1,34 +1,3 @@
-<!--
-  Generated template for the VolunteerDashPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
- 
-<!-- <script src="http://maps.google.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}"></script>
-
- <script type="text/javascript">
-    var map;
-    document.addEventListener("deviceready", function() {
-      var div = document.getElementById("map_canvas");
-
-      // Initialize the map view
-      map = plugin.google.maps.Map.getMap(div);
-
-      // Wait until the map is ready status.
-      map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-    }, false);
-
-    function onMapReady() {
-      var button = document.getElementById("button");
-      button.addEventListener("click", onBtnClicked, false);
-    }
-
-    function onBtnClicked() {
-      map.showDialog();
-    }
-    </script> -->
-
 <ion-header>
 
   <ion-navbar>
@@ -40,23 +9,14 @@
       <button ion-button><ion-icon name="add"></ion-icon>Search</button>
     </ion-buttons>  
   </ion-navbar>
-<!--   <ion-list *ngIf="!!profile">
-  <img src={{profile.photo.data.url}}/>
-    <ion-item>
-      <h2>Name</h2>
-      <p>{{profile.firstName}} {{profile.lastName}}</p>
-    </ion-item>
-  </ion-list> -->
 </ion-header>
 
 <ion-content padding>
-  <!-- <div #map id="map"></div>   -->
-  <!-- <div style="width:100%;height:400px" id="map_canvas"></div> -->
   <div id="map"></div>
      <div *ngIf="coords">
   </div>
-
-<ion-content padding class="propublic">
+  <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
+  <p>{{profile.firstName}} {{profile.lastName}}</p>
   <ion-list>
     <ion-item *ngFor="let item of propublic; let i = index;">
       <ion-avatar item-left>
@@ -67,8 +27,7 @@
         {{item.city}}, {{item.state}}</p>
     </ion-item>
   </ion-list>
-</ion-content>
     <div>
       <button class="logout-button" (click)="logout()">Log out</button>
-    </div>
+    </div>  
 </ion-content>

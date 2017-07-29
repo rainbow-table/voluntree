@@ -4,7 +4,7 @@ import { OAuthService } from '../oauth/oauth.service';
 import { LoginPage } from '../login/login-page';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
-import { NavController, Platform, NavParams } from 'ionic-angular';
+import { ViewController, NavController, Platform, NavParams } from 'ionic-angular';
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
@@ -39,7 +39,7 @@ export class VolunteerDashPage {
   // map: any;
   coords:any;
 
-  constructor(private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform) {
+  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -72,6 +72,7 @@ export class VolunteerDashPage {
 
   logout() {
     this.navCtrl.push(LoginPage)
+    .then(() => this.navCtrl.remove(this.viewCtrl.index))
   }  
 
   ionViewDidLoad() {
