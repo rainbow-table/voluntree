@@ -8,7 +8,7 @@ import { LoginPage } from '../login/login-page';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
-import { ManageEventsPage } from "../manage-events/manage-events";
+import { ManageEventsPage } from '../manage-events/manage-events';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { CreateEventPage } from '../create-event/create-event';
 import { EinPage } from '../ein/ein';
@@ -50,7 +50,7 @@ export class NpDashPage {
   }
 
   public mousedown() {
-    this.timeoutHandler = setInterval(() => {
+    this.timeoutHandler = setTimeout(() => {
       this.addEvent();
     }, 500);
   }  
@@ -68,14 +68,14 @@ export class NpDashPage {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                 query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description}}`
             }).map(data => {
-                let id = data.json().data.ngo[0].id;
-                this.id = data.json().data.ngo[0].id;
-                this.storage.set('id', id);
                 if (data.json().data.ngo.length === 0) {
                     this.navCtrl
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
                 } else {
+                    let id = data.json().data.ngo[0].id;
+                    this.id = data.json().data.ngo[0].id;    
+                    this.storage.set('id', id);
                     this.description = data.json().data.ngo[0].description;
                     this.loadEvents();
                 }
