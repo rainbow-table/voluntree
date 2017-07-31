@@ -23,6 +23,7 @@ import { ManageEventsPage } from "../pages/manage-events/manage-events";
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NpCalProvider } from '../providers/np-cal/np-cal';
 import { CreateEventPage } from '../pages/create-event/create-event';
+import { EventSelectPage } from '../pages/event-select/event-select';
 import { EinPage } from '../pages/ein/ein';
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -38,6 +39,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ManageEventsPage,
     CreateEventPage,
     EinPage,
+    EventSelectPage,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ManageEventsPage,
     CreateEventPage,
     EinPage,
+    EventSelectPage,
   ],
   providers: [
     StatusBar,

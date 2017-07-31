@@ -11,6 +11,8 @@ import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
+import { ModalController } from 'ionic-angular';
+import { EventSelectPage } from '../event-select/event-select';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -46,7 +48,7 @@ export class VolunteerDashPage {
   // map: any;
   coords:any;
 
-  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
+  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -173,6 +175,10 @@ export class VolunteerDashPage {
       })
       .toPromise()
   }
+      openModal(info) {
+        let myModal = this.ModalController.create(EventSelectPage, info);
+        myModal.present();
+      }
 }
 
 
