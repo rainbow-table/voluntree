@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { NpDashPage } from '../np-dash/np-dash';
+import { Storage } from '@ionic/storage';
 // import * as moment from 'moment';
 /**
  * Generated class for the CreateEventPage page.
@@ -17,10 +18,11 @@ import { NpDashPage } from '../np-dash/np-dash';
 })
 export class CreateEventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
   }
   public allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
+  public allStates = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   public event = {
     description: '',
     start: {
@@ -51,14 +53,22 @@ export class CreateEventPage {
   public hour;
   public allMinutes = ['00', '15', '30', '45'];
   public timesOfDay=['AM', 'PM']
+  public streetAddress;
+  public city;
+  public state;
+  public zipCode;
+  public grabber;
+  public id;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateEventPage');
+  
+
+async ionViewDidLoad() {
     this.getDays();
     this.getYears();
+  this.id = await this.storage.get('id');
   }
+
   getDays() {
-    console.log(this.month, 'Iam the month');
     this.allDays = [];
     for (let i = 1; i < 32; i++) {
       if (this.month === 'February' && i === 29) {
@@ -90,6 +100,29 @@ export class CreateEventPage {
     }
     
     postNewEvent() {
+      if (!this.id) {
+        alert('there is no id. try again.');
+        return;
+      } else {
+        // alert(`this is id: ${this.id}`);
+      }
+      if (this.streetAddress.length < 0) {
+        alert('Your event is nowhere. Please add a street address.');
+        return;
+      }
+      if (this.city.length < 0) {
+        alert('Your event is nowhere. Please add a city.');
+        return;
+      }
+      if (this.zipCode.length < 5) {
+        alert('Your zipcode is invalid. Please enter a valid zipcode.');
+        return;
+      }
+      if (this.state.length < 2) {
+        alert('Please select a state.');
+        return;
+      }
+      this.event.location = this.streetAddress + " " + this.city + ', ' + this.state + " " + this.zipCode;
       let myStartMonth = (this.allMonths.indexOf(this.event.start.month) + 1).toString();
       if (myStartMonth.length < 2) {
         myStartMonth = '0' + myStartMonth;
@@ -111,19 +144,22 @@ export class CreateEventPage {
         return;
       }
       let start = startDate.toString();
-      console.log(start);
       let end = endDate.toString();
       let description = this.event.description;
+      if (description.length < 1) {
+        alert('Your event has no name. Please add one.');
+        return;
+      }
       let location = this.event.location;
-      this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: 1){
+      this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: ${this.id}){
         event_start
         event_end
         description
         event_address
         ngo_id
         id
-      }}`}).then(response => console.log(response, 'i am response'))
-      .catch(err => console.log(err));
+      }}`}).then(()=> {})
+      .catch(err => console.error(err));
       this.closeModal();
     }
 

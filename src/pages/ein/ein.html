@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-title>ein</ion-title>
+</ion-header>
+
+
+<ion-content padding>
+ <div>This is your first time logging in, please verify your identity with your EIN</div>
+ <ion-item>
+  <ion-label>EIN</ion-label>
+  <ion-input type="text" [(ngModel)]="ein"></ion-input>
+ </ion-item>
+ <button ion-button (click)="verify()">Verify</button>
+ <button *ngIf="!!verified" ion-button (click)="submit()">Submit</button>
+</ion-content>

@@ -1,12 +1,21 @@
 page-np-dash {
+  background-image: url('http://wallup.net/wp-content/uploads/2015/12/243666-forest-simple_background-trees-path-nature-landscape-748x468.jpg');
   .ios, .md {
       height: 100%;
-
+    page-np-dash {
+      background-image: url('http://wallup.net/wp-content/uploads/2015/12/243666-forest-simple_background-trees-path-nature-landscape-748x468.jpg');
+      ion-content {
+        background-color: transparent;
+      }
+    }
     np-dash-button {
         margin-top: -200px;
     }
     .icon {
         font-size: 20px;
+    }
+    ion-content {
+      background-color: transparent;
     }
   }
 }

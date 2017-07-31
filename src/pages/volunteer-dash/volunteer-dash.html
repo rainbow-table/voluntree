@@ -1,28 +1,3 @@
-<!--
-  Generated template for the VolunteerDashPage page.
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
- 
-<!-- <script src="http://maps.google.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}"></script>
- <script type="text/javascript">
-    var map;
-    document.addEventListener("deviceready", function() {
-      var div = document.getElementById("map_canvas");
-      // Initialize the map view
-      map = plugin.google.maps.Map.getMap(div);
-      // Wait until the map is ready status.
-      map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-    }, false);
-    function onMapReady() {
-      var button = document.getElementById("button");
-      button.addEventListener("click", onBtnClicked, false);
-    }
-    function onBtnClicked() {
-      map.showDialog();
-    }
-    </script> -->
-
 <ion-header>
 
   <ion-navbar>
@@ -31,38 +6,40 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button><ion-icon name="add"></ion-icon>Search</button>
+      <button ion-button (click)="search()"><ion-icon name="add"></ion-icon>Search</button>
+      <ion-input type="text" placeholder="Search Here..." [(ngModel)]="finder"></ion-input>
     </ion-buttons>  
   </ion-navbar>
-<!--   <ion-list *ngIf="!!profile">
-  <img src={{profile.photo.data.url}}/>
-    <ion-item>
-      <h2>Name</h2>
-      <p>{{profile.firstName}} {{profile.lastName}}</p>
-    </ion-item>
-  </ion-list> -->
 </ion-header>
 
 <ion-content padding>
-  <!-- <div #map id="map"></div>   -->
-  <!-- <div style="width:100%;height:400px" id="map_canvas"></div> -->
   <div id="map"></div>
      <div *ngIf="coords">
   </div>
-
-<ion-content padding class="propublic">
-  <ion-list>
-    <ion-item *ngFor="let item of propublic; let i = index;">
-      <ion-avatar item-left>
-         <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
-      </ion-avatar>
-       <h2>{{item.name}}</h2> 
-      <p>{{item.address}} 
-        {{item.city}}, {{item.state}}</p>
+<!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
+  <p>{{profile.firstName}} {{profile.lastName}}</p> -->
+<ion-content *ngIf="searched">
+  <ion-label>Search results</ion-label>
+  <ion-list class="border">
+    <ion-item *ngFor="let search of results; let i = index;">
+      <h2>{{search.description}}</h2> 
+       <p>{{search.event_address}} 
+        {{search.event_start}}, {{search.event_end}}</p> 
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of npEvents; let i = index;">
+      <ion-avatar item-left>
+         <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
+      </ion-avatar>
+       <h2>{{item.description}}</h2> 
+      <p>{{item.event_address}} 
+        {{item.event_start}}, {{item.event_end}}</p>
+    </ion-item>
+  </ion-list>
     <div>
       <button class="logout-button" (click)="logout()">Log out</button>
-    </div>
+    </div>  
 </ion-content>

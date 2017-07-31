@@ -15,7 +15,6 @@ import 'rxjs/add/operator/map';
 export class GetNpAddressrProvider {
   [x: string]: any;
   constructor(public http: Http) {
-    console.log('Hello GetNpAddressrProvider Provider');
   }
 
   load() {

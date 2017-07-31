@@ -4,12 +4,13 @@ import { OAuthService } from '../oauth/oauth.service';
 import { LoginPage } from '../login/login-page';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
-import { NavController, Platform, NavParams } from 'ionic-angular';
+import { ViewController, NavController, Platform, NavParams } from 'ionic-angular';
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
-
+import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
+import { NpCalProvider } from '../../providers/np-cal/np-cal';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -23,7 +24,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerO
 @Component({
   selector: 'page-volunteer-dash',
   templateUrl: 'volunteer-dash.html',
-  providers: [ OAuthService, ProPubServiceProvider, Geolocation]
+  providers: [ OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider]
 })
 export class VolunteerDashPage {
   private oauthService: OAuthService;
@@ -34,17 +35,16 @@ export class VolunteerDashPage {
 
   public propublic: any;
   public npAddress: any;
+  public npEvents: any;
+  public finder: any;
+  public results: any;
+  public searched: boolean = false;
 
   @ViewChild('map') mapElement: ElementRef;
   // map: any;
   coords:any;
 
-<<<<<<< HEAD
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ProPubServiceProvider: ProPubServiceProvider, private geolocation: Geolocation, public platform: Platform, private googleMaps: GoogleMaps) {
-        
-      platform.ready().then(() => {
-=======
-  constructor(private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform) {
+  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -64,14 +64,12 @@ export class VolunteerDashPage {
             }).toPromise();
         })
     platform.ready().then(() => {
->>>>>>> 4a1bb6e6bb227ea42f584e6cb87aa3fed2b6832d
             this.loadMap();
         });
     geolocation.getCurrentPosition().then((pos) => {
-      console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
       this.coords = pos.coords;
     }).catch((error) => {
-      console.log('Error getting location', error);
+      console.error('Error getting location', error);
     });
     
     this.loadProPublic();
@@ -79,54 +77,38 @@ export class VolunteerDashPage {
 
   logout() {
     this.navCtrl.push(LoginPage)
+    .then(() => this.navCtrl.remove(this.viewCtrl.index))
   }  
 
   ionViewDidLoad() {
-    
-    // this.loadMap();
-    this.loadProPublic();
-    console.log('ionViewDidLoad VolunteerDashPage');
+    this.loadMap();
+    // this.loadProPublic();
+    this.loadNpEvents();
   }
 
-// loadMap(){
- 
-//     this.geolocation.getCurrentPosition().then((position) => {
- 
-//       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
- 
-//       let mapOptions = {
-//       center: latLng,
-//       zoom: 12,
-//       mapTypeId: google.maps.MapTypeId.ROADMAP
-//     }
- 
-//       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
-//     }, (err) => {
-//       console.log(err);
-//     });
- 
-//   }
-
-loadMap() {
-  this.map = new GoogleMap('map');
-
-  this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-    console.log('Map is ready!');
-  });
-}
+  loadMap(){
+    this.geolocation.getCurrentPosition().then((position) => {
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      let mapOptions = {
+        center: latLng,
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    }, (err) => {
+      console.error(err);
+    });
+  }
 
   addInfoWindow(marker, content){
- 
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
- 
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.open(this.map, marker);
-  });
- 
-}
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+   
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
 
   // findAddressofNp(){
   //   this.GetNpAddressrProvider.load()
@@ -142,5 +124,35 @@ loadMap() {
       this.propublic = data;
     });
   }
+  loadNpEvents() {
+  this.GrabNpEventsProvider.load()
+  .then(data => {
+    this.npEvents = data.data.event;
+  })
+  }
+  search() {
+    this.searched = true;
+    this.results = [];
+    this.NpCalProvider.getCalEvents({query: `{event{
+            id
+            ngo_id
+            description
+            event_start
+            event_end
+            event_address
+        }}`
+        }).then(response => {
+            response.event.map((value, i, array) => {
+                if (this.finder.toLowerCase() === value.description.toLowerCase()) {
+                  this.results.push(value);
+                }
+                if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
+                  this.results.push(value);
+                }
+            });           
+        });
+
+  }
 }
+
 

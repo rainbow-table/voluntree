@@ -1,74 +1,46 @@
-<!--
-  Generated template for the NpDashPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Non-Profit Dash</ion-title>
+    <ion-title *ngIf="!!profile">{{profile.firstName}} {{profile.lastName}} Home</ion-title>
     <ion-buttons end>
-    <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br> Events</button>
-    <ion-icon style="font-size: 40px; margin-right: 10px;" name="md-clipboard"></ion-icon>
-     </ion-buttons>
-  </ion-navbar>
-     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-<!--   <ion-list *ngIf="!!profile">
-  <img src={{profile.photo.data.url}}/>
-    <ion-item>
-      <h2>Name</h2>
-      <p>{{profile.firstName}} {{profile.lastName}}</p>
-    </ion-item>
-  </ion-list> -->
-  </ion-header>
-<br/>
-<ion-content padding>
-  <ion-header>
-    <ion-navbar color="primary">
-        <ion-title>{{viewTitle}}</ion-title>
-        <ion-buttons end>
-            <button ion-button [disabled]="isToday" (click)="today()">Today</button>
-            <button ion-button (click)="changeMode('month')">M</button>
-            <button ion-button (click)="changeMode('week')">W</button>
-            <button ion-button (click)="changeMode('day')">D</button>
-            <button ion-button (click)="addEvent()">Add Event</button>
-            <!-- <button ion-button (click)="loadEvents()">Load Events</button> -->
-        </ion-buttons>
-    </ion-navbar>
+      <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br>Events</button>
+      <ion-icon style="font-size: 40px; margin-right: 10px;"name="md-clipboard"></ion-icon>
+    </ion-buttons>    
+  </ion-navbar>   
 </ion-header>
- 
-<ion-content class="has-header">
-    <calendar 
-              [eventSource]="eventSource"  
-              [calendarMode]="calendar.mode"
-              [currentDate]="calendar.currentDate"
-              (onCurrentDateChanged)="onCurrentDateChanged($event)"
-              (onEventSelected)="onEventSelected($event)"
-              (onTitleChanged)="onViewTitleChanged($event)"
-              (onTimeSelected)="onTimeSelected($event)"
-              step="30">
-    </calendar>
-             <ion-content>
-            <!-- <button class="np-dash-button" ion-button (click)="loadNpEvents()">Load Current Events from DB</button>   -->
-    <ion-item *ngFor="let item of npevents; let i = index;">
-      <!-- <ion-avatar item-left>
-          <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  
-      </ion-avatar> -->
-       
-        <h2>{{item.description}}</h2> 
-      <p>{{item.event_start}} to {{item.event_end}}</p>
-    </ion-item> 
-  
+
+<ion-content padding>
+  <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
+  <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
+  <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
+  <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
+  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
+  <ion-content>
+  <ion-navbar color="primary">  
+    <ion-title>{{viewTitle}}</ion-title>
+    <ion-buttons end>
+      <button ion-button [disabled]="isToday" (click)="today()">Today</button>
+      <button ion-button (click)="changeMode('month')">M</button>
+      <button ion-button (click)="changeMode('week')">W</button>
+      <button ion-button (click)="changeMode('day')">D</button>
+    </ion-buttons> 
+  </ion-navbar>
+
+  <calendar 
+            [eventSource]="eventSource"  
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+            (dblclick)="addEvent()"
+            (mousedown)="mousedown()" 
+            (mouseup)="mouseup()" 
+            (mouseleave)="mouseup()"
+            step="30">
+  </calendar>
   </ion-content>
-      <div>
-      <button class="logout-button" (click)="logout()">Log out</button>
-    </div>
+  <div>
+    <button class="logout-button" (click)="logout()">Log out</button>
+  </div>
 </ion-content>
-
-
-
-  </ion-content>
-   

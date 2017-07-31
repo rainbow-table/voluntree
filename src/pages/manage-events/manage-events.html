@@ -14,14 +14,14 @@
 
 
 <ion-content padding>
-    <button class="np-dash-button" ion-button (click)="loadNpEvents()">View Scheduled Events</button>  
-    <ion-content *ngIf="hide" padding>
+    <ion-content>
      <ion-item *ngFor="let item of npevents; let i = index;">
        <ion-avatar item-left>
             <ion-icon (click)="removeEventFromDB(item.id)" style="font-size: 30px;" name="md-close-circle"></ion-icon>
       </ion-avatar> 
        
-        <h2>{{item.description}}</h2> 
+        <h2>{{item.description}}</h2>
+        <p>{{item.event_address}}</p> 
       <p>{{item.event_start}} to {{item.event_end}}</p>
     </ion-item>
     </ion-content>
