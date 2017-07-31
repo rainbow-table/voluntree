@@ -104,7 +104,7 @@ async ionViewDidLoad() {
         alert('there is no id. try again.');
         return;
       } else {
-        alert(`this is id: ${this.id}`);
+        // alert(`this is id: ${this.id}`);
       }
       if (this.streetAddress.length < 0) {
         alert('Your event is nowhere. Please add a street address.');

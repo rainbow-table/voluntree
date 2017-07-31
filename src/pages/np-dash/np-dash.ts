@@ -30,22 +30,43 @@ export class NpDashPage {
     private oauthService: OAuthService;
     profile: OAuthProfile;
     private http: Http;
+    timeoutHandler: any; 
+    description: string; 
+    edit: any;
+    newDescription: string;
   constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.http = http;
     this.oauthService = oauthService;
+    this.edit = false;
+    this.oauthService.getProfile()
+    .then(profile => this.profile = profile)
   }
+
+  public mouseup() {
+    if (this.timeoutHandler) {
+      clearInterval(this.timeoutHandler);
+      this.timeoutHandler = null;
+    }
+  }
+
+  public mousedown() {
+    this.timeoutHandler = setInterval(() => {
+      this.addEvent();
+    }, 500);
+  }  
   
   public npevents: any;
   public id;
   logout() {
     this.navCtrl.push(LoginPage)
+    .then(() => this.navCtrl.remove(this.viewCtrl.index))
   }
   ionViewDidLoad() {
     this.oauthService.getProfile()
         .then(profile => this.profile = profile)
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description}}`
             }).map(data => {
                 let id = data.json().data.ngo[0].id;
                 this.id = data.json().data.ngo[0].id;
@@ -55,6 +76,7 @@ export class NpDashPage {
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
                 } else {
+                    this.description = data.json().data.ngo[0].description;
                     this.loadEvents();
                 }
             }).map(() => {
@@ -64,9 +86,6 @@ export class NpDashPage {
   }
 
     goToManageEventsPage(){
-    // push another page on to the navigation stack
-    // causing the nav controller to transition to the new page
-    // optional data can also be passed to the pushed page.
       this.navCtrl.push(ManageEventsPage);
     }
 
@@ -94,7 +113,7 @@ export class NpDashPage {
                 value.event_end = null;
                 value.title = value.description;
                 return value;
-            });           
+            });
         });
     }
     onViewTitleChanged(title) {
@@ -129,11 +148,29 @@ export class NpDashPage {
     };
 
     addEvent() {
-            let myModal = this.ModalController.create(CreateEventPage);
-            myModal.onDidDismiss(() => {
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
-            })
-			myModal.present();
+        let myModal = this.ModalController.create(CreateEventPage);
+        myModal.onDidDismiss(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        })
+        myModal.present();
+    }
+    editDescription() {
+      this.edit = !this.edit
+    }
+    submitDescription() {
+        console.log(this.newDescription)
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+            query: `mutation {ngo (action: "update", name: "${this.profile.firstName} ${this.profile.lastName}", description: "${this.newDescription}") {description}}`
+        })
+        .map(data => {
+            this.edit = !this.edit
+            this.description = data.json().data.ngo.description
+        })
+        .map(() => {
+
+        })
+        .toPromise()
     }
 
 }
