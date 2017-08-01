@@ -36,12 +36,12 @@ export class EventSelectPage {
   public endRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   public timeOfDay = ['AM', 'PM'];
   public allMinutes = ['00', '15', '30', '45'];
-  public begin;
-  public finish;
-  public beginTimeOfDay;
-  public endTimeOfDay;
-  public startMinute;
-  public endMinute;
+  public begin = '8';
+  public finish = '9';
+  public beginTimeOfDay = 'AM';
+  public endTimeOfDay = 'AM';
+  public startMinute = '00';
+  public endMinute = '00';
 
   public id;
   async ionViewDidLoad() {
@@ -56,6 +56,12 @@ export class EventSelectPage {
   volunteer() {
     let volunteerStarting = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.begin.toString()}:${this.startMinute} ${this.beginTimeOfDay}`;
     let volunteerEnding = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.finish.toString()}:${this.endMinute} ${this.endTimeOfDay}`;
+    let startCheck = new Date(volunteerStarting).getTime();
+    let endCheck = new Date(volunteerEnding).getTime();
+    if (startCheck >= endCheck) {
+      alert('Invalid times');
+      return;
+    }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
     this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {alert(`${data}`)});
