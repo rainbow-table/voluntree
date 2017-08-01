@@ -127,12 +127,12 @@ async ionViewDidLoad() {
       if (myStartMonth.length < 2) {
         myStartMonth = '0' + myStartMonth;
       }
-      let myEndMonth = (this.allMonths.indexOf(this.event.end.month) + 1).toString();
-      if (myEndMonth.length < 2) {
-        myEndMonth = '0' + myEndMonth;
-      }
+      // let myEndMonth = (this.allMonths.indexOf(this.event.end.month) + 1).toString();
+      // if (myEndMonth.length < 2) {
+      //   myEndMonth = '0' + myEndMonth;
+      // }
       let startInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.start.hour + ":" + this.event.start.minute + " " + this.event.start.timeOfDay);
-      let endInfo = this.event.end.year.toString() +'/' + myEndMonth + '/' + this.event.end.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
+      let endInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
       let startDate = new Date(startInfo);
       let endDate = new Date(endInfo);
       if (endDate.getTime() < startDate.getTime()) {

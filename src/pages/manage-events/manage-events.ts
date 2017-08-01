@@ -44,6 +44,36 @@ export class ManageEventsPage {
   }
 
   removeEventFromDB(event_id) {
+    console.log()
     this.GrabNpEventsProvider.deleteEvent(event_id);
+  }
+
+  showVolunteers(event_id, index) {
+    if (!this.npevents[index].vol) {
+      this.GrabNpEventsProvider.grabVolunteers(event_id)
+        .then(dat => {
+          let data: any = (dat as any).json()
+          this.npevents[index].vol = [];
+          data.data.schedule.forEach(obj => {
+            let volunteer = obj.volunteer_id;
+            let id = obj.id;
+            let start = obj.volunteer_start;
+            let end = obj.volunteer_end;
+            this.GrabNpEventsProvider.grabVolunteer(volunteer)
+              .then(dat => {
+                let data: any = (dat as any).json();
+                console.log(data.data)
+                console.log(data.data.volunteer)
+                console.log(data.data.volunteer[0])
+                let img = data.data.volunteer[0].profile_img;
+                let name = data.data.volunteer[0].name
+                let description = data.data.volunteer[0].description;
+                this.npevents[index].vol.push({volunteer: name, id: id, start: start, end: end, img: img, description: description})
+              })
+          })
+        })
+      } else {
+        this.npevents[index].vol = null;
+      }
   }
 }
