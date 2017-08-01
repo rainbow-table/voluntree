@@ -32,7 +32,9 @@ export class VolunteerDashPage {
   private http: Http;
   img: string;
   map: GoogleMap;
-
+  description: string; 
+  edit: any;
+  newDescription: string;
   public propublic: any;
   public npAddress: any;
   public npEvents: any;
@@ -48,21 +50,23 @@ export class VolunteerDashPage {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
-        .then(profile => {
-          this.profile = profile
-          this.img = profile.photo.data.url
-        })
-        .then(() => {
-            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
-            }).map(data => {
-              if (data.json().data.volunteer.length === 0) {
-                this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                    query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
-                }).toPromise();
-              }
-            }).toPromise();
-        })
+      .then(profile => {
+        this.profile = profile
+        this.img = profile.photo.data.url
+      })
+      .then(data => {
+          this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+              query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id description}}`
+          }).map(data => {
+            if (data.json().data.volunteer.length === 0) {
+              this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                  query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
+              }).toPromise();
+            } else {
+              this.description = data.json().data.volunteer[0].description;
+            }
+          }).toPromise();
+      })
     platform.ready().then(() => {
             this.loadMap();
         });
@@ -134,24 +138,40 @@ export class VolunteerDashPage {
     this.searched = true;
     this.results = [];
     this.NpCalProvider.getCalEvents({query: `{event{
-            id
-            ngo_id
-            description
-            event_start
-            event_end
-            event_address
-        }}`
-        }).then(response => {
-            response.event.map((value, i, array) => {
-                if (this.finder.toLowerCase() === value.description.toLowerCase()) {
-                  this.results.push(value);
-                }
-                if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
-                  this.results.push(value);
-                }
-            });           
-        });
+        id
+        ngo_id
+        description
+        event_start
+        event_end
+        event_address
+    }}`
+    }).then(response => {
+        response.event.map((value, i, array) => {
+            if (this.finder.toLowerCase() === value.description.toLowerCase()) {
+              this.results.push(value);
+            }
+            if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
+              this.results.push(value);
+            }
+        });           
+    });
+  }
+  editDescription() {
+    this.edit = !this.edit
+  }
+  submitDescription() {
+    this.http
+      .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+          query: `mutation {volunteer (action: "update", name: "${this.profile.firstName} ${this.profile.lastName}", description: "${this.newDescription}") {description}}`
+      })
+      .map(data => {
+          this.edit = !this.edit
+          this.description = data.json().data.volunteer.description
+      })
+      .map(() => {
 
+      })
+      .toPromise()
   }
 }
 
