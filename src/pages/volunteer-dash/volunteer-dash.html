@@ -15,9 +15,12 @@
   <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
   <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
   <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
-  <div id="map" *ngIf="coords"></div>
      <div>
   </div>
+      <ion-searchbar (click)="search()"><ion-icon name="md-search"></ion-icon></ion-searchbar>
+<ion-content class="home border">
+  <div style="height: 100%" id="map_canvas"></div>
+</ion-content>
 <!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
   <p>{{profile.firstName}} {{profile.lastName}}</p> -->
 <ion-content *ngIf="searched">
