@@ -50,7 +50,7 @@ export class VolunteerDashPage {
   // map: any;
   // coords:any;
 
-  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
+  constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -153,6 +153,9 @@ export class VolunteerDashPage {
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
 
+       this.geolocation.getCurrentPosition().then((position) => {
+           let latLng = (position.coords.latitude, position.coords.longitude);
+
       this.map = new GoogleMap('map_canvas');
 
       // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
@@ -171,13 +174,17 @@ export class VolunteerDashPage {
         alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
 
         this._zone.run(() => {
-          let myPosition = new GoogleMapsLatLng(38.9072, -77.0369);
+          let myPosition = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude);
           console.log("My position is", myPosition);
           this.map.animateCamera({ target: myPosition, zoom: 10 });
         });
 
       });
     });
+      }, (err) => {
+      console.log(err);
+    });
+
   }
 
     private onMapReady(): void {
