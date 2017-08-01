@@ -23,7 +23,7 @@
 <ion-content *ngIf="searched">
   <ion-label>Search results</ion-label>
   <ion-list class="border">
-    <ion-item *ngFor="let search of results; let i = index;">
+    <ion-item *ngFor="let search of results; let i = index;" (click)="openModal(search)">
       <h2>{{search.description}}</h2> 
        <p>{{search.event_address}} 
         {{search.event_start}}, {{search.event_end}}</p> 
@@ -32,7 +32,7 @@
 </ion-content>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of npEvents; let i = index;">
+    <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)">
       <ion-avatar item-left>
          <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
       </ion-avatar>

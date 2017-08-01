@@ -73,10 +73,10 @@ export class NpDashPage {
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
                 } else {
-                    let id = data.json().data.ngo[0].id;
-                    this.id = data.json().data.ngo[0].id;    
-                    this.storage.set('id', id);
                     this.description = data.json().data.ngo[0].description;
+                    let id = data.json().data.ngo[0].id;
+                    this.id = data.json().data.ngo[0].id;
+                    this.storage.set('id', id);
                     this.loadEvents();
                 }
             }).map(() => {
