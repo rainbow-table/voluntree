@@ -66,7 +66,7 @@ export class VolunteerDashPage {
                 this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                     query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
                 }).map (data => {
-                alert(`${data.json().data.volunteer}`)                  
+                // alert(`${data.json().data.volunteer}`)                  
                 let voluntId = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
 
