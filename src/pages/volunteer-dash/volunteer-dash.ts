@@ -11,6 +11,9 @@ import {GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} f
 // import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
+import { ModalController } from 'ionic-angular';
+import { EventSelectPage } from '../event-select/event-select';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -47,29 +50,33 @@ export class VolunteerDashPage {
   // map: any;
   // coords:any;
 
-  constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider) {
-   
-    this.platform = platform;
+  constructor(private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
-      .then(profile => {
-        this.profile = profile
-        this.img = profile.photo.data.url
-      })
-      .then(data => {
-          this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-              query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id description}}`
-          }).map(data => {
-            if (data.json().data.volunteer.length === 0) {
-              this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                  query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
-              }).toPromise();
-            } else {
-              this.description = data.json().data.volunteer[0].description;
-            }
-          }).toPromise();
-      })
+        .then(profile => {
+          this.profile = profile
+          this.img = profile.photo.data.url
+        })
+        .then(() => {
+            this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+            }).map(data => {
+              if (data.json().data.volunteer.length === 0) {
+                this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+                    query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
+                }).map (data => {
+                alert(`${data.json().data.volunteer}`)                  
+                let voluntId = data.json().data.volunteer[0].id;
+                this.storage.set('voluntId', voluntId);
+
+                }).toPromise();
+              } else {
+                let voluntId = data.json().data.volunteer[0].id;
+                this.storage.set('voluntId', voluntId);
+              }
+            }).toPromise();
+        })
     platform.ready().then(() => {
         // this.initializeMap();
             // this.loadMap();
@@ -229,6 +236,10 @@ export class VolunteerDashPage {
       })
       .toPromise()
   }
+      openModal(info) {
+        let myModal = this.ModalController.create(EventSelectPage, info);
+        myModal.present();
+      }
 }
 
 
