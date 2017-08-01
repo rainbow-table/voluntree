@@ -69,4 +69,33 @@ export class GrabNpEventsProvider {
     });
   })
 };
+  grabVolunteers(event_id) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+          query: `{schedule(event_id: ${event_id}){id volunteer_id volunteer_start volunteer_end}}`
+        })
+        .subscribe(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+    })
+  }
+
+  grabVolunteer(vol_id) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+          query: `{volunteer(id: ${vol_id}){name description profile_img}}`
+        })
+        .subscribe(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+    })
+  }
+
+
 }

@@ -65,8 +65,7 @@ export class VolunteerDashPage {
               if (data.json().data.volunteer.length === 0) {
                 this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                     query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
-                }).map (data => {
-                // alert(`${data.json().data.volunteer}`)                  
+                }).map (data => {                
                 let voluntId = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
 
@@ -154,7 +153,7 @@ export class VolunteerDashPage {
     GoogleMap.isAvailable().then(() => {
 
        this.geolocation.getCurrentPosition().then((position) => {
-           let latLng = (position.coords.latitude, position.coords.longitude);
+          //  let latLng = (position.coords.latitude, position.coords.longitude);
 
       this.map = new GoogleMap('map_canvas');
 
@@ -188,7 +187,7 @@ export class VolunteerDashPage {
   }
 
     private onMapReady(): void {
-    alert('Map ready');
+    // alert('Map ready');
     //this.map.setOptions(mapConfig);
   }
 

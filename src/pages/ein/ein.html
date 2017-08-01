@@ -20,6 +20,10 @@
     <ion-option>Arts and Culture</ion-option>
   </ion-select>
 </ion-item>
+<ion-item *ngIf="!!verified">
+  <ion-label>Organization name</ion-label>
+  <ion-input type="text" [(ngModel)]="name"></ion-input>
+</ion-item>
  <button ion-button (click)="verify()">Verify</button>
  <button *ngIf="!!verified" ion-button (click)="submit()">Submit</button>
 </ion-content>

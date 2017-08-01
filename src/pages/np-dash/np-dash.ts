@@ -49,9 +49,9 @@ export class NpDashPage {
     }
   }
 
-  public mousedown() {
+  public mousedown(ev) {
     this.timeoutHandler = setTimeout(() => {
-      this.addEvent();
+      this.addEvent(ev);
     }, 500);
   }  
   
@@ -147,7 +147,10 @@ export class NpDashPage {
         return date < current;
     };
 
-    addEvent() {
+    addEvent(ev: Date) {
+        console.log(ev)
+        console.log(Object.keys(ev).toString())
+        console.log('hiiiiiiiiiiit')
         let myModal = this.ModalController.create(CreateEventPage);
         myModal.onDidDismiss(() => {
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
