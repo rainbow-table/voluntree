@@ -62,6 +62,10 @@ export class EventSelectPage {
       alert('Invalid times');
       return;
     }
+    if  (startCheck < Date.now()) {
+      alert('This event has been archived and can longer accept volunteers!');
+      return;
+    }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
     this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {alert(`${data}`)});
