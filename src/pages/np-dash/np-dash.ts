@@ -65,7 +65,6 @@ export class NpDashPage {
     this.oauthService.getProfile()
         .then(profile => this.profile = profile)
         .then(() => {
-            alert('alert this fist!')
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                 query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description}}`
             }).map(data => {
@@ -74,9 +73,6 @@ export class NpDashPage {
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
                 } else {
-                    let id = data.json().data.ngo[0].id;
-                    this.id = data.json().data.ngo[0].id;    
-                    this.storage.set('id', id);
                     this.description = data.json().data.ngo[0].description;
                     let id = data.json().data.ngo[0].id;
                     this.id = data.json().data.ngo[0].id;
