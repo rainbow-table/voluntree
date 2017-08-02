@@ -118,36 +118,6 @@ export class VolunteerMapSearchPage {
   //     console.log(results.position)
   //   })
 
-let req: GeocoderRequest = {
-  address: '748 Camp St.'
-  // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
-};
-Geocoder.geocode(req).then(((results)=>{ 
-     this.map.clear();
-  if (results.length) {
-    var result = results[0];
-    var position = result.position;
-    // console.log(position);
-  
-    this.map.addMarker({
-      'position': position,
-      'title':  JSON.stringify(result.position)
-    }).then((marker: GoogleMapsMarker) => {
-        this.map.animateCamera({
-        'target': position,
-        'zoom': 17
-      
-      }).then(() =>  {
-        marker.showInfoWindow();
-      });
-
-    });
-  } else {
-    alert("Not found");
-    console.log(results);
-  }
-}))
-
    // create LatLng object
     let ionic: GoogleMapsLatLng = new GoogleMapsLatLng(latLng[0], latLng[1]);
 
@@ -194,6 +164,36 @@ Geocoder.geocode(req).then(((results)=>{
   
     private onMapReady(): void {
 
+      let req: GeocoderRequest = {
+  address: '748 Camp St.'
+  // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
+};
+Geocoder.geocode(req).then(((results)=>{ 
+     this.map.clear();
+  if (results.length) {
+    var result = results[0];
+    var position = result.position;
+    // console.log(position);
+  
+    this.map.addMarker({
+      'position': position,
+      'title':  JSON.stringify(result.position)
+    }).then((marker: GoogleMapsMarker) => {
+        this.map.animateCamera({
+        'target': position,
+        'zoom': 17
+      
+      }).then(() =>  {
+        marker.showInfoWindow();
+      });
+
+    });
+  } else {
+    alert("Not found");
+    console.log(results);
+  }
+}))
+
       
 
   }
@@ -216,20 +216,35 @@ Geocoder.geocode(req).then(((results)=>{
   //   }
   // }
 
-  loadProPublic(){
+
+
+loadProPublic(){
     this.ProPubServiceProvider.load()
     .then(data => {
       this.propublic = data;
     });
   }
   loadNpEvents() {
-  this.GrabNpEventsProvider.load()
-  .then(data => {
-    this.npEvents = data.data.event;
+  this.NpCalProvider.getCalEvents({query: `{event{
+        id
+        ngo_id
+        description
+        event_start
+        event_end
+        event_address
+    }}`
+    })
+  .then(response => {
+    response.event.map((value, i, array) => {
+      let now = new Date();
+      if (new Date(value.event_start) > now) {
+        this.npEvents.push(value);
+      }
+    })
   })
   }
   search() {
-    this.geoAddress = [];
+     this.geoAddress = [];
     this.searched = true;
     this.results = [];
     this.NpCalProvider.getCalEvents({query: `{event{
@@ -244,17 +259,18 @@ Geocoder.geocode(req).then(((results)=>{
         response.event.map((value, i, array) => {
             if (this.finder.toLowerCase() === value.description.toLowerCase()) {
               this.results.push(value);
-              this.geoAddress.push(value.event_address);
+               this.geoAddress.push(value.event_address);
               console.log(this.geoAddress);
             }
             if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
               this.results.push(value);
-              this.geoAddress.push(value.event_address);
+               this.geoAddress.push(value.event_address);
               console.log(this.geoAddress);
             }
         });           
     });
   }
+ 
   editDescription() {
     this.edit = !this.edit
   }
@@ -274,6 +290,10 @@ Geocoder.geocode(req).then(((results)=>{
   }
       openModal(info) {
         let myModal = this.ModalController.create(EventSelectPage, info);
+        myModal.onDidDismiss(() => {
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        })
         myModal.present();
       }
-}    
+}
+ 
