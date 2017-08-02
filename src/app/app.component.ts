@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ManageEventsPage } from '../pages/manage-events/manage-events';
+import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class MyApp {
       { title: 'Nearby Opportunities', component: ListPage },
       { title: 'Non-Profit Dash', component: NpDashPage },
       { title: 'Volunteer Dash', component: VolunteerDashPage },
-      { title: 'Manage Events', component: ManageEventsPage }
+      { title: 'Manage Events', component: ManageEventsPage },
+      { title: 'Non-profit Event Search', component: VolunteerMapSearchPage }
     ];
   }
 
