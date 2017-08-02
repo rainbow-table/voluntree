@@ -1,0 +1,66 @@
+<!--
+  Generated template for the VolunteerMapSearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Search Volunteer Opportunities</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <!-- <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
+  <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
+  <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
+  <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
+  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon> -->
+     <div>
+  </div>
+      <!-- <ion-searchbar> -->
+           <ion-buttons end>
+        <!-- <ion-icon name="md-search"></ion-icon> -->
+       
+        <ion-input type="text" [(ngModel)]="finder" placeholder="Search"></ion-input>
+
+       <button ion-button (click)="search()"><ion-icon name="md-search"></ion-icon></button> 
+       </ion-buttons>
+        <!-- <ion-buttons end> 
+        <ion-input type="text" [(ngModel)]="finder" placeholder="Search"></ion-input> 
+        <button ion-button (click)="search()"><ion-icon name="md-search"></ion-icon></button>
+          </ion-buttons>
+     </ion-searchbar> -->
+<ion-content class="home border">
+  <div style="height: 100%;" id="map_canvas"></div>
+</ion-content>
+<!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
+  <p>{{profile.firstName}} {{profile.lastName}}</p> -->
+<ion-content *ngIf="searched">
+  <ion-label>Search results</ion-label>
+  <ion-list class="border">
+    <ion-item *ngFor="let search of results; let i = index;" (click)="openModal(search)">
+      <h2>{{search.description}}</h2> 
+       <p>{{search.event_address}} 
+        {{search.event_start}}, {{search.event_end}}</p> 
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)">
+      <ion-avatar item-left>
+         <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
+      </ion-avatar>
+       <h2>{{item.description}}</h2> 
+      <p>{{item.event_address}} 
+        {{item.event_start}}, {{item.event_end}}</p>
+    </ion-item>
+  </ion-list>
+    <div>
+      <button class="logout-button" (click)="logout()">Log out</button>
+    </div>  
+</ion-content>
+

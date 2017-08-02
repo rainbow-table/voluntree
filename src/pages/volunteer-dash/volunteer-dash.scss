@@ -15,10 +15,16 @@
       }
       .home {
         height: 70%;
-        // margin-bottom: -10%;
+        margin-bottom: -10%;
         
       }
-  
+  .col-33 {
+  width: 33%;
+  float:left;
+  position: relative;
+  padding: 2%;
+}
+
 
       .propublic {
         // padding-top: 100px;

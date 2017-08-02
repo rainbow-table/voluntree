@@ -26,6 +26,7 @@ import { CreateEventPage } from '../pages/create-event/create-event';
 import { EventSelectPage } from '../pages/event-select/event-select';
 import { EinPage } from '../pages/ein/ein';
 import { IonicStorageModule } from '@ionic/storage';
+import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { IonicStorageModule } from '@ionic/storage';
     CreateEventPage,
     EinPage,
     EventSelectPage,
+    VolunteerMapSearchPage
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { IonicStorageModule } from '@ionic/storage';
     CreateEventPage,
     EinPage,
     EventSelectPage,
+    VolunteerMapSearchPage
   ],
   providers: [
     StatusBar,
