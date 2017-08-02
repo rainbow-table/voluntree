@@ -41,7 +41,7 @@ export class VolunteerDashPage {
   newDescription: string;
   public propublic: any;
   public npAddress: any;
-  public npEvents: any;
+  public npEvents = [];
   public finder: any;
   public results: any;
   public searched: boolean = false;
@@ -65,7 +65,7 @@ export class VolunteerDashPage {
               if (data.json().data.volunteer.length === 0) {
                 this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
                     query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
-                }).map (data => {                
+                }).map (data => {
                 let voluntId = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
 
@@ -198,9 +198,22 @@ export class VolunteerDashPage {
     });
   }
   loadNpEvents() {
-  this.GrabNpEventsProvider.load()
-  .then(data => {
-    this.npEvents = data.data.event;
+  this.NpCalProvider.getCalEvents({query: `{event{
+        id
+        ngo_id
+        description
+        event_start
+        event_end
+        event_address
+    }}`
+    })
+  .then(response => {
+    response.event.map((value, i, array) => {
+      let now = new Date();
+      if (new Date(value.event_start) > now) {
+        this.npEvents.push(value);
+      }
+    })
   })
   }
   search() {
@@ -244,6 +257,9 @@ export class VolunteerDashPage {
   }
       openModal(info) {
         let myModal = this.ModalController.create(EventSelectPage, info);
+        myModal.onDidDismiss(() => {
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        })
         myModal.present();
       }
 }
