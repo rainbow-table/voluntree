@@ -21,13 +21,16 @@ export class ManageEventsPage {
   npevents: any;
   pastEvents: any;
   private http: Http;
+  public id;
+  public type;
 
   constructor(http: Http, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public storage: Storage) {
     this.http = http; 
   }
-  public id;
+
   async ionViewDidLoad() {
-    this.id = await this.storage.get('id');    
+    this.id = await this.storage.get('id'); 
+    this.type = await this.storage.get('type');   
     this.loadNpEvents()
     console.log('ionViewDidLoad ManageEventsPage');
   }
@@ -68,6 +71,7 @@ export class ManageEventsPage {
           let data: any = (dat as any).json()
           past === true ? this.pastEvents[index].vol = [] : this.npevents[index].vol = [];
           data.data.schedule.forEach(obj => {
+            let attended = obj.attended;
             let volunteer = obj.volunteer_id;
             let id = obj.id;
             let start = moment(obj.volunteer_start).format('LLLL');
@@ -79,9 +83,9 @@ export class ManageEventsPage {
                 let name = data.data.volunteer[0].name
                 let description = data.data.volunteer[0].description;
                 if (past === true) {
-                  console.log('...........................true')
-                  this.pastEvents[index].vol.push({volunteer_id: volunteer, volunteer: name, id: id, start: start, end: end, img: img, description: description, event_id: event_id})
-                  console.log(this.pastEvents[index].vol.length)
+                  if (attended === null) {
+                    this.pastEvents[index].vol.push({volunteer_id: volunteer, volunteer: name, id: id, start: start, end: end, img: img, description: description, event_id: event_id})
+                  }
                 } else {
                   this.npevents[index].vol.push({volunteer_id: volunteer, volunteer: name, id: id, start: start, end: end, img: img, description: description, event_id: event_id})
                 }
@@ -112,10 +116,6 @@ export class ManageEventsPage {
         {
           text: 'Remove',
           handler: () => {
-            console.log('...................................')
-            console.log(this.id)
-            console.log(vol.volunteer_id)
-            console.log(vol.event_id)
             this.GrabNpEventsProvider.addEventRemoved(this.id, vol.volunteer_id, vol.event_id)
               .then(() => {
                 this.GrabNpEventsProvider.deleteSchedule(vol.id)
@@ -130,5 +130,59 @@ export class ManageEventsPage {
     alert.present();
   }
 
+  volunteerAttended(vol, event_id, index) {
+    let alert = this.alertCtrl.create({
+      title: 'Attendance',
+      message: 'Did this volunteer attend the event?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('canceled attending popup')
+          }
+        },
+        {
+          text: 'No show',
+          handler: () => {
+            this.GrabNpEventsProvider.updateAttendance(vol.id, false)
+              .then(() => {
+                this.showVolunteers(event_id, index, true)
+              })
+          }
+        },
+        {
+          text: 'Attended',
+          handler: () => {
+            this.GrabNpEventsProvider.updateAttendance(vol.id, true)
+              .then(res => {
+                this.GrabNpEventsProvider.addBadge(vol.volunteer_id, this.type);
+              })
+              .then(() => {
+                this.showVolunteers(event_id, index, true)
+              })
+          }
+        }
+      ]
+    })
+    alert.present()
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

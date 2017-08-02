@@ -63,6 +63,9 @@
         <div style="display:inline-block;width:75%;position:relative">{{vol.description}}</div> 
         <div>{{vol.start}}</div>  
         <div>{{vol.end}}</div>  
+        <ion-avatar item-right>
+          <ion-icon (click)="volunteerAttended(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-checkmark-circle-outline"></ion-icon>
+        </ion-avatar>          
         <br>
       </div>  
       </ion-item>
