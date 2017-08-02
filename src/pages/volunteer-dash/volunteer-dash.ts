@@ -14,6 +14,7 @@ import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { ModalController } from 'ionic-angular';
 import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
+import { VolunteerMapSearchPage } from '../volunteer-map-search/volunteer-map-search';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -88,8 +89,12 @@ export class VolunteerDashPage {
     //   console.error('Error getting location', error);
     // });
     
-    this.loadProPublic();
+    // this.loadProPublic();
   }
+
+      goToVolunteerMapSearchPage(){
+      this.navCtrl.push(VolunteerMapSearchPage);
+    }
 
   logout() {
     this.navCtrl.push(LoginPage)
@@ -99,8 +104,8 @@ export class VolunteerDashPage {
   ionViewDidLoad() {
     // this.initializeMap();
     // this.loadMap();
-    this.loadProPublic();
-    this.loadNpEvents();
+    // this.loadProPublic();
+    // this.loadNpEvents();
   }
 
   // initializeMap() {
@@ -149,13 +154,13 @@ export class VolunteerDashPage {
   // }
 
 
-  ngAfterViewInit() {
-    GoogleMap.isAvailable().then(() => {
+  // ngAfterViewInit() {
+    // GoogleMap.isAvailable().then(() => {
 
-       this.geolocation.getCurrentPosition().then((position) => {
-          //  let latLng = (position.coords.latitude, position.coords.longitude);
+    //    this.geolocation.getCurrentPosition().then((position) => {
+    //       //  let latLng = (position.coords.latitude, position.coords.longitude);
 
-      this.map = new GoogleMap('map_canvas');
+    //   this.map = new GoogleMap('map_canvas');
 
       // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
       //   () => this.onMapReady(),
@@ -169,75 +174,62 @@ export class VolunteerDashPage {
       //   () => alert("Error: GoogleMapsEvent.MAP_READY")
       // );
 
-      this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-        alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
+  //     this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
+  //       alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
 
-        this._zone.run(() => {
-          let myPosition = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude);
-          console.log("My position is", myPosition);
-          this.map.animateCamera({ target: myPosition, zoom: 10 });
-        });
+  //       this._zone.run(() => {
+  //         let myPosition = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude);
+  //         console.log("My position is", myPosition);
+  //         this.map.animateCamera({ target: myPosition, zoom: 10 });
+  //       });
 
-      });
-    });
-      }, (err) => {
-      console.log(err);
-    });
+  //     });
+  //   });
+  //     }, (err) => {
+  //     console.log(err);
+  //   });
 
-  }
+  // }
 
-    private onMapReady(): void {
+    // private onMapReady(): void {
     // alert('Map ready');
     //this.map.setOptions(mapConfig);
-  }
+  // }
 
-  loadProPublic(){
-    this.ProPubServiceProvider.load()
-    .then(data => {
-      this.propublic = data;
-    });
-  }
-  loadNpEvents() {
-  this.NpCalProvider.getCalEvents({query: `{event{
-        id
-        ngo_id
-        description
-        event_start
-        event_end
-        event_address
-    }}`
-    })
-  .then(response => {
-    response.event.map((value, i, array) => {
-      let now = new Date();
-      if (new Date(value.event_start) > now) {
-        this.npEvents.push(value);
-      }
-    })
-  })
-  }
-  search() {
-    this.searched = true;
-    this.results = [];
-    this.NpCalProvider.getCalEvents({query: `{event{
-        id
-        ngo_id
-        description
-        event_start
-        event_end
-        event_address
-    }}`
-    }).then(response => {
-        response.event.map((value, i, array) => {
-            if (this.finder.toLowerCase() === value.description.toLowerCase()) {
-              this.results.push(value);
-            }
-            if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
-              this.results.push(value);
-            }
-        });           
-    });
-  }
+  // loadProPublic(){
+  //   this.ProPubServiceProvider.load()
+  //   .then(data => {
+  //     this.propublic = data;
+  //   });
+  // }
+  // loadNpEvents() {
+  // this.GrabNpEventsProvider.load()
+  // .then(data => {
+  //   this.npEvents = data.data.event;
+  // })
+  // }
+  // search() {
+  //   this.searched = true;
+  //   this.results = [];
+  //   this.NpCalProvider.getCalEvents({query: `{event{
+  //       id
+  //       ngo_id
+  //       description
+  //       event_start
+  //       event_end
+  //       event_address
+  //   }}`
+  //   }).then(response => {
+  //       response.event.map((value, i, array) => {
+  //           if (this.finder.toLowerCase() === value.description.toLowerCase()) {
+  //             this.results.push(value);
+  //           }
+  //           if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
+  //             this.results.push(value);
+  //           }
+  //       });           
+  //   });
+  // }
   editDescription() {
     this.edit = !this.edit
   }
@@ -254,14 +246,10 @@ export class VolunteerDashPage {
 
       })
       .toPromise()
-  }
-      openModal(info) {
-        let myModal = this.ModalController.create(EventSelectPage, info);
-        myModal.onDidDismiss(() => {
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        })
-        myModal.present();
-      }
-}
-
-
+  };
+      // openModal(info) {
+      //   let myModal = this.ModalController.create(EventSelectPage, info);
+      //   myModal.present();
+      // }
+  
+};
