@@ -40,7 +40,7 @@ export class VolunteerDashPage {
   newDescription: string;
   public propublic: any;
   public npAddress: any;
-  public npEvents: any;
+  public npEvents = [];
   public finder: any;
   public results: any;
   public searched: boolean = false;
@@ -137,9 +137,22 @@ export class VolunteerDashPage {
     });
   }
   loadNpEvents() {
-  this.GrabNpEventsProvider.load()
-  .then(data => {
-    this.npEvents = data.data.event;
+  this.NpCalProvider.getCalEvents({query: `{event{
+        id
+        ngo_id
+        description
+        event_start
+        event_end
+        event_address
+    }}`
+    })
+  .then(response => {
+    response.event.map((value, i, array) => {
+      let now = new Date();
+      if (new Date(value.event_start) > now) {
+        this.npEvents.push(value);
+      }
+    })
   })
   }
   search() {
@@ -183,6 +196,9 @@ export class VolunteerDashPage {
   }
       openModal(info) {
         let myModal = this.ModalController.create(EventSelectPage, info);
+        myModal.onDidDismiss(() => {
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        })
         myModal.present();
       }
 }

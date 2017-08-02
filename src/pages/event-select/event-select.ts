@@ -42,7 +42,6 @@ export class EventSelectPage {
   public endTimeOfDay = 'AM';
   public startMinute = '00';
   public endMinute = '00';
-
   public id;
   async ionViewDidLoad() {
     console.log('ionViewDidLoad EventSelectPage');
@@ -69,6 +68,7 @@ export class EventSelectPage {
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
     this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {alert(`${data}`)});
+    this.closeModal();
   }
   findStartHours(time) {
     for (let i = 0; i < time.length; i++) {
