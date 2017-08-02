@@ -74,11 +74,46 @@ export class VolunteerMapSearchPage {
             }).toPromise();
         })
     platform.ready().then(() => {
+       this.loadProPublic();
+
      
         });
 
     
-    this.loadProPublic();
+  
+
+      let req: GeocoderRequest = {
+  address: '1364 Camp St.'
+  // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
+};
+Geocoder.geocode(req).then(((results)=>{ 
+     this.map.clear();
+  if (results.length) {
+    var result = results[0];
+    var position = result.position;
+    // console.log(position);
+  
+    this.map.addMarker({
+      'position': new GoogleMapsLatLng(position.lat, position.lng),
+      'title':  JSON.stringify(result.position)
+    }).then((marker: GoogleMapsMarker) => {
+        this.map.animateCamera({
+        'target': position,
+        'zoom': 17
+      
+      }).then(() =>  {
+        marker.showInfoWindow();
+      });
+
+    });
+  } else {
+    alert("Not found");
+    console.log(results);
+  }
+}))
+
+
+
   }
 
   
@@ -95,6 +130,8 @@ export class VolunteerMapSearchPage {
 
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
+       this.loadProPublic();
+    this.loadNpEvents();
 
       
 
@@ -158,47 +195,10 @@ export class VolunteerMapSearchPage {
       }, (err) => {
       console.log(err);
     });
+  };
+  private onMapReady(): void {
 
-  }
-
-  
-    private onMapReady(): void {
-
-      let req: GeocoderRequest = {
-  address: '748 Camp St.'
-  // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
-};
-Geocoder.geocode(req).then(((results)=>{ 
-     this.map.clear();
-  if (results.length) {
-    var result = results[0];
-    var position = result.position;
-    // console.log(position);
-  
-    this.map.addMarker({
-      'position': position,
-      'title':  JSON.stringify(result.position)
-    }).then((marker: GoogleMapsMarker) => {
-        this.map.animateCamera({
-        'target': position,
-        'zoom': 17
-      
-      }).then(() =>  {
-        marker.showInfoWindow();
-      });
-
-    });
-  } else {
-    alert("Not found");
-    console.log(results);
-  }
-}))
-
-      
-
-  }
-
-  
+  };
 
   //   getMarkers() {
   //   this.http.get('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql?query={event{event_address}}')
@@ -218,7 +218,7 @@ Geocoder.geocode(req).then(((results)=>{
 
 
 
-loadProPublic(){
+  loadProPublic(){
     this.ProPubServiceProvider.load()
     .then(data => {
       this.propublic = data;
@@ -242,9 +242,8 @@ loadProPublic(){
       }
     })
   })
-  }
+  };
   search() {
-     this.geoAddress = [];
     this.searched = true;
     this.results = [];
     this.NpCalProvider.getCalEvents({query: `{event{
@@ -259,18 +258,13 @@ loadProPublic(){
         response.event.map((value, i, array) => {
             if (this.finder.toLowerCase() === value.description.toLowerCase()) {
               this.results.push(value);
-               this.geoAddress.push(value.event_address);
-              console.log(this.geoAddress);
-            }
+            };
             if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
               this.results.push(value);
-               this.geoAddress.push(value.event_address);
-              console.log(this.geoAddress);
-            }
+            };
         });           
     });
-  }
- 
+  };
   editDescription() {
     this.edit = !this.edit
   }
@@ -294,6 +288,5 @@ loadProPublic(){
           this.navCtrl.setRoot(this.navCtrl.getActive().component);
         })
         myModal.present();
-      }
-}
- 
+      };
+};

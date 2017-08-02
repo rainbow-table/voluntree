@@ -29,10 +29,9 @@
   <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
   <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right; margin-right:2em" name="md-create"></ion-icon>
   <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right; margin-right:2em" name="md-create"></ion-icon>
-  <br>  
   <div>
-       <br>
   </div>
+  <br>
       <ion-card>
   <!-- <img src="http://i.imgur.com/myHsaZj.png"/> -->
   <ion-card-content>
@@ -48,12 +47,12 @@ Badges Earned
 <ion-card>
   <img class="col-33" src="http://i.imgur.com/myHsaZj.png"/>
   <ion-card-content>
-    <!-- <ion-card-title>
-
-      </ion-card-title> -->
-     <p>
-     You've Earned An Education Badge!
-    </p> 
+     <ion-card-title>
+You've Earned An Education Badge!
+      </ion-card-title> 
+     <!-- <p style="padding:2%">
+     
+    </p>  -->
   </ion-card-content>
 </ion-card>
 
