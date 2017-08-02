@@ -61,7 +61,7 @@ export class VolunteerDashPage {
         })
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id}}`
+                query: `{volunteer (name: "${this.profile.firstName} ${this.profile.lastName}"){id description}}`
             }).map(data => {
               if (data.json().data.volunteer.length === 0) {
                 this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
@@ -69,11 +69,12 @@ export class VolunteerDashPage {
                 }).map (data => {
                 let voluntId = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
-
+                this.description = data.json().data.volunteer[0].description;
                 }).toPromise();
               } else {
                 let voluntId = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
+                this.description = data.json().data.volunteer[0].description;                
               }
             }).toPromise();
         })
