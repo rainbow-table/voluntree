@@ -97,5 +97,33 @@ export class GrabNpEventsProvider {
     })
   }
 
+  addEventRemoved(ngo, vol, event) { 
+    return new Promise((resolve, reject) => {
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+          query: `mutation {events_removed (ngo_id: ${ngo}, volunteer_id: ${vol}, event_id: ${event}){id}}`
+        })
+        .subscribe(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+    })
+  }
+
+  deleteSchedule(id) { 
+    return new Promise((resolve, reject) => {
+      this.http
+        .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
+          query: `mutation {schedule (action: "delete", id: ${id}) {id}}`
+        })
+        .subscribe(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+    })
+  }
+
 
 }

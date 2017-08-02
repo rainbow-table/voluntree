@@ -15,6 +15,7 @@
 
 <ion-content padding>
     <ion-content>
+    <ion-header>Upcoming Events</ion-header>
      <ion-item *ngFor="let item of npevents; let i = index;">
       <ion-item>
        <ion-avatar item-left>
@@ -29,7 +30,34 @@
       </ion-avatar>
       </ion-item>
       <ion-item *ngIf="npevents[i].vol">
-      <div *ngFor="let vol of npevents[i].vol; let i = index"> 
+      <div *ngFor="let vol of npevents[i].vol; let j = index"> 
+        <div>{{vol.volunteer}}</div>
+        <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
+        <div style="display:inline-block;width:55%;position:relative">{{vol.description}}</div>
+        <div>{{vol.start}}</div>  
+        <div>{{vol.end}}</div>
+        <ion-avatar item-right>
+          <ion-icon (click)="removeVolunteer(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-remove-circle"></ion-icon>
+        </ion-avatar>   
+        <br>
+      </div>  
+      </ion-item>
+    </ion-item>
+    </ion-content>
+
+    <ion-content>
+    <ion-header>Past Events</ion-header>
+     <ion-item *ngFor="let item of pastEvents; let i = index;">
+      <ion-item>
+        <h2>{{item.description}}</h2>
+        <p>{{item.event_address}}</p> 
+      <p>{{item.event_start}} to {{item.event_end}}</p>
+      <ion-avatar item-right>
+        <ion-icon (click)="showVolunteers(item.id, i, true)" style="font-size: 30px;" name="md-cog"></ion-icon>
+      </ion-avatar>
+      </ion-item>
+      <ion-item *ngIf="pastEvents[i].vol">
+      <div *ngFor="let vol of pastEvents[i].vol; let i = index"> 
         <div>{{vol.volunteer}}</div>
         <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
         <div style="display:inline-block;width:75%;position:relative">{{vol.description}}</div> 
