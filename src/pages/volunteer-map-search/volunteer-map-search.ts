@@ -86,7 +86,8 @@ export class VolunteerMapSearchPage {
   address: '1364 Camp St.'
   // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
 };
-Geocoder.geocode(req).then(((results)=>{ 
+Geocoder.geocode(req).then((results)=>{ 
+  alert(`${results}`)
      this.map.clear();
   if (results.length) {
     var result = results[0];
@@ -110,8 +111,7 @@ Geocoder.geocode(req).then(((results)=>{
     alert("Not found");
     console.log(results);
   }
-}))
-
+});
 
 
   }
