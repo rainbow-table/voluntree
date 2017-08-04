@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-title>ein</ion-title>
+</ion-header>
+
+
+<ion-content padding>
+ <div>This is your first time logging in, please verify your identity with your EIN</div>
+ <ion-item>
+  <ion-label>EIN</ion-label>
+  <ion-input type="text" [(ngModel)]="ein"></ion-input>
+ </ion-item>
+ <ion-item *ngIf="!!verified">
+  <ion-label>Organization type</ion-label>
+  <ion-select [(ngModel)]="type">
+    <ion-option>Animal</ion-option>
+    <ion-option>Environmental</ion-option>
+    <ion-option>International</ion-option>
+    <ion-option>Health</ion-option>
+    <ion-option>Education</ion-option>
+    <ion-option>Arts and Culture</ion-option>
+    <ion-option>Religious</ion-option>
+  </ion-select>
+</ion-item>
+<ion-item *ngIf="!!verified">
+  <ion-label>Organization name</ion-label>
+  <ion-input type="text" [(ngModel)]="name"></ion-input>
+</ion-item>
+ <button *ngIf="!verified" ion-button (click)="verify()">Verify</button>
+ <button *ngIf="!!verified" ion-button (click)="submit()">Submit</button>
+</ion-content>

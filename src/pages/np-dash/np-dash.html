@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="!!profile">{{name}} Home</ion-title>
+    <ion-buttons end>
+      <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br>Events</button>
+      <ion-icon style="font-size: 40px; margin-right: 10px;"name="md-clipboard"></ion-icon>
+    </ion-buttons>    
+  </ion-navbar>   
+</ion-header>
+
+<ion-content padding>
+  <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
+  <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
+  <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
+  <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
+  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
+  <ion-content>
+  <ion-navbar color="primary">  
+    <ion-title>{{viewTitle}}</ion-title>
+    <ion-buttons end>
+      <button ion-button [disabled]="isToday" (click)="today()">Today</button>
+      <button ion-button (click)="changeMode('month')">M</button>
+      <button ion-button (click)="changeMode('week')">W</button>
+      <button ion-button (click)="changeMode('day')">D</button>
+    </ion-buttons> 
+  </ion-navbar>
+
+  <calendar 
+            [eventSource]="eventSource"  
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onCurrentDateChanged)="selectDate($event)"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+            (dblclick)="addEvent($event)"
+            (mousedown)="mousedown($event)" 
+            (mouseup)="mouseup()" 
+            (mouseleave)="mouseup()"
+            step="30">
+  </calendar>
+  </ion-content>
+  <div>
+    <button class="logout-button" (click)="logout()">Log out</button>
+  </div>
+</ion-content>
