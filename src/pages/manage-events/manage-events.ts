@@ -49,6 +49,8 @@ export class ManageEventsPage {
           this.pastEvents = [];
           let now = new Date();
           response.event.forEach(event => {
+            event.start = moment(event.event_start).format('LLLL');
+            event.end = moment(event.event_end).format('LLLL');
             if (new Date(event.event_end) > now) {
               this.npevents.push(event)
             } else {
