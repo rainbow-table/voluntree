@@ -60,7 +60,19 @@
   ![img](https://www.google.com/images/branding/product/2x/maps_96in128dp.png)
   
 ## Database Schema
+
 ![img](http://i.imgur.com/yjBL6D6.png)
+
+## Logos and Badges
+
+![img](https://files.slack.com/files-pri/T02P3HQD6-F6JCQ0Z9R/launch.png)
+![img](https://image.ibb.co/gGyoCF/religion.png)
+![img](https://image.ibb.co/fXuH6a/arts.png)
+![img](https://image.ibb.co/bRX4ma/education.png)
+![img](https://image.ibb.co/bx4BXF/health.png)
+![img](https://image.ibb.co/jhiARa/international.png)
+![img](https://image.ibb.co/evgx6a/environmental.png)
+![img](https://image.ibb.co/igX4ma/animal.png)
 
 ### Installing Dependencies
 
