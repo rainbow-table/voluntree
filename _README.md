@@ -55,6 +55,8 @@
   ![img](http://i.imgur.com/7I5dTJ6.png)
   ![img](http://blog.emirosmanoski.mk/images/2016-07-16-Jasmine-Karma/frontHeader.png)
   ![img](http://farm2.static.flickr.com/1333/1416054260_b519838f38_o.png)
+  ![img](https://camo.githubusercontent.com/431283cc1643d02167aac31067137897507c60fc/687474703a2f2f636861696a732e636f6d2f696d672f636861692d6c6f676f2e706e67)
+  ![img](https://www.google.com/images/branding/product/2x/maps_96in128dp.png)
   
 ## Development
 
