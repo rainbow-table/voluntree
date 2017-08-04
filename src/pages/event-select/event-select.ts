@@ -79,6 +79,15 @@ export class EventSelectPage {
         }
       ]
     });
+    let successAlert = this.AlertController.create({
+      title: 'Success',
+      message: 'You\'ve been signed up!',
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    })
     let volunteerStarting = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.begin.toString()}:${this.startMinute} ${this.beginTimeOfDay}`;
     let volunteerEnding = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.finish.toString()}:${this.endMinute} ${this.endTimeOfDay}`;
     let startCheck = new Date(volunteerStarting).getTime();
@@ -93,7 +102,7 @@ export class EventSelectPage {
     }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
-    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {});
+    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {successAlert.present()});
     this.closeModal();
   }
   findStartHours(time) {
