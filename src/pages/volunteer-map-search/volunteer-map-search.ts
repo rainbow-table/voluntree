@@ -9,20 +9,20 @@ import { ViewController, NavController, Platform, NavParams } from 'ionic-angula
 import { ProPubServiceProvider } from '../../providers/pro-pub-service/pro-pub-service';
 import { Geolocation, Coordinates } from '@ionic-native/geolocation';
 import {GoogleMap, GoogleMapsMarker, GoogleMapsEvent, CameraPosition, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
-// import { GetNpAddressrProvider } from '../../providers/get-np-addressr/get-np-addressr';
 import { GrabNpEventsProvider } from '../../providers/grab-np-events/grab-np-events';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { ModalController } from 'ionic-angular';
 import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import * as moment from 'moment';
 
 /**
- * Generated class for the VolunteerMapSearchPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+* Generated class for the VolunteerMapSearchPage page.
+*
+* See http://ionicframework.com/docs/components/#navigation for more info
+* on Ionic pages and navigation.
+*/
 
 @Component({
   selector: 'page-volunteer-map-search',
@@ -130,68 +130,37 @@ Geocoder.geocode(req).then(((results)=>{
 
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
-       this.loadProPublic();
-    this.loadNpEvents();
-
-      
-
-       this.geolocation.getCurrentPosition().then((position) => {
-          let latLng = [position.coords.latitude, position.coords.longitude];
-
-      this.map = new GoogleMap('map_canvas');
-
-
-      this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-        // alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
-
-        this._zone.run(() => {
-      let myPosition = new GoogleMapsLatLng(latLng[0], latLng[1]);
-          // console.log("My position is", myPosition);
-          
-          this.map.animateCamera({ target: myPosition, zoom: 10 });
-
-  //  let req: GeocoderRequest = { address: "748 Camp St" }
-  //   Geocoder.geocode(req).then((results)=>{
-  //     console.log(results.position)
-  //   })
-
-   // create LatLng object
-    let ionic: GoogleMapsLatLng = new GoogleMapsLatLng(latLng[0], latLng[1]);
-
-    // create CameraPosition
-    let position: CameraPosition = {
-      target: ionic,
-      zoom: 18,
-      tilt: 30
-    };
-
-    // move the map's camera to position
-    this.map.moveCamera(position);
-
-    // create new marker
-    let markerOptions: GoogleMapsMarkerOptions = {
-      position: ionic,
-      title: 'You are here'
-    };
-
-    this.map.addMarker(markerOptions)
-      .then((marker: GoogleMapsMarker) => {
-        marker.showInfoWindow();
-      });
-  
-    
-
-
-          
-          this.map.one(GoogleMapsEvent.MARKER_CLICK).then(() => {
-                // do something with marker
-      });
-
-
+      this.geolocation.getCurrentPosition().then((position) => {
+        let latLng = [position.coords.latitude, position.coords.longitude];
+        this.map = new GoogleMap('map_canvas');
+        this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
+          this._zone.run(() => {
+            let myPosition = new GoogleMapsLatLng(latLng[0], latLng[1]);
+            this.map.animateCamera({ target: myPosition, zoom: 10 });
+            let ionic: GoogleMapsLatLng = new GoogleMapsLatLng(latLng[0], latLng[1]);
+            // create CameraPosition
+            let position: CameraPosition = {
+              target: ionic,
+              zoom: 18,
+              tilt: 30
+            };
+            // move the map's camera to position
+            this.map.moveCamera(position);
+            // create new marker
+            let markerOptions: GoogleMapsMarkerOptions = {
+              position: ionic,
+              title: 'You are here'
+            };
+            this.map.addMarker(markerOptions)
+              .then((marker: GoogleMapsMarker) => {
+                marker.showInfoWindow();
+            });
+            this.map.one(GoogleMapsEvent.MARKER_CLICK).then(() => {
+              // do something with marker
+            });
+          });
         });
-
-      });
-    });
+        });
       }, (err) => {
       console.log(err);
     });
@@ -235,7 +204,10 @@ Geocoder.geocode(req).then(((results)=>{
     }}`
     })
   .then(response => {
-    response.event.map((value, i, array) => {
+    response.event.map(async (value, i, array) => {
+      value.start = moment(value.event_start).format('LLLL');
+      value.end = moment(value.event_end).format('LLLL');
+      value.ngo = await this.loadNgos(value.ngo_id);
       let now = new Date();
       if (new Date(value.event_start) > now) {
         this.npEvents.push(value);
@@ -255,7 +227,10 @@ Geocoder.geocode(req).then(((results)=>{
         event_address
     }}`
     }).then(response => {
-        response.event.map((value, i, array) => {
+        response.event.map(async (value, i, array) => {
+          value.start = moment(value.event_start).format('LLLL');
+          value.end = moment(value.event_end).format('LLLL');
+          value.ngo = await this.loadNgos(value.ngo_id);
             if (this.finder.toLowerCase() === value.description.toLowerCase()) {
               this.results.push(value);
             };
@@ -294,4 +269,11 @@ Geocoder.geocode(req).then(((results)=>{
         })
         myModal.present();
       };
+      loadNgos(id) {
+      return this.NpCalProvider.getCalEvents({query: `{ngo(id: ${id}){
+            username
+          }}`}).then(data => {
+            return data.ngo[0];
+          });
+    }
 };

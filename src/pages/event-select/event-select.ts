@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
 import * as moment from 'moment';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { Storage } from '@ionic/storage';
@@ -30,7 +30,7 @@ export class EventSelectPage {
   public end = moment(this.endTime).format('LLLL');
   public location = this.navParams.get('event_address');
   public eventId = this.navParams.get('id');
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage, public AlertController: AlertController) {
   }
   public startRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   public endRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -43,31 +43,81 @@ export class EventSelectPage {
   public startMinute = '00';
   public endMinute = '00';
   public id;
+  public check;
   async ionViewDidLoad() {
     console.log('ionViewDidLoad EventSelectPage');
     this.id = await this.storage.get('voluntId')
     this.findStartHours(this.start);
     this.findEndHours(this.end);
+    this.checkValid();
   }
   closeModal() {
     this.ViewController.dismiss();
   }
   volunteer() {
+    let timeAlert = this.AlertController.create({
+      title: 'Selection Error',
+      message: 'You have selected an invalid start or end time.',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancelled');
+          }
+        }
+      ]
+    });
+    let archiveAlert = this.AlertController.create({
+      title: 'Selection Error',
+      message: 'You have selected an event that has already occured.',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancelled');
+          }
+        }
+      ]
+    });
+    let successAlert = this.AlertController.create({
+      title: 'Success',
+      message: 'You\'ve been signed up!',
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    })
+    let checkAlert = this.AlertController.create({
+      title: 'Voluntree',
+      message: 'You\'ve already signed up for this event.',
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    })
     let volunteerStarting = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.begin.toString()}:${this.startMinute} ${this.beginTimeOfDay}`;
     let volunteerEnding = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.finish.toString()}:${this.endMinute} ${this.endTimeOfDay}`;
     let startCheck = new Date(volunteerStarting).getTime();
     let endCheck = new Date(volunteerEnding).getTime();
     if (startCheck >= endCheck) {
-      alert('Invalid times');
+      timeAlert.present();
       return;
     }
     if  (startCheck < Date.now()) {
-      alert('This event has been archived and can longer accept volunteers!');
+      archiveAlert.present();
       return;
     }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
-    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {alert(`${data}`)});
+    if (this.check.length) {
+      checkAlert.present();
+      return;
+    }
+    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {successAlert.present()});
     this.closeModal();
   }
   findStartHours(time) {
@@ -87,6 +137,11 @@ export class EventSelectPage {
         return;
       }
     }
+  }
+  checkValid() {
+    this.NpCalProvider.getCalEvents({query: `{schedule(volunteer_id: ${this.id}, event_id: ${this.eventId}){volunteer_id}}`})
+    .then(res => {this.check = res.schedule.map(val => val)});
+    
   }
 
 }

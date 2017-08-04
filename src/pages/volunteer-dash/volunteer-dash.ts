@@ -15,6 +15,7 @@ import { ModalController } from 'ionic-angular';
 import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../volunteer-map-search/volunteer-map-search';
+import * as moment from 'moment';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -46,6 +47,8 @@ export class VolunteerDashPage {
   public finder: any;
   public results: any;
   public searched: boolean = false;
+  public id;
+  public notifications = [];
 
   // @ViewChild('map') mapElement: ElementRef;
   // map: any;
@@ -68,29 +71,24 @@ export class VolunteerDashPage {
                     query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
                 }).map (data => {
                 let voluntId = data.json().data.volunteer[0].id;
+                this.id = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
                 this.description = data.json().data.volunteer[0].description;
+                this.loadNotice();
                 }).toPromise();
               } else {
                 let voluntId = data.json().data.volunteer[0].id;
+                this.id = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
-                this.description = data.json().data.volunteer[0].description;                
+                this.description = data.json().data.volunteer[0].description;
+                this.loadNotice();               
               }
             }).toPromise();
         })
     platform.ready().then(() => {
-        // this.initializeMap();
-            // this.loadMap();
         });
 
   
-    // geolocation.getCurrentPosition().then((pos) => {
-    //   this.coords = pos.coords;
-    // }).catch((error) => {
-    //   console.error('Error getting location', error);
-    // });
-    
-    // this.loadProPublic();
   }
 
       goToVolunteerMapSearchPage(){
@@ -103,134 +101,9 @@ export class VolunteerDashPage {
   }  
 
   ionViewDidLoad() {
-    // this.initializeMap();
-    // this.loadMap();
-    // this.loadProPublic();
-    // this.loadNpEvents();
+    
   }
 
-  // initializeMap() {
- 
-  //   this.platform.ready().then(() => {
-  //       var minZoomLevel = 12;
- 
-  //       // this.map = new google.maps.Map(document.getElementById('map_canvas'), {
-  //       //     zoom: minZoomLevel,
-  //       //     center: new google.maps.LatLng(38.50, -90.50),
-  //       //     mapTypeId: google.maps.MapTypeId.ROADMAP
-  //       // });
-  //   });
-// } 
-
-  // loadMap(){
-  //   this.geolocation.getCurrentPosition().then((position) => {
-  //     let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-  //     let mapOptions = {
-  //       center: latLng,
-  //       zoom: 12,
-  //       mapTypeId: google.maps.MapTypeId.ROADMAP
-  //     }
-  //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-  //   }, (err) => {
-  //     console.error(err);
-  //   });
-  // }
-
-  // addInfoWindow(marker, content){
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: content
-  //   });
-   
-    // google.maps.event.addListener(marker, 'click', () => {
-    //   infoWindow.open(this.map, marker);
-    // });
-  // }
-
-  // findAddressofNp(){
-  //   this.GetNpAddressrProvider.load()
-  //   .then(data => {
-  //     this.npAddress = data;
-  //     console.log(this.npAddress.address);
-  //   });
-  // }
-
-
-  // ngAfterViewInit() {
-    // GoogleMap.isAvailable().then(() => {
-
-    //    this.geolocation.getCurrentPosition().then((position) => {
-    //       //  let latLng = (position.coords.latitude, position.coords.longitude);
-
-    //   this.map = new GoogleMap('map_canvas');
-
-      // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
-      //   () => this.onMapReady(),
-      //   () => alert("Error: onMapReady")
-      // );
-
-      // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
-      //   (data: any) => {
-      //     alert("GoogleMap.onMapReady(): ");
-      //   },
-      //   () => alert("Error: GoogleMapsEvent.MAP_READY")
-      // );
-
-  //     this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-  //       alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
-
-  //       this._zone.run(() => {
-  //         let myPosition = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude);
-  //         console.log("My position is", myPosition);
-  //         this.map.animateCamera({ target: myPosition, zoom: 10 });
-  //       });
-
-  //     });
-  //   });
-  //     }, (err) => {
-  //     console.log(err);
-  //   });
-
-  // }
-
-    // private onMapReady(): void {
-    // alert('Map ready');
-    //this.map.setOptions(mapConfig);
-  // }
-
-  // loadProPublic(){
-  //   this.ProPubServiceProvider.load()
-  //   .then(data => {
-  //     this.propublic = data;
-  //   });
-  // }
-  // loadNpEvents() {
-  // this.GrabNpEventsProvider.load()
-  // .then(data => {
-  //   this.npEvents = data.data.event;
-  // })
-  // }
-  // search() {
-  //   this.searched = true;
-  //   this.results = [];
-  //   this.NpCalProvider.getCalEvents({query: `{event{
-  //       id
-  //       ngo_id
-  //       description
-  //       event_start
-  //       event_end
-  //       event_address
-  //   }}`
-  //   }).then(response => {
-  //       response.event.map((value, i, array) => {
-  //           if (this.finder.toLowerCase() === value.description.toLowerCase()) {
-  //             this.results.push(value);
-  //           }
-  //           if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
-  //             this.results.push(value);
-  //           }
-  //       });           
-  //   });
-  // }
   editDescription() {
     this.edit = !this.edit
   }
@@ -248,9 +121,39 @@ export class VolunteerDashPage {
       })
       .toPromise()
   };
-      // openModal(info) {
-      //   let myModal = this.ModalController.create(EventSelectPage, info);
-      //   myModal.present();
-      // }
-  
+    loadNotice() {
+      this.NpCalProvider.getCalEvents({query: `{events_removed(volunteer_id: ${this.id}){
+        event_id
+        ngo_id
+        volunteer_id
+        id
+      }}`}).then(response => {
+        response.events_removed.map(async (value, i, array) => {
+          value.ngo = await this.loadNgos(value.ngo_id);
+          value.event = await this.loadEventsforNotices(value.event_id, value.ngo_id);
+          this.notifications.push(value);
+        })
+      });
+    }
+    loadNgos(id) {
+      return this.NpCalProvider.getCalEvents({query: `{ngo(id: ${id}){
+            username
+          }}`}).then(data => {
+            return data.ngo[0];
+          });
+    }
+    loadEventsforNotices(eventId, ngoId) {
+      return this.NpCalProvider.getCalEvents({query: `{event(id: ${eventId}, ngo_id: ${ngoId}){
+            description
+            event_address
+            event_start
+          }}`}).then(res => {
+            res.event[0].time = moment(res.event[0].event_start).format('LLLL');
+            return res.event[0];
+          })
+    }
+    deleteNotice(removeId) {
+      this.NpCalProvider.getCalEvents({query: `mutation{events_removed(action: "delete", id: ${removeId}){id}}`})
+      .then(remove => {this.navCtrl.setRoot(this.navCtrl.getActive().component);});
+    }
 };

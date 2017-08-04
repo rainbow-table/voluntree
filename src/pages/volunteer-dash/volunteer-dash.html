@@ -31,6 +31,18 @@
   <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right; margin-right:2em" name="md-create"></ion-icon>
   <div>
   </div>
+  <div *ngIf="notifications.length">
+  <ion-list>
+    <ion-item class="border" *ngFor="let notification of notifications; let i = index;" text-wrap>
+      <ion-avatar item-left>
+            <ion-icon (click)="deleteNotice(notification.id)" style="font-size: 30px;" name="md-close-circle"></ion-icon>
+      </ion-avatar> 
+      <h1>Notice!</h1>
+      <h2>We're sorry to inform you that you have been removed from {{notification.event.description}} beginning at {{notification.event.time}} by {{notification.ngo.username}}.
+      {{notification.ngo.username}} apologizes for any inconvenience.</h2>
+    </ion-item >
+  </ion-list>
+  </div>
   <br>
       <ion-card>
   <!-- <img src="http://i.imgur.com/myHsaZj.png"/> -->

@@ -19,9 +19,9 @@ export class NpCalProvider {
     public newEvent;
 
   getCalEvents(body: Object): Promise<any>{ 
-     if (this.events) {
-      return Promise.resolve(this.events);
-    }
+    //  if (this.events) {
+    //   return Promise.resolve(this.events);
+    // }
   return new Promise(resolve => {
     this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql/', body)
     .map(res => res.json())
