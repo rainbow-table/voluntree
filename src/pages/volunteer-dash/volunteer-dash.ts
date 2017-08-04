@@ -16,6 +16,7 @@ import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../volunteer-map-search/volunteer-map-search';
 import * as moment from 'moment';
+import { GrabBadgesProvider } from '../../providers/grab-badges/grab-badges';
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -29,7 +30,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'page-volunteer-dash',
   templateUrl: 'volunteer-dash.html',
-  providers: [ OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider]
+  providers: [ OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider, GrabBadgesProvider]
 })
 export class VolunteerDashPage {
   private oauthService: OAuthService;
@@ -47,14 +48,15 @@ export class VolunteerDashPage {
   public finder: any;
   public results: any;
   public searched: boolean = false;
+  public badgeSrc;
+  public badgeName;
+  public ids;
   public id;
   public notifications = [];
-
-  // @ViewChild('map') mapElement: ElementRef;
-  // map: any;
-  // coords:any;
-
-  constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
+  public badgeNameArray = ['', 'Religious', 'Arts and Culture', 'Education', 'Health', 'International', 'Environmental', 'Animal'];
+  public badgeSrcArray = ['', 'https://image.ibb.co/gGyoCF/religion.png', 'https://image.ibb.co/fXuH6a/arts.png', 'https://image.ibb.co/bRX4ma/education.png', 'https://image.ibb.co/bx4BXF/health.png', 'https://image.ibb.co/jhiARa/international.png', 'https://image.ibb.co/evgx6a/environmental.png', 'https://image.ibb.co/igX4ma/animal.png'];
+  constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage, public GrabBadgesProvider: GrabBadgesProvider) {
+    
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -80,33 +82,55 @@ export class VolunteerDashPage {
                 let voluntId = data.json().data.volunteer[0].id;
                 this.id = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
-                this.description = data.json().data.volunteer[0].description;
-                this.loadNotice();               
+                this.description = data.json().data.volunteer[0].description; 
+                this.loadNotice(); 
+                  this.GrabBadgesProvider.grabBadgeById(voluntId)
+                  .then(data => {
+                    alert(`${Object.keys(data)}`)
+                  this.ids = data.badges_volunteer.map(function(el) {
+                    // alert(`${el}`);
+                    return el.badgeId;
+                  });
+                  // this.ids.push(data.badges_volunteer);
+                  alert(`${this.ids[0]}`);
+                  // badgeSrc.push(el.badgeId;
+                    // for (let i = 0; i < this.ids; i++) {
+                      // this.badgeNameArray[this.ids[i]];
+                      // this.badgeSrcArray[this.ids[i]];
+                        // alert(`${this.badgeNameArray[this.ids[i]]}`);
+                        // alert(`${this.badgeSrcArray[this.ids[i]]}`);
+                    // }
+
+                });
+
               }
             }).toPromise();
         })
     platform.ready().then(() => {
-        });
 
-  
+        });
   }
 
-      goToVolunteerMapSearchPage(){
+  //  loadBadges(id) {
+  //      this.GrabBadgesProvider.grabBadgebyId(id)
+  //      .then(data => {
+  //     this.propublic = data;
+  //   });
+  //   }
+
+    goToVolunteerMapSearchPage(){
       this.navCtrl.push(VolunteerMapSearchPage);
     }
 
-  logout() {
-    this.navCtrl.push(LoginPage)
-    .then(() => this.navCtrl.remove(this.viewCtrl.index))
-  }  
+    logout() {
+      this.navCtrl.push(LoginPage)
+      .then(() => this.navCtrl.remove(this.viewCtrl.index))
+    }; 
 
-  ionViewDidLoad() {
-    
-  }
+    editDescription() {
+      this.edit = !this.edit
+    }
 
-  editDescription() {
-    this.edit = !this.edit
-  }
   submitDescription() {
     this.http
       .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {

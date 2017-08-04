@@ -1,5 +1,6 @@
 // http://ionicframework.com/docs/v2/theming/
-
+// @import "../pages/home/home";
+// @import "../components/loading-modal/loading-modal";
 
 // App Global Sass
 // --------------------------------------------------
@@ -23,3 +24,5 @@ ion-page.NpDashPage{
 ion-page.NpDashPage > ion-content{
   background-color: transparent;
 }
+
+

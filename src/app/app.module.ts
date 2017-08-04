@@ -27,8 +27,8 @@ import { EventSelectPage } from '../pages/event-select/event-select';
 import { EinPage } from '../pages/ein/ein';
 import { IonicStorageModule } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
+import { GrabBadgesProvider } from '../providers/grab-badges/grab-badges';
 import {AutocompletePage} from '../pages/autocomplete/autocomplete';
-
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import {AutocompletePage} from '../pages/autocomplete/autocomplete';
     IonicStorageModule.forRoot(),
     OAuthModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -83,6 +83,7 @@ import {AutocompletePage} from '../pages/autocomplete/autocomplete';
     GetNpAddressrProvider,
     GrabNpEventsProvider,
     NpCalProvider,
+    GrabBadgesProvider,
   ]
 })
 export class AppModule {}
