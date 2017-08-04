@@ -5,10 +5,7 @@
     <author email="tournetorres@gmail.com" href="https://github.com/rainbow-table/volunteer">Rainbow Table</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-navigation href="http://*/*" />
-    <allow-navigation href="http://ionic.local/*" />
-    <access origin="http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql" />
-    <access origin="http://*.propublica.org" />
+    <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -87,7 +84,7 @@
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="cordova-plugin-googlemaps" spec="^1.4.3">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAT2Lemk0SoFJ68vCrxPHrWnDopvwUt0Ng" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDU6szZid8qf0rcQdLgnYWg17VS0czDRTA" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" />
     <plugin name="cordova-plugin-nativegeocoder" spec="^1.0.2" />
