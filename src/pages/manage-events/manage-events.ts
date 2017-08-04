@@ -67,7 +67,8 @@ export class ManageEventsPage {
   }
 
   showVolunteers(event_id, index, past) {
-    if ((!this.npevents[index].vol && !past) || (!this.pastEvents[index].vol && past)) {
+    console.log('hit first')
+    if ((!past && !this.npevents[index].vol) || (past && !this.pastEvents[index].vol)) {
       this.GrabNpEventsProvider.grabVolunteers(event_id)
         .then(dat => {
           let data: any = (dat as any).json()
@@ -95,6 +96,7 @@ export class ManageEventsPage {
           })
         })
       } else {
+        console.log('hit')
         if (past === true) {
           this.pastEvents[index].vol = null;
         } else {

@@ -142,9 +142,6 @@ export class GrabNpEventsProvider {
   addBadge(vol, type) {
     let types = ['', 'Religious', 'Arts and Culture', 'Education', 'Health', 'International', 'Environmental', 'Animal']
     let typeid = types.indexOf(type);
-    console.log('...................')
-    console.log(vol)
-    console.log(typeid)
     return new Promise((resolve, reject) => {
       this.http
         .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
