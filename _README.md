@@ -38,7 +38,6 @@
 - AWS ec2
 - express 4.15.3
 - Google Maps API
-- Google Calendar API
 - propublica API
 - passport 0.3.2
 - Karma
@@ -54,6 +53,7 @@
   ![img](http://i.imgur.com/cLffpWj.png)
   ![img](http://i.imgur.com/eVMI7sR.png)
   ![img](http://i.imgur.com/7I5dTJ6.png)
+  ![img](http://blog.emirosmanoski.mk/images/2016-07-16-Jasmine-Karma/frontHeader.png)
   
 ## Development
 
