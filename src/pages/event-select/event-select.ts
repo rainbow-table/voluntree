@@ -43,11 +43,13 @@ export class EventSelectPage {
   public startMinute = '00';
   public endMinute = '00';
   public id;
+  public check;
   async ionViewDidLoad() {
     console.log('ionViewDidLoad EventSelectPage');
     this.id = await this.storage.get('voluntId')
     this.findStartHours(this.start);
     this.findEndHours(this.end);
+    this.checkValid();
   }
   closeModal() {
     this.ViewController.dismiss();
@@ -88,6 +90,15 @@ export class EventSelectPage {
         }
       ]
     })
+    let checkAlert = this.AlertController.create({
+      title: 'Voluntree',
+      message: 'You\'ve already signed up for this event.',
+      buttons: [
+        {
+          text: 'OK',
+        }
+      ]
+    })
     let volunteerStarting = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.begin.toString()}:${this.startMinute} ${this.beginTimeOfDay}`;
     let volunteerEnding = `${this.eventStartMonth} ${this.eventStartDay} ${this.eventStartYear} ${this.finish.toString()}:${this.endMinute} ${this.endTimeOfDay}`;
     let startCheck = new Date(volunteerStarting).getTime();
@@ -102,6 +113,10 @@ export class EventSelectPage {
     }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
+    if (this.check.length) {
+      checkAlert.present();
+      return;
+    }
     this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {successAlert.present()});
     this.closeModal();
   }
@@ -122,6 +137,11 @@ export class EventSelectPage {
         return;
       }
     }
+  }
+  checkValid() {
+    this.NpCalProvider.getCalEvents({query: `{schedule(volunteer_id: ${this.id}, event_id: ${this.eventId}){volunteer_id}}`})
+    .then(res => {this.check = res.schedule.map(val => val)});
+    
   }
 
 }

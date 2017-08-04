@@ -15,6 +15,7 @@ import { ModalController } from 'ionic-angular';
 import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import * as moment from 'moment';
 
 /**
 * Generated class for the VolunteerMapSearchPage page.
@@ -203,7 +204,10 @@ Geocoder.geocode(req).then(((results)=>{
     }}`
     })
   .then(response => {
-    response.event.map((value, i, array) => {
+    response.event.map(async (value, i, array) => {
+      value.start = moment(value.event_start).format('LLLL');
+      value.end = moment(value.event_end).format('LLLL');
+      value.ngo = await this.loadNgos(value.ngo_id);
       let now = new Date();
       if (new Date(value.event_start) > now) {
         this.npEvents.push(value);
@@ -223,7 +227,10 @@ Geocoder.geocode(req).then(((results)=>{
         event_address
     }}`
     }).then(response => {
-        response.event.map((value, i, array) => {
+        response.event.map(async (value, i, array) => {
+          value.start = moment(value.event_start).format('LLLL');
+          value.end = moment(value.event_end).format('LLLL');
+          value.ngo = await this.loadNgos(value.ngo_id);
             if (this.finder.toLowerCase() === value.description.toLowerCase()) {
               this.results.push(value);
             };
@@ -257,4 +264,11 @@ Geocoder.geocode(req).then(((results)=>{
         })
         myModal.present();
       };
+      loadNgos(id) {
+      return this.NpCalProvider.getCalEvents({query: `{ngo(id: ${id}){
+            username
+          }}`}).then(data => {
+            return data.ngo[0];
+          });
+    }
 };
