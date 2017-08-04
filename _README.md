@@ -24,7 +24,7 @@
   Volunteers will be provided with volunteering opportunities in their locale. Non-profits will be able to post those oppotunities.
 
   ![img](http://i67.tinypic.com/2wfnwaa.png)s
-## Requirements
+## Tech Stack
 
 - Node 8.1.4
 - graphQl 0.10.3
@@ -38,11 +38,11 @@
 - AWS ec2
 - express 4.15.3
 - Google Maps API
-- Google Calendar API
 - propublica API
-- passport 0.3.2
+- oauth
 - Karma
 - Jasmine
+- Chai
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
@@ -54,8 +54,25 @@
   ![img](http://i.imgur.com/cLffpWj.png)
   ![img](http://i.imgur.com/eVMI7sR.png)
   ![img](http://i.imgur.com/7I5dTJ6.png)
+  ![img](http://blog.emirosmanoski.mk/images/2016-07-16-Jasmine-Karma/frontHeader.png)
+  ![img](http://farm2.static.flickr.com/1333/1416054260_b519838f38_o.png)
+  ![img](https://camo.githubusercontent.com/431283cc1643d02167aac31067137897507c60fc/687474703a2f2f636861696a732e636f6d2f696d672f636861692d6c6f676f2e706e67)
+  ![img](https://www.google.com/images/branding/product/2x/maps_96in128dp.png)
   
-## Development
+## Database Schema
+
+![img](http://i.imgur.com/yjBL6D6.png)
+
+## Logos and Badges
+
+![img](http://i.imgur.com/DTjGyVI.png)
+![img](https://image.ibb.co/gGyoCF/religion.png)
+![img](https://image.ibb.co/fXuH6a/arts.png)
+![img](https://image.ibb.co/bRX4ma/education.png)
+![img](https://image.ibb.co/bx4BXF/health.png)
+![img](https://image.ibb.co/jhiARa/international.png)
+![img](https://image.ibb.co/evgx6a/environmental.png)
+![img](https://image.ibb.co/igX4ma/animal.png)
 
 ### Installing Dependencies
 
