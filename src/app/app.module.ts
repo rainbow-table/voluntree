@@ -27,6 +27,9 @@ import { EventSelectPage } from '../pages/event-select/event-select';
 import { EinPage } from '../pages/ein/ein';
 import { IonicStorageModule } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
+import { GrabBadgesProvider } from '../providers/grab-badges/grab-badges';
+
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,7 @@ import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-
     IonicStorageModule.forRoot(),
     OAuthModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,6 +82,7 @@ import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-
     GetNpAddressrProvider,
     GrabNpEventsProvider,
     NpCalProvider,
+    GrabBadgesProvider,
   ]
 })
 export class AppModule {}

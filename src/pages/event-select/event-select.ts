@@ -67,7 +67,7 @@ export class EventSelectPage {
     }
     let volunteerStart = new Date(volunteerStarting).toString();
     let volunteerEnd = new Date(volunteerEnding).toString();
-    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {alert(`${data}`)});
+    this.NpCalProvider.postCalEvent({query: `mutation{schedule(event_id: ${this.eventId}, volunteer_id: ${this.id}, volunteer_start: "${volunteerStart}", volunteer_end: "${volunteerEnd}"){id}}`}).then((data) => {});
     this.closeModal();
   }
   findStartHours(time) {

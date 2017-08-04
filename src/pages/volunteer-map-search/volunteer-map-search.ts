@@ -40,7 +40,7 @@ export class VolunteerMapSearchPage {
   newDescription: string;
   public propublic: any;
   public npAddress: any;
-  public npEvents: any;
+  public npEvents = [];
   public finder: any;
   public results: any;
   public searched: boolean = false;
@@ -131,7 +131,7 @@ Geocoder.geocode(req).then((results)=>{
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
        this.loadProPublic();
-    this.loadNpEvents();
+    // this.loadNpEvents();
 
       
 
