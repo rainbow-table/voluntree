@@ -49,6 +49,8 @@ export class ManageEventsPage {
           this.pastEvents = [];
           let now = new Date();
           response.event.forEach(event => {
+            event.start = moment(event.event_start).format('LLLL');
+            event.end = moment(event.event_end).format('LLLL');
             if (new Date(event.event_end) > now) {
               this.npevents.push(event)
             } else {
@@ -65,7 +67,8 @@ export class ManageEventsPage {
   }
 
   showVolunteers(event_id, index, past) {
-    if ((!this.npevents[index].vol && !past) || (!this.pastEvents[index].vol && past)) {
+    console.log('hit first')
+    if ((!past && !this.npevents[index].vol) || (past && !this.pastEvents[index].vol)) {
       this.GrabNpEventsProvider.grabVolunteers(event_id)
         .then(dat => {
           let data: any = (dat as any).json()
@@ -93,6 +96,7 @@ export class ManageEventsPage {
           })
         })
       } else {
+        console.log('hit')
         if (past === true) {
           this.pastEvents[index].vol = null;
         } else {

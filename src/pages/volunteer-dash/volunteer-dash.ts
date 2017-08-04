@@ -15,8 +15,8 @@ import { ModalController } from 'ionic-angular';
 import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../volunteer-map-search/volunteer-map-search';
+import * as moment from 'moment';
 import { GrabBadgesProvider } from '../../providers/grab-badges/grab-badges';
-
 
 /**
  * Generated class for the VolunteerDashPage page.
@@ -51,6 +51,8 @@ export class VolunteerDashPage {
   public badgeSrc;
   public badgeName;
   public ids;
+  public id;
+  public notifications = [];
   public badgeNameArray = ['', 'Religious', 'Arts and Culture', 'Education', 'Health', 'International', 'Environmental', 'Animal'];
   public badgeSrcArray = ['', 'https://image.ibb.co/gGyoCF/religion.png', 'https://image.ibb.co/fXuH6a/arts.png', 'https://image.ibb.co/bRX4ma/education.png', 'https://image.ibb.co/bx4BXF/health.png', 'https://image.ibb.co/jhiARa/international.png', 'https://image.ibb.co/evgx6a/environmental.png', 'https://image.ibb.co/igX4ma/animal.png'];
   constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage, public GrabBadgesProvider: GrabBadgesProvider) {
@@ -71,14 +73,17 @@ export class VolunteerDashPage {
                     query: `mutation {volunteer(name: "${this.profile.firstName} ${this.profile.lastName}", description: "", profile_img: "${this.img}") {id name}}`
                 }).map (data => {
                 let voluntId = data.json().data.volunteer[0].id;
+                this.id = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
                 this.description = data.json().data.volunteer[0].description;
+                this.loadNotice();
                 }).toPromise();
               } else {
                 let voluntId = data.json().data.volunteer[0].id;
+                this.id = data.json().data.volunteer[0].id;
                 this.storage.set('voluntId', voluntId);
                 this.description = data.json().data.volunteer[0].description; 
-
+                this.loadNotice(); 
                   this.GrabBadgesProvider.grabBadgeById(voluntId)
                   .then(data => {
                     alert(`${Object.keys(data)}`)
@@ -125,6 +130,7 @@ export class VolunteerDashPage {
     editDescription() {
       this.edit = !this.edit
     }
+
   submitDescription() {
     this.http
       .post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
@@ -139,6 +145,39 @@ export class VolunteerDashPage {
       })
       .toPromise()
   };
-
-  
+    loadNotice() {
+      this.NpCalProvider.getCalEvents({query: `{events_removed(volunteer_id: ${this.id}){
+        event_id
+        ngo_id
+        volunteer_id
+        id
+      }}`}).then(response => {
+        response.events_removed.map(async (value, i, array) => {
+          value.ngo = await this.loadNgos(value.ngo_id);
+          value.event = await this.loadEventsforNotices(value.event_id, value.ngo_id);
+          this.notifications.push(value);
+        })
+      });
+    }
+    loadNgos(id) {
+      return this.NpCalProvider.getCalEvents({query: `{ngo(id: ${id}){
+            username
+          }}`}).then(data => {
+            return data.ngo[0];
+          });
+    }
+    loadEventsforNotices(eventId, ngoId) {
+      return this.NpCalProvider.getCalEvents({query: `{event(id: ${eventId}, ngo_id: ${ngoId}){
+            description
+            event_address
+            event_start
+          }}`}).then(res => {
+            res.event[0].time = moment(res.event[0].event_start).format('LLLL');
+            return res.event[0];
+          })
+    }
+    deleteNotice(removeId) {
+      this.NpCalProvider.getCalEvents({query: `mutation{events_removed(action: "delete", id: ${removeId}){id}}`})
+      .then(remove => {this.navCtrl.setRoot(this.navCtrl.getActive().component);});
+    }
 };

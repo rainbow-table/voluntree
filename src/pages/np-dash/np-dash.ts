@@ -98,7 +98,8 @@ export class NpDashPage {
     isToday: boolean;
     calendar = {
         mode: 'month',
-        currentDate: new Date()
+        currentDate: new Date(),
+        formatDayHeader: 'E',
     }; // these are the variable used by the calendar.
     loadEvents() {
         this.NpCalProvider.getCalEvents({query: `{event(ngo_id: ${this.id}){

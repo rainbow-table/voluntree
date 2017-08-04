@@ -33,30 +33,33 @@
         <button ion-button (click)="search()"><ion-icon name="md-search"></ion-icon></button>
           </ion-buttons>
      </ion-searchbar> -->
-<ion-content class="home border">
+ <ion-content class="home border">
   <div style="height: 100%;" id="map_canvas"></div>
-</ion-content>
+</ion-content> 
 <!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
   <p>{{profile.firstName}} {{profile.lastName}}</p> -->
 <ion-content *ngIf="searched">
   <ion-label>Search results</ion-label>
   <ion-list class="border">
-    <ion-item *ngFor="let search of results; let i = index;" (click)="openModal(search)">
+    <ion-item *ngFor="let search of results; let i = index;" (click)="openModal(search)" text-wrap>
+      <h2>{{search.ngo.username}}</h2>
       <h2>{{search.description}}</h2> 
        <p>{{search.event_address}} 
-        {{search.event_start}}, {{search.event_end}}</p> 
+        {{search.start}}, {{search.end}}</p> 
     </ion-item>
   </ion-list>
 </ion-content>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)">
+    <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)" text-wrap>
       <ion-avatar item-left>
-         <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png"> 
+         <!-- <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  -->
+          <ion-icon style="font-size: 30px;" name="md-leaf"></ion-icon>
       </ion-avatar>
+        <h2>{{item.ngo.username}}</h2>
        <h2>{{item.description}}</h2> 
       <p>{{item.event_address}} 
-        {{item.event_start}}, {{item.event_end}}</p>
+        {{item.start}}, {{item.end}}</p>
     </ion-item>
   </ion-list>
     <div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, AlertController } from 'ionic-angular';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { NpDashPage } from '../np-dash/np-dash';
 import { Storage } from '@ionic/storage';
@@ -20,7 +20,7 @@ import { AutocompletePage } from '../autocomplete/autocomplete';
 })
 export class CreateEventPage {
 
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage, public AlertController: AlertController) {
     this.address = {
       place: ''
     };
@@ -124,13 +124,63 @@ async ionViewDidLoad() {
     }
     
     postNewEvent() {
-      console.log('hey')
+      let cityAlert = this.AlertController.create({
+        title: 'City Required',
+        message: 'Your event is nowhere. Please add a place.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            handler: () => {
+              console.log('cancelled');
+            }
+          }
+        ]
+      });
+      let overAlert = this.AlertController.create({
+        title: 'Invalid Event Times',
+        message: 'Your event is over before it begins. Please select a different start or end time.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            handler: () => {
+              console.log('cancelled');
+            }
+          }
+        ]
+      });
+      let elapsedAlert = this.AlertController.create({
+        title: 'Invalid Event',
+        message: 'There\'s no going back. Please select a different start time.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            handler: () => {
+              console.log('cancelled');
+            }
+          }
+        ]
+      });
+      let nameAlert = this.AlertController.create({
+        title: 'Event Name Require',
+        message: 'Your event has no name. Please add one.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+            handler: () => {
+
+            }
+          }
+        ]
+      });
       if (!this.id) {
-        alert('there is no id. try again.');
         return;
       }
       if (this.address.place < 0) {
-        alert('Your event is nowhere. Please add a place');
+        cityAlert.present();
         return;
       }
       this.event.location = this.address.place;
@@ -142,19 +192,19 @@ async ionViewDidLoad() {
       let endInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
       let startDate = new Date(startInfo);
       let endDate = new Date(endInfo);
-      if (endDate.getTime() < startDate.getTime()) {
-        alert('Your event is over before it begins. Please select a different start or end time.');
+      if (endDate.getTime() <= startDate.getTime()) {
+        overAlert.present();
         return;
       }
       if (startDate.getTime() < Date.now()) {
-        alert('There\'s no going back. Please select a different start time.')
+        elapsedAlert.present();
         return;
       }
       let start = startDate.toString();
       let end = endDate.toString();
       let description = this.event.description;
       if (description.length < 1) {
-        alert('Your event has no name. Please add one.');
+        nameAlert.present();
         return;
       }
       let location = this.event.location;
