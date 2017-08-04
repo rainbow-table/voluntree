@@ -40,7 +40,7 @@ export class VolunteerMapSearchPage {
   newDescription: string;
   public propublic: any;
   public npAddress: any;
-  public npEvents: any;
+  public npEvents = [];
   public finder: any;
   public results: any;
   public searched: boolean = false;
@@ -262,6 +262,9 @@ Geocoder.geocode(req).then(((results)=>{
             if (value.description.toLowerCase().includes(this.finder.toLowerCase())) {
               this.results.push(value);
             };
+            if (value.event_address.toLowerCase().includes(this.finder.toLowerCase())) {
+              this.results.push(value);
+            }
         });           
     });
   };
@@ -285,7 +288,9 @@ Geocoder.geocode(req).then(((results)=>{
       openModal(info) {
         let myModal = this.ModalController.create(EventSelectPage, info);
         myModal.onDidDismiss(() => {
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          this.results = [];
+          this.finder = '';
+          // this.navCtrl.setRoot(this.navCtrl.getActive().component);
         })
         myModal.present();
       };
