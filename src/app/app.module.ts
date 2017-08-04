@@ -27,13 +27,8 @@ import { EventSelectPage } from '../pages/event-select/event-select';
 import { EinPage } from '../pages/ein/ein';
 import { IonicStorageModule } from '@ionic/storage';
 import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
-<<<<<<< HEAD
 import { GrabBadgesProvider } from '../providers/grab-badges/grab-badges';
-
-=======
 import {AutocompletePage} from '../pages/autocomplete/autocomplete';
->>>>>>> 970215e87758019a97288da80aab4615b4638010
-
 
 @NgModule({
   declarations: [

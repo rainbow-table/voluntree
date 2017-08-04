@@ -13,13 +13,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ManageEventsPage } from '../pages/manage-events/manage-events';
 import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
-<<<<<<< HEAD
 import { LoadingController } from 'ionic-angular';
-
-=======
 import {AutocompletePage} from '../pages/autocomplete/autocomplete';
 import {CreateEventPage} from '../pages/create-event/create-event';
->>>>>>> 970215e87758019a97288da80aab4615b4638010
 @Component({
   templateUrl: 'app.html'
 })

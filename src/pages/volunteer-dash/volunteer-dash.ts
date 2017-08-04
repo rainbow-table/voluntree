@@ -52,7 +52,7 @@ export class VolunteerDashPage {
   public badgeName;
   public ids;
   public badgeNameArray = ['', 'Religious', 'Arts and Culture', 'Education', 'Health', 'International', 'Environmental', 'Animal'];
-  public badgeSrcArray = ['', 'http://i.imgur.com/8aiTD8Pm.png', 'http://i.imgur.com/bOxoXlzm.png', 'http://i.imgur.com/myHsaZjm.png', 'http://i.imgur.com/d04Yz1rm.png', 'http://i.imgur.com/QAY8NOJm.png', 'http://i.imgur.com/OnKiTAhm.png', 'http://i.imgur.com/wGVysRPm.png'];
+  public badgeSrcArray = ['', 'https://image.ibb.co/gGyoCF/religion.png', 'https://image.ibb.co/fXuH6a/arts.png', 'https://image.ibb.co/bRX4ma/education.png', 'https://image.ibb.co/bx4BXF/health.png', 'https://image.ibb.co/jhiARa/international.png', 'https://image.ibb.co/evgx6a/environmental.png', 'https://image.ibb.co/igX4ma/animal.png'];
   constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage, public GrabBadgesProvider: GrabBadgesProvider) {
     
     this.oauthService = oauthService;
@@ -89,12 +89,12 @@ export class VolunteerDashPage {
                   // this.ids.push(data.badges_volunteer);
                   alert(`${this.ids[0]}`);
                   // badgeSrc.push(el.badgeId;
-                    for (let i = 0; i < this.ids; i++) {
+                    // for (let i = 0; i < this.ids; i++) {
                       // this.badgeNameArray[this.ids[i]];
                       // this.badgeSrcArray[this.ids[i]];
-                        alert(`${this.badgeNameArray[this.ids[i]]}`);
-                        alert(`${this.badgeSrcArray[this.ids[i]]}`);
-                    }
+                        // alert(`${this.badgeNameArray[this.ids[i]]}`);
+                        // alert(`${this.badgeSrcArray[this.ids[i]]}`);
+                    // }
 
                 });
 
