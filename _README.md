@@ -42,6 +42,7 @@
 - oauth
 - Karma
 - Jasmine
+- Chai
 
 
   ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
