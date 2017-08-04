@@ -65,7 +65,7 @@
 
 ## Logos and Badges
 
-![img](https://files.slack.com/files-pri/T02P3HQD6-F6JCQ0Z9R/launch.png)
+![img](http://i.imgur.com/DTjGyVI.png)
 ![img](https://image.ibb.co/gGyoCF/religion.png)
 ![img](https://image.ibb.co/fXuH6a/arts.png)
 ![img](https://image.ibb.co/bRX4ma/education.png)
