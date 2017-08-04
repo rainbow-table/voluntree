@@ -16,6 +16,7 @@ import { EventSelectPage } from '../event-select/event-select';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 /**
 * Generated class for the VolunteerMapSearchPage page.
@@ -27,7 +28,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'page-volunteer-map-search',
   templateUrl: 'volunteer-map-search.html',
-  providers: [ OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider]
+  providers: [ NativeGeocoder, OAuthService, ProPubServiceProvider, Geolocation, GrabNpEventsProvider, NpCalProvider]
 })
 export class VolunteerMapSearchPage {
   private oauthService: OAuthService;
@@ -47,7 +48,7 @@ export class VolunteerMapSearchPage {
   public geoAddress = [];
 
 
-  constructor(private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
+  constructor(private nativeGeocoder: NativeGeocoder, private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.oauthService = oauthService;
     this.http = http;    
     oauthService.getProfile()
@@ -82,35 +83,35 @@ export class VolunteerMapSearchPage {
     
   
 
-      let req: GeocoderRequest = {
-  address: '1364 Camp St.'
-  // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
-};
-Geocoder.geocode(req).then(((results)=>{ 
-     this.map.clear();
-  if (results.length) {
-    var result = results[0];
-    var position = result.position;
-    // console.log(position);
+//       let req: GeocoderRequest = {
+//   address: '1364 Camp St.'
+//   // `${this.NpCalProvider.getCalEvents({query: `{event{event_address}}`})}`
+// };
+// Geocoder.geocode(req).then(((results)=>{ 
+//      this.map.clear();
+//   if (results.length) {
+//     var result = results[0];
+//     var position = result.position;
+//     // console.log(position);
   
-    this.map.addMarker({
-      'position': new GoogleMapsLatLng(position.lat, position.lng),
-      'title':  JSON.stringify(result.position)
-    }).then((marker: GoogleMapsMarker) => {
-        this.map.animateCamera({
-        'target': position,
-        'zoom': 17
+//     this.map.addMarker({
+//       'position': new GoogleMapsLatLng(position.lat, position.lng),
+//       'title':  JSON.stringify(result.position)
+//     }).then((marker: GoogleMapsMarker) => {
+//         this.map.animateCamera({
+//         'target': position,
+//         'zoom': 17
       
-      }).then(() =>  {
-        marker.showInfoWindow();
-      });
+//       }).then(() =>  {
+//         marker.showInfoWindow();
+//       });
 
-    });
-  } else {
-    alert("Not found");
-    console.log(results);
-  }
-}))
+//     });
+//   } else {
+//     alert("Not found");
+//     console.log(results);
+//   }
+// }))
 
 
 
@@ -131,6 +132,13 @@ Geocoder.geocode(req).then(((results)=>{
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
       this.geolocation.getCurrentPosition().then((position) => {
+        this.geoAddress.map((el) => {
+          this.nativeGeocoder.forwardGeocode(el)
+  .then((coordinates: NativeGeocoderForwardResult) => alert('The coordinates are latitude=' + coordinates.latitude + ' and longitude=' + coordinates.longitude))
+  .catch((error: any) => alert(`${error}`));
+              return el;
+        })
+
         let latLng = [position.coords.latitude, position.coords.longitude];
         this.map = new GoogleMap('map_canvas');
         this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
@@ -211,8 +219,10 @@ Geocoder.geocode(req).then(((results)=>{
       let now = new Date();
       if (new Date(value.event_start) > now) {
         this.npEvents.push(value);
+        this.geoAddress.push(value.event_address);
       }
     })
+    
   })
   };
   search() {

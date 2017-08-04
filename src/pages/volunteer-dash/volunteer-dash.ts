@@ -86,13 +86,13 @@ export class VolunteerDashPage {
                 this.loadNotice(); 
                   this.GrabBadgesProvider.grabBadgeById(voluntId)
                   .then(data => {
-                    alert(`${Object.keys(data)}`)
+                    // alert(`${Object.keys(data)}`)
                   this.ids = data.badges_volunteer.map(function(el) {
                     // alert(`${el}`);
                     return el.badgeId;
                   });
                   // this.ids.push(data.badges_volunteer);
-                  alert(`${this.ids[0]}`);
+                  // alert(`${this.ids[0]}`);
                   // badgeSrc.push(el.badgeId;
                     // for (let i = 0; i < this.ids; i++) {
                       // this.badgeNameArray[this.ids[i]];
