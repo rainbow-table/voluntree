@@ -19,24 +19,13 @@
     <ion-label>Event Name</ion-label>
     <ion-input type="text" [(ngModel)]="event.description"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>Street Address</ion-label>
-    <ion-input type="text" [(ngModel)]="streetAddress"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>City</ion-label>
-    <ion-input type="text" [(ngModel)]="city"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>State</ion-label>
-    <ion-select [(ngModel)]="state">
-      <ion-option *ngFor="let eventState of allStates">{{eventState}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>Zip Code</ion-label>
-    <ion-input type="text" [(ngModel)]="zipCode"></ion-input>
-  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <ion-input tappable (click)="showAddressModal()" [(ngModel)]="address.place" type="text" placeholder="Pick an address">{{address.place}}</ion-input>
+    </ion-item>
+  </ion-list>
+
   <ion-item>
     <ion-label>Month</ion-label>
     <ion-select [(ngModel)]="event.start.month" [(ngModel)]="month" (ionChange)="getDays()">
@@ -67,24 +56,7 @@
       <ion-option *ngFor="let startTimeOfDay of timesOfDay" [value]="startTimeOfDay">{{startTimeOfDay}}</ion-option>
     </ion-select>
   </ion-item>
-<!--   <ion-item>
-    <ion-label>End Month</ion-label>
-    <ion-select [(ngModel)]="event.end.month" [(ngModel)]="month" (ionChange)="getDays()">
-      <ion-option *ngFor="let endMonth of allMonths" [value]="endMonth">{{endMonth}}</ion-option>
-    </ion-select>
-  </ion-item>
-   <ion-item>
-     <ion-label>End Day</ion-label>
-    <ion-select [(ngModel)]="event.end.day" [(ngModel)]="day">
-      <ion-option *ngFor="let endDay of allDays" [value]="endDay">{{endDay}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>End Year</ion-label>
-    <ion-select [(ngModel)]="event.end.year">
-      <ion-option *ngFor="let endYear of allYears" [value]="endYear">{{endYear}}</ion-option>
-    </ion-select>
-  </ion-item> -->
+
    <ion-item>
     <ion-label>End Time</ion-label>
     <ion-select [(ngModel)]="event.end.hour">
