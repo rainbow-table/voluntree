@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { NpCalProvider } from '../../providers/np-cal/np-cal';
 import { NpDashPage } from '../np-dash/np-dash';
 import { Storage } from '@ionic/storage';
+import { AutocompletePage } from '../autocomplete/autocomplete';
+
 // import * as moment from 'moment';
 /**
  * Generated class for the CreateEventPage page.
@@ -18,25 +20,31 @@ import { Storage } from '@ionic/storage';
 })
 export class CreateEventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
+  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public ViewController: ViewController, public NpCalProvider: NpCalProvider, public storage: Storage) {
+    this.address = {
+      place: ''
+    };
   }
+  public address;
+  public date;
   public allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
   public allStates = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   public event = {
     description: '',
+
     start: {
-      month: this.allMonths[new Date().getMonth()],
-      day: new Date().getDate().toString(),
-      year: new Date().getFullYear(),
+      month: this.allMonths[new Date(this.date).getMonth()],
+      day: new Date(this.date).getDate().toString(),
+      year: new Date(this.date).getFullYear(),
       hour: '8',
       minute: '00',
       timeOfDay: 'AM'
     },
     end: {
-      month: this.allMonths[new Date().getMonth()],
-      day: new Date().getDate().toString(),
-      year: new Date().getFullYear(),
+      // month: this.allMonths[new Date().getMonth()],
+      // day: new Date().getDate().toString(),
+      // year: new Date().getFullYear(),
       hour: '9',
       minute: '00',
       timeOfDay: 'AM'
@@ -66,6 +74,22 @@ async ionViewDidLoad() {
     this.getDays();
     this.getYears();
   this.id = await this.storage.get('id');
+  this.date = await this.storage.get('selected')
+  this.address.place = await this.storage.get('address')
+  this.event.start.month = this.allMonths[new Date(this.date).getMonth()]
+  this.event.start.day = new Date(this.date).getDate().toString()
+  this.event.start.year = new Date(this.date).getFullYear()
+  }
+
+  showAddressModal() {
+    console.log('hit')
+    let modal = this.modalCtrl.create(AutocompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      me.address.place = data;
+    });
+    modal.present();
+    console.log('hit again')
   }
 
   getDays() {
@@ -100,37 +124,20 @@ async ionViewDidLoad() {
     }
     
     postNewEvent() {
+      console.log('hey')
       if (!this.id) {
         alert('there is no id. try again.');
         return;
-      } else {
-        // alert(`this is id: ${this.id}`);
       }
-      if (this.streetAddress.length < 0) {
-        alert('Your event is nowhere. Please add a street address.');
+      if (this.address.place < 0) {
+        alert('Your event is nowhere. Please add a place');
         return;
       }
-      if (this.city.length < 0) {
-        alert('Your event is nowhere. Please add a city.');
-        return;
-      }
-      if (this.zipCode.length < 5) {
-        alert('Your zipcode is invalid. Please enter a valid zipcode.');
-        return;
-      }
-      if (this.state.length < 2) {
-        alert('Please select a state.');
-        return;
-      }
-      this.event.location = this.streetAddress + " " + this.city + ', ' + this.state + " " + this.zipCode;
+      this.event.location = this.address.place;
       let myStartMonth = (this.allMonths.indexOf(this.event.start.month) + 1).toString();
       if (myStartMonth.length < 2) {
         myStartMonth = '0' + myStartMonth;
       }
-      // let myEndMonth = (this.allMonths.indexOf(this.event.end.month) + 1).toString();
-      // if (myEndMonth.length < 2) {
-      //   myEndMonth = '0' + myEndMonth;
-      // }
       let startInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.start.hour + ":" + this.event.start.minute + " " + this.event.start.timeOfDay);
       let endInfo = this.event.start.year.toString() +'/' + myStartMonth + '/' + this.event.start.day + " " + (this.event.end.hour + ":" + this.event.end.minute + " " + this.event.end.timeOfDay);
       let startDate = new Date(startInfo);
@@ -151,6 +158,11 @@ async ionViewDidLoad() {
         return;
       }
       let location = this.event.location;
+      console.log(start)
+      console.log(end)
+      console.log(description)
+      console.log(location)
+      console.log(this.id)
       this.NpCalProvider.postCalEvent({query: `mutation{event(event_start: "${start}", event_end: "${end}", description: "${description}", event_address: "${location}", ngo_id: ${this.id}){
         event_start
         event_end

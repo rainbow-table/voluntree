@@ -13,8 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ManageEventsPage } from '../pages/manage-events/manage-events';
 import { VolunteerMapSearchPage } from '../pages/volunteer-map-search/volunteer-map-search';
-
-
+import {AutocompletePage} from '../pages/autocomplete/autocomplete';
+import {CreateEventPage} from '../pages/create-event/create-event';
 @Component({
   templateUrl: 'app.html'
 })
@@ -35,11 +35,13 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Nearby Opportunities', component: ListPage },
-      { title: 'Non-Profit Dash', component: NpDashPage },
-      { title: 'Volunteer Dash', component: VolunteerDashPage },
-      { title: 'Manage Events', component: ManageEventsPage },
-      { title: 'Non-profit Event Search', component: VolunteerMapSearchPage }
+      {title: 'auto', component: AutocompletePage},
+      {title: 'create', component: CreateEventPage}
+      // { title: 'Nearby Opportunities', component: ListPage },
+      // { title: 'Non-Profit Dash', component: NpDashPage },
+      // { title: 'Volunteer Dash', component: VolunteerDashPage },
+      // { title: 'Manage Events', component: ManageEventsPage },
+      // { title: 'Non-profit Event Search', component: VolunteerMapSearchPage }
     ];
   }
 

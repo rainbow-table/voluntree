@@ -34,6 +34,7 @@ export class NpDashPage {
     description: string; 
     edit: any;
     newDescription: string;
+    name: string;
   constructor(private viewCtrl: ViewController, http: Http, public navCtrl: NavController, public navParams: NavParams, public NgCalendarModule: NgCalendarModule, oauthService: OAuthService, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
     this.http = http;
     this.oauthService = oauthService;
@@ -66,18 +67,20 @@ export class NpDashPage {
         .then(profile => this.profile = profile)
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
-                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description, type}}`
+                query: `{ngo (name: "${this.profile.firstName} ${this.profile.lastName}"){id, description, type, username, ngo_address}}`
             }).map(data => {
                 if (data.json().data.ngo.length === 0) {
                     this.navCtrl
                     .push(EinPage)
                     .then(() => this.navCtrl.remove(this.viewCtrl.index))
                 } else {
+                    this.name = data.json().data.ngo[0].username;
                     this.description = data.json().data.ngo[0].description;
                     let id = data.json().data.ngo[0].id;
                     this.id = data.json().data.ngo[0].id;
                     this.storage.set('type', data.json().data.ngo[0].type)
                     this.storage.set('id', id);
+                    this.storage.set('address', data.json().data.ngo[0].ngo_address)
                     this.loadEvents();
                 }
             }).map(() => {
@@ -149,9 +152,6 @@ export class NpDashPage {
     };
 
     addEvent(ev: Date) {
-        console.log(ev)
-        console.log(Object.keys(ev).toString())
-        console.log('hiiiiiiiiiiit')
         let myModal = this.ModalController.create(CreateEventPage);
         myModal.onDidDismiss(() => {
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
@@ -175,6 +175,10 @@ export class NpDashPage {
 
         })
         .toPromise()
+    }
+
+    selectDate(e) {
+      this.storage.set('selected', e);
     }
 
 }

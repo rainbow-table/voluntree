@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="!!profile">{{profile.firstName}} {{profile.lastName}} Home</ion-title>
+    <ion-title *ngIf="!!profile">{{name}} Home</ion-title>
     <ion-buttons end>
       <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br>Events</button>
       <ion-icon style="font-size: 40px; margin-right: 10px;"name="md-clipboard"></ion-icon>
@@ -30,6 +30,7 @@
             [calendarMode]="calendar.mode"
             [currentDate]="calendar.currentDate"
             (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onCurrentDateChanged)="selectDate($event)"
             (onEventSelected)="onEventSelected($event)"
             (onTitleChanged)="onViewTitleChanged($event)"
             (onTimeSelected)="onTimeSelected($event)"
