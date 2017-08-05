@@ -11,6 +11,7 @@
       <button ion-fab (click)="goToVolunteerMapSearchPage()"><ion-icon name="search"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
+  
   <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
   <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
   <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>

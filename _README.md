@@ -45,19 +45,21 @@
 - Chai
 
 
-  ![img](https://modernizehq.com/assets/images/logos/express-logo.png)
-  ![img](http://i.imgur.com/HGVMcvI.jpg)
-  ![img](http://i.imgur.com/xRyRSzZ.png)
-  ![img](http://i.imgur.com/IbTUTeV.png)
-  ![img](http://i.imgur.com/8F2dCMu.png)
-  ![img](http://i.imgur.com/8w1TekC.png)
-  ![img](http://i.imgur.com/cLffpWj.png)
-  ![img](http://i.imgur.com/eVMI7sR.png)
-  ![img](http://i.imgur.com/7I5dTJ6.png)
-  ![img](http://blog.emirosmanoski.mk/images/2016-07-16-Jasmine-Karma/frontHeader.png)
-  ![img](http://farm2.static.flickr.com/1333/1416054260_b519838f38_o.png)
-  ![img](https://camo.githubusercontent.com/431283cc1643d02167aac31067137897507c60fc/687474703a2f2f636861696a732e636f6d2f696d672f636861692d6c6f676f2e706e67)
-  ![img](https://www.google.com/images/branding/product/2x/maps_96in128dp.png)
+  <img src="https://modernizehq.com/assets/images/logos/express-logo.png" width="15%" height="15%" />
+ <img src="http://i.imgur.com/HGVMcvI.jpg" width="15%" height="15%" />
+ <img src="http://i.imgur.com/xRyRSzZ.png" width="12%" height="12%" />
+ <img src="http://i.imgur.com/IbTUTeV.png" width="15%" height="15%" />
+ <img src="http://i.imgur.com/8F2dCMu.png" width="15%" height="15%" />
+ <img src="http://i.imgur.com/8w1TekC.png" width="12%" height="12%" />
+ <img src="http://i.imgur.com/cLffpWj.png" width="15%" height="15%" />
+ <img src="http://i.imgur.com/eVMI7sR.png" width="28%" height="28%" />
+ <img src="http://i.imgur.com/7I5dTJ6.png" width="14%" height="14%" />
+ <img src="http://blog.emirosmanoski.mk/images/2016-07-16-Jasmine-Karma/frontHeader.png" width="33%" height="33%" />
+ <img src="http://farm2.static.flickr.com/1333/1416054260_b519838f38_o.png" width="13%" height="13%" />
+ <img src="https://camo.githubusercontent.com/431283cc1643d02167aac31067137897507c60fc/687474703a2f2f636861696a732e636f6d2f696d672f636861692d6c6f676f2e706e67" width="12%" height="12%" />
+<img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="15%" height="15%" />
+<img src="https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg" width="11%" height="11%" />
+
   
 ## Database Schema
 

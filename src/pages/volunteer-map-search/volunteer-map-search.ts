@@ -46,6 +46,8 @@ export class VolunteerMapSearchPage {
   public results: any;
   public searched: boolean = false;
   public geoAddress = [];
+  public geoCoords = [];
+  public geo;
 
 
   constructor(private nativeGeocoder: NativeGeocoder, private _zone: NgZone, private viewCtrl: ViewController, private geolocation: Geolocation, http: Http, public navCtrl: NavController, public navParams: NavParams, oauthService: OAuthService, public ProPubServiceProvider: ProPubServiceProvider, public platform: Platform, public GrabNpEventsProvider: GrabNpEventsProvider, public NpCalProvider: NpCalProvider, public ModalController: ModalController, public storage: Storage) {
@@ -132,14 +134,17 @@ export class VolunteerMapSearchPage {
   ngAfterViewInit() {
     GoogleMap.isAvailable().then(() => {
       this.geolocation.getCurrentPosition().then((position) => {
-        this.geoAddress.map((el) => {
-          this.nativeGeocoder.forwardGeocode(el)
-  .then((coordinates: NativeGeocoderForwardResult) => alert('The coordinates are latitude=' + coordinates.latitude + ' and longitude=' + coordinates.longitude))
-  .catch((error: any) => alert(`${error}`));
-              return el;
+       this.geoAddress.forEach( async (el) => {
+          await this.nativeGeocoder.forwardGeocode(el)
+    .then((coordinates: NativeGeocoderForwardResult) => {
+      this.geoCoords.push([coordinates.latitude, coordinates.longitude]);
+      // alert('The coordinates are latitude=' + coordinates.latitude + ' and longitude=' + coordinates.longitude),
         })
+    // return el;
+      })
+      alert(`${this.geoCoords[0]}`)
 
-        let latLng = [position.coords.latitude, position.coords.longitude];
+     let latLng = [position.coords.latitude, position.coords.longitude];
         this.map = new GoogleMap('map_canvas');
         this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
           this._zone.run(() => {
@@ -166,13 +171,16 @@ export class VolunteerMapSearchPage {
             this.map.one(GoogleMapsEvent.MARKER_CLICK).then(() => {
               // do something with marker
             });
-          });
-        });
         });
       }, (err) => {
       console.log(err);
     });
+
+    })
+    })
   };
+
+
   private onMapReady(): void {
 
   };
@@ -192,6 +200,7 @@ export class VolunteerMapSearchPage {
   //     eventMarker.setMap(this.map);
   //   }
   // }
+  
 
 
 
