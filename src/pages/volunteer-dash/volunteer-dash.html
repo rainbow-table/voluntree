@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title *ngIf="!!profile">{{this.profile.firstName}} {{this.profile.lastName}} - Voluntree</ion-title>
+  <ion-navbar color="nav">
+    <ion-title color="nav" *ngIf="!!profile">{{this.profile.firstName}} {{this.profile.lastName}}'s Volunteer Dash</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,13 +12,18 @@
     </ion-fab-list>
   </ion-fab>
   
-  <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
-  <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
-  <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
-  <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right; margin-right:2em" name="md-create"></ion-icon>
-  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right; margin-right:2em" name="md-create"></ion-icon>
-  <div>
-  </div>
+ <!-- style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription"> -->
+ <ion-card> 
+   <ion-avatar>
+      <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
+   </ion-avatar>
+ <ion-card-content>
+  <p class="vol_textarea" *ngIf="!edit">{{description}}</p> 
+  <ion-textarea class="vol_textarea" placeholder="Tell us about yousrself. This will only be seen by the non-profits you sign up to help." [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
+  <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"></ion-icon>
+  <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"></ion-icon>
+ </ion-card-content>
+  </ion-card>
   <div *ngIf="notifications.length">
   <ion-list>
     <ion-item class="border" *ngFor="let notification of notifications; let i = index;" text-wrap>

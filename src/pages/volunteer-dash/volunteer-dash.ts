@@ -91,15 +91,6 @@ export class VolunteerDashPage {
                     // alert(`${el}`);
                     return el.badgeId;
                   });
-                  // this.ids.push(data.badges_volunteer);
-                  // alert(`${this.ids[0]}`);
-                  // badgeSrc.push(el.badgeId;
-                    // for (let i = 0; i < this.ids; i++) {
-                      // this.badgeNameArray[this.ids[i]];
-                      // this.badgeSrcArray[this.ids[i]];
-                        // alert(`${this.badgeNameArray[this.ids[i]]}`);
-                        // alert(`${this.badgeSrcArray[this.ids[i]]}`);
-                    // }
 
                 });
 
