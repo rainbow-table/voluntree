@@ -17,6 +17,7 @@ interface IProfileResponse {
 	last_name: string;
 	email: string;
 	picture: object;
+	cover: object;
 }
 
 @Injectable()
@@ -39,7 +40,7 @@ export class FacebookOauthProvider implements IOathProvider {
 	}
 
 	getProfile(accessToken): Promise<OAuthProfile> {
-		let query = `fields=id,picture,first_name,last_name,email&access_token=${accessToken}&format=json`;
+		let query = `fields=id,picture,first_name,last_name,email,cover&access_token=${accessToken}&format=json`;
 		let url = `${this.config.facebook.apiUrl}me?${query}`;
 		return this.http.get(url)
 			.map(x => <IProfileResponse>x.json())
@@ -50,7 +51,8 @@ export class FacebookOauthProvider implements IOathProvider {
 					lastName: x.last_name,
 					email: x.email,
 					photo: x.picture,
-					provider: 'facebook'
+					provider: 'facebook',
+					cover: x.cover,
 				};
 				return profile;
 			})

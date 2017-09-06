@@ -20,10 +20,23 @@
       }
 
       .vol_image {
-        float: left; 
-        // width: 15%;
-        padding: 2%;
+        // float: left; 
+        width: 15%;
+        // padding: 2%;
       }
+
+      ion-card {
+        position: relative;
+        text-align: center;
+    }
+     ion-card-title {
+        position: absolute;
+        top: 25%;
+        font-size: 25px;
+        width: 100%;
+        font-weight: bold;
+        color: #fff !important;
+    }
 
       .vol_textarea {
         float: left;

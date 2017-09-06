@@ -37,6 +37,7 @@ export class VolunteerDashPage {
   profile: OAuthProfile;
   private http: Http;
   img: string;
+  covers: string;
   private map: GoogleMap;
   // map: GoogleMap;
   description: string; 
@@ -61,8 +62,12 @@ export class VolunteerDashPage {
     this.http = http;    
     oauthService.getProfile()
         .then(profile => {
+          // alert(`${JSON.stringify(profile.cover.source)}`);
           this.profile = profile
           this.img = profile.photo.data.url
+          this.covers = profile.cover.source;
+          alert(`${profile.photo.data.url}`)
+          alert(`${this.covers}`);
         })
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
