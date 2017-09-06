@@ -4,4 +4,5 @@ export interface OAuthProfile {
 	lastName: string;
 	email: string;
 	photo: any;
+	cover: any;
 }

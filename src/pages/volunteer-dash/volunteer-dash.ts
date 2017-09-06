@@ -37,6 +37,7 @@ export class VolunteerDashPage {
   profile: OAuthProfile;
   private http: Http;
   img: string;
+  covers: string;
   private map: GoogleMap;
   // map: GoogleMap;
   description: string; 
@@ -61,8 +62,12 @@ export class VolunteerDashPage {
     this.http = http;    
     oauthService.getProfile()
         .then(profile => {
+          // alert(`${JSON.stringify(profile.cover.source)}`);
           this.profile = profile
           this.img = profile.photo.data.url
+          this.covers = profile.cover.source;
+          alert(`${profile.photo.data.url}`)
+          alert(`${this.covers}`);
         })
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
@@ -86,20 +91,11 @@ export class VolunteerDashPage {
                 this.loadNotice(); 
                   this.GrabBadgesProvider.grabBadgeById(voluntId)
                   .then(data => {
-                    alert(`${Object.keys(data)}`)
+                    // alert(`${Object.keys(data)}`)
                   this.ids = data.badges_volunteer.map(function(el) {
                     // alert(`${el}`);
                     return el.badgeId;
                   });
-                  // this.ids.push(data.badges_volunteer);
-                  alert(`${this.ids[0]}`);
-                  // badgeSrc.push(el.badgeId;
-                    // for (let i = 0; i < this.ids; i++) {
-                      // this.badgeNameArray[this.ids[i]];
-                      // this.badgeSrcArray[this.ids[i]];
-                        // alert(`${this.badgeNameArray[this.ids[i]]}`);
-                        // alert(`${this.badgeSrcArray[this.ids[i]]}`);
-                    // }
 
                 });
 
