@@ -6,7 +6,7 @@
 
 
 <ion-content padding>
-    <ion-fab top right edge>
+  <ion-fab top right edge>
     <button ion-fab><ion-icon md="md-map"></ion-icon></button>
     <ion-fab-list>
       <button ion-fab (click)="goToVolunteerMapSearchPage()"><ion-icon name="search"></ion-icon></button>
@@ -16,72 +16,72 @@
 
 
 
-  
- <!-- style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription"> -->
- <ion-card> 
-   <ion-item color="nav" item-start>
-     <!-- <ion-navbar style="width: 100%" color="nav"> -->
-   <ion-avatar>
-      <img class="img-profile" src={{profile.photo.data.url}} *ngIf="!!profile"/>
-   </ion-avatar>
-   <h2 class="card-title">About Me</h2>
-   <p class="card-subtitle">Volunteer Info</p>
-  </ion-item>
-  <img class="item-image" src={{this.covers}} *ngIf="!!profile"/>
-  <!-- </ion-navbar>
+
+  <!-- style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription"> -->
+  <ion-card>
+    <ion-item color="nav">
+      <!-- <ion-navbar style="width: 100%" color="nav"> -->
+      <ion-avatar item-start>
+        <img class="img-profile" src={{profile.photo.data.url}} *ngIf="!!profile" />
+      </ion-avatar>
+      <h1 style="color: white" class="card-title">About Me</h1>
+      <p style="color: black" class="card-subtitle">Volunteer Info</p>
+    </ion-item>
+    <img class="item-image" src={{this.covers}} *ngIf="!!profile" />
+    <!-- </ion-navbar>
   </ion-card-header> -->
 
- <ion-card-content>
-  <p class="card-title" *ngIf="!edit">{{description}}</p> 
-  <ion-textarea class="vol_textarea" placeholder="Tell us about yousrself. This will only be seen by the non-profits you sign up to help." [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
-  <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"> Submit</ion-icon>
-  <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
- </ion-card-content>
+    <ion-card-content>
+      <p class="card-title" *ngIf="!edit">{{description}}</p>
+      <ion-textarea class="vol_textarea" placeholder="Tell us about yousrself. This will only be seen by the non-profits you sign up to help."
+        [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
+      <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"> Submit</ion-icon>
+      <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
+    </ion-card-content>
   </ion-card>
-  <div *ngIf="notifications.length">
-  <ion-list>
-    <ion-item class="border" *ngFor="let notification of notifications; let i = index;" text-wrap>
-      <ion-avatar item-left>
-            <ion-icon (click)="deleteNotice(notification.id)" style="font-size: 30px;" name="md-close-circle"></ion-icon>
-      </ion-avatar> 
-      <h1>Notice!</h1>
-      <h2>We're sorry to inform you that you have been removed from {{notification.event.description}} beginning at {{notification.event.time}} by {{notification.ngo.username}}.
-      {{notification.ngo.username}} apologizes for any inconvenience.</h2>
-    </ion-item >
-  </ion-list>
-  </div>
+  <ion-card *ngIf="notifications.length">
+    <ion-item color="danger" *ngFor="let notification of notifications; let i = index;" text-wrap>
+      <ion-avatar item-start>
+        <ion-icon (click)="deleteNotice(notification.id)" style="font-size: 30px;" name="md-close-circle"></ion-icon>
+      </ion-avatar>
+      <h1 style="color: white" class="card-title">Notice!</h1>
+    </ion-item>
+    <ion-item *ngFor="let notification of notifications; let i = index;" text-wrap>
+    <h2>We're sorry to inform you that you have been removed from <b>{{notification.event.description}}</b> beginning <b>{{notification.event.time}}</b> by <b>{{notification.ngo.username}}</b>.
+      <b>{{notification.ngo.username}}</b> apologizes for any inconvenience.</h2>
+    </ion-item>
+  </ion-card>
   <br>
-      <ion-card>
-  <!-- <img src="http://i.imgur.com/myHsaZj.png"/> -->
-  <ion-card-content>
-    <ion-card-title>
-Badges Earned
+  <ion-card>
+      <ion-card-title>
+        Badges Earned
       </ion-card-title>
-    <!-- <p>
+      <ion-card-content>
+      <!-- <p>
   You've Earned A
     </p> -->
-  </ion-card-content>
-</ion-card>
+    </ion-card-content>
+  </ion-card>
 
-<ion-card *ngFor="let id of ids"> 
+  <ion-card *ngFor="let id of ids">
     <ion-item style="white-space: normal">
-        <ion-avatar>
-          <img class="col-33" [src]="badgeSrcArray[id]">
-        </ion-avatar>
-        <h2 style="white-space: normal">You've earned the {{badgeNameArray[id]}} Badge!</h2>
-        <!-- <p>{{ c.email }}</p> -->
-      </ion-item>
-   <!-- <img class="col-33" *ngSrc="badgeSrcArray[id]" />  -->
-   <!-- <img class="col-33" [src]="badgeSrcArray[id]" />
+      <ion-avatar>
+        <img class="col-33" [src]="badgeSrcArray[id]">
+      </ion-avatar>
+      <h2 style="white-space: normal">You've earned the {{badgeNameArray[id]}} Badge!</h2>
+      <!-- <p>{{ c.email }}</p> -->
+    </ion-item>
+    <!-- <img class="col-33" *ngSrc="badgeSrcArray[id]" />  -->
+    <!-- <img class="col-33" [src]="badgeSrcArray[id]" />
   <ion-card-content>
      <ion-card-title>
  You've earned the {{badgeNameArray[id]}} Badge!
       </ion-card-title>  -->
     <!-- </ion-card-content> -->
   </ion-card>
-    <br>
-    <br>
-    <div>
-      <button class="logout-button" (click)="logout()">Log out</button>
-    </div>  
+  <br>
+  <br>
+  <div>
+    <button class="logout-button" (click)="logout()">Log out</button>
+  </div>
 </ion-content>
