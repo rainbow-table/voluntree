@@ -17,8 +17,99 @@ page-np-dash {
     ion-content {
       background-color: transparent;
     }
+
+  // img {
+  //   border-radius: 100px;
+  // }
+
+  .scroll {
+    height: 100%
+}
+.home {
+  height: 70%;
+  margin-bottom: -10%;
+  
+}
+
+.vol_image {
+  // float: left; 
+  width: 15%;
+  // padding: 2%;
+}
+
+ion-card {
+  position: relative;
+  text-align: center;
+}
+ion-card-title {
+  position: absolute;
+  top: 25%;
+  font-size: 25px;
+  width: 100%;
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.vol_textarea {
+  float: left;
+  padding: 2%;
+  clear: left;
+
+}
+
+.vol_pencil {
+  float: right;
+  padding: 2%;
+  clear: right;
+
+}
+.col-33 {
+width: 33%;
+float:left;
+position: relative;
+padding-left: 2%;
+padding-top: 2%;
+}
+
+.item-image {
+  // max-width: 50%;
+}
+
+
+.propublic {
+  // padding-top: 100px;
+}
+.border {
+  border: solid black 2px;
+}
+.img_profile {
+  border-radius: 100px;
+}
+
+.card-background-page {
+  
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+  
+    .card-title {
+      position: absolute;
+      top: 36%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+  
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 52%;
+      width: 100%;
+      color: #fff;
+    }
   }
-  img {
-    border-radius: 100px;
-  }
+
+} 
 }

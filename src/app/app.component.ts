@@ -52,11 +52,12 @@ export class MyApp {
 
   presentLoadingDefault() {
   let loading = this.loadingCtrl.create({
-     spinner: 'dots',
-    content: 'Loading, please wait...'
+    spinner: 'dots',
   });
 
-  loading.present();
+  setTimeout(() => {
+    loading.present();
+  }, 2000);
 
   setTimeout(() => {
     loading.dismiss();
@@ -79,5 +80,4 @@ export class MyApp {
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
   }
-  
 }

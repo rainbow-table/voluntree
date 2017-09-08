@@ -5,37 +5,30 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
-    <ion-navbar>
-      <ion-title>Search Volunteer Opportunities</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-  
-  <ion-content padding>
-    <!-- <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
+
+  <ion-navbar color="nav">
+    <ion-title>Search Volunteer Opportunities</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <!-- <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
     <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
     <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
     <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
     <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon> -->
-       <div>
-    </div>
-        <!-- <ion-searchbar> -->
-             <ion-buttons end>
-          <!-- <ion-icon name="md-search"></ion-icon> -->
-         
-          <ion-input type="text" [(ngModel)]="finder" placeholder="Search"></ion-input>
-  
-         <button ion-button (click)="search()"><ion-icon name="md-search"></ion-icon></button> 
-         </ion-buttons>
-          <!-- <ion-buttons end> 
-          <ion-input type="text" [(ngModel)]="finder" placeholder="Search"></ion-input> 
-          <button ion-button (click)="search()"><ion-icon name="md-search"></ion-icon></button>
-            </ion-buttons>
-       </ion-searchbar> -->
-   <ion-content class="home border">
-    <div style="height: 100%;" id="map_canvas"></div>
-  </ion-content> 
+  <!-- <div>
+    </div> -->
+  <ion-content class="home border">
+    <div style="height: 100%;width: 90%" id="map_canvas"></div>
+  </ion-content>
+  <ion-card color="nav">
+    <ion-card-title text-center color="white">
+      Search Events
+    </ion-card-title>
+    <ion-searchbar [(ngModel)]="finder" placeholder="Search" (click)="search()"></ion-searchbar>
+  </ion-card>
   <!--   <img src={{profile.photo.data.url}} *ngIf="!!profile"/>
     <p>{{profile.firstName}} {{profile.lastName}}</p> -->
   <ion-content *ngIf="searched">
@@ -43,9 +36,8 @@
     <ion-list class="border">
       <ion-item *ngFor="let search of results; let i = index;" (click)="openModal(search)" text-wrap>
         <h2>{{search.ngo.username}}</h2>
-        <h2>{{search.description}}</h2> 
-         <p>{{search.event_address}} 
-          {{search.start}}, {{search.end}}</p> 
+        <h2>{{search.description}}</h2>
+        <p>{{search.event_address}} {{search.start}}, {{search.end}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
@@ -53,17 +45,15 @@
     <ion-list>
       <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)" text-wrap>
         <ion-avatar item-left>
-           <!-- <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  -->
-            <ion-icon style="font-size: 30px;" name="md-leaf"></ion-icon>
+          <!-- <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  -->
+          <ion-icon style="font-size: 30px;" name="md-leaf"></ion-icon>
         </ion-avatar>
-          <h2>{{item.ngo.username}}</h2>
-         <h2>{{item.description}}</h2> 
-        <p>{{item.event_address}} 
-          {{item.start}}, {{item.end}}</p>
+        <h2>{{item.ngo.username}}</h2>
+        <h2>{{item.description}}</h2>
+        <p>{{item.event_address}} {{item.start}}, {{item.end}}</p>
       </ion-item>
     </ion-list>
-      <div>
-        <button class="logout-button" (click)="logout()">Log out</button>
-      </div>  
+    <div>
+      <button class="logout-button" (click)="logout()">Log out</button>
+    </div>
   </ion-content>
-  

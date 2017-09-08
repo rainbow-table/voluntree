@@ -66,8 +66,8 @@ export class VolunteerDashPage {
           this.profile = profile
           this.img = profile.photo.data.url
           this.covers = profile.cover.source;
-          alert(`${profile.photo.data.url}`)
-          alert(`${this.covers}`);
+          // alert(`${profile.photo.data.url}`)
+          // alert(`${this.covers}`);
         })
         .then(() => {
             this.http.post('http://ec2-13-59-91-202.us-east-2.compute.amazonaws.com:3000/graphql', {
