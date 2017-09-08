@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="nav">
     <ion-title>Create an Event</ion-title>
   </ion-navbar>
 
@@ -71,3 +71,10 @@
   </ion-item>
   <button ion-button type="submit" block (click)="postNewEvent()">submit</button>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar color="nav">
+      <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline>Log out</button>
+    </ion-toolbar>
+  </ion-footer>
+

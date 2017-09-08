@@ -172,7 +172,7 @@ export class NpDashPage {
 
             this.eventSource = response.event.map((value, i, array) => {
                 value.startTime = new Date(value.event_start);
-                alert(`${value.event_start}`)
+                // alert(`${value.event_start}`)
                 value.event_start = null;
                 value.endTime = new Date(value.event_end);
                 value.event_end = null;

@@ -41,7 +41,8 @@
       </ion-item>
     </ion-list>
   </ion-content>
-  <ion-content>
+  <ion-card>
+  <ion-card-content *ngIf="!searched">
     <!-- <ion-list> -->
       <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)" text-wrap>
         <ion-avatar item-left>
@@ -53,8 +54,10 @@
         <p>{{item.event_address}} {{item.start}}, {{item.end}}</p>
       </ion-item>
     <!-- </ion-list> -->
-  </ion-content>
-  <ion-footer>
+  </ion-card-content>
+</ion-card>
+
+  <ion-footer style="position:fixed">
     <ion-toolbar color="nav">
       <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline item-start>Log out</button>
     </ion-toolbar>
