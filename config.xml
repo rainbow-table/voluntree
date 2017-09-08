@@ -3,7 +3,7 @@
     <name>Voluntree</name>
     <description>Be the growth you want to see in the world</description>
     <author email="tournetorres@gmail.com" href="https://github.com/rainbow-table/volunteer">Rainbow Table</author>
-    <content original-src="index.html" src="http://192.168.86.31:8100" />
+    <content original-src="index.html" src="http://172.24.1.222:8100" />
     <access origin="*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="http://ionic.local/*" />

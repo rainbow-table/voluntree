@@ -279,6 +279,9 @@ export class VolunteerMapSearchPage {
       })
   };
   search() {
+    if (!this.finder) {
+      return;
+    }
     this.searched = true;
     this.results = [];
     this.NpCalProvider.getCalEvents({
