@@ -13,14 +13,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding text-wrap>
     <button ion-button block (click)="volunteer()">Volunteer</button>
 
   <ion-item>
-    <h1>Event: {{description}}</h1>
-    <h2>Start: {{start}}</h2>
-    <h2>End: {{end}}</h2>
-    <h2>Location: {{location}}</h2>
+    <h1><b>{{description}}</b></h1>
+    <h2>{{start}}</h2>
+    <h2>{{end}}</h2>
+    <h2>{{location}}</h2>
   </ion-item>
   <ion-item>
     <ion-label>Volunteer Start</ion-label>

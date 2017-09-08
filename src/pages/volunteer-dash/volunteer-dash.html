@@ -52,25 +52,42 @@
     </ion-item>
   </ion-card>
   <br>
+
+  <!-- <ion-card *ngIf="notifications.length">
+
+      <ion-item *ngFor="let notification of notifications; let i = index;" text-wrap>
+        <h2>We're sorry to inform you that you have been removed from <b>{{notification.event.description}}</b> beginning <b>{{notification.event.time}}</b>        by <b>{{notification.ngo.username}}</b>.
+          <b>{{notification.ngo.username}}</b> apologizes for any inconvenience.</h2>
+      </ion-item>
+    </ion-card> -->
+
   <ion-card>
-    <ion-card-title>
-      Badges Earned
-    </ion-card-title>
-    <ion-card-content>
+      <ion-item color="nav" text-wrap>
+          <h1 style="color: white" class="card-title">Badges</h1>
+        </ion-item>
+        <ion-item *ngFor="let id of ids" style="color: gray; white-space: normal" text-wrap>
+     
+                <img style="width: 50%; margin: auto" [src]="badgeSrcArray[id]">
+      
+              <h2 style="white-space: normal; margin: auto; font-weight: bold; color: white">You've earned the {{badgeNameArray[id]}} Badge!</h2>
+          </ion-item>
+  </ion-card>
+</ion-content>
+    <!-- <ion-card-content> -->
       <!-- <p>
   You've Earned A
     </p> -->
-    </ion-card-content>
-  </ion-card>
+    <!-- </ion-card-content>
+  </ion-card> -->
 
-  <ion-card *ngFor="let id of ids">
+  <!-- <ion-card *ngFor="let id of ids">
     <ion-item style="white-space: normal">
       <ion-avatar>
         <img class="col-33" [src]="badgeSrcArray[id]">
       </ion-avatar>
-      <h2 style="white-space: normal">You've earned the {{badgeNameArray[id]}} Badge!</h2>
+      <h2 style="white-space: normal">You've earned the {{badgeNameArray[id]}} Badge!</h2> -->
       <!-- <p>{{ c.email }}</p> -->
-    </ion-item>
+    <!-- </ion-item> -->
     <!-- <img class="col-33" *ngSrc="badgeSrcArray[id]" />  -->
     <!-- <img class="col-33" [src]="badgeSrcArray[id]" />
   <ion-card-content>
@@ -78,9 +95,10 @@
  You've earned the {{badgeNameArray[id]}} Badge!
       </ion-card-title>  -->
     <!-- </ion-card-content> -->
-  </ion-card>
+  <!-- </ion-card> -->
 
-</ion-content>
+
+
 <ion-footer>
   <ion-toolbar color="nav">
     <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline item-start>Log out</button>

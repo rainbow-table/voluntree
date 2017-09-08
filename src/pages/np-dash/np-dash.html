@@ -20,11 +20,14 @@
    </ion-item>
    <img class="item-image" src={{profile.cover.source}} *ngIf="!!profile"/>
   </ion-card-content>
+
     <ion-card-content>
         <p class="card-title" *ngIf="!edit">{{description}}</p> 
-        <ion-textarea class="vol_textarea" placeholder="Tell us about your organization. This will only be seen by the volunteers who sign up to help." [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
+        <ion-textarea class="vol_textarea" placeholder="Tell us about your organization. This will only be seen by the volunteers who sign up to help." 
+        [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
         <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"> Submit</ion-icon>
-        <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
+        <ion-icon style="float: right" class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
+        <br>
     </ion-card-content>
   </ion-card>
   <ion-card>
@@ -62,7 +65,7 @@
   </calendar>
   </ion-card-content>
 </ion-card>
-
+</ion-content>
 <ion-footer>
     <ion-toolbar color="nav">
       <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline>Log out</button>
