@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="nav">
     <ion-title *ngIf="!!profile">{{name}} Home</ion-title>
     <ion-buttons end>
       <button ion-button padding style="margin-top: -28px; margin-right: -10px;" (click)="goToManageEventsPage()">Manage<br>Events</button>
@@ -7,14 +7,33 @@
     </ion-buttons>    
   </ion-navbar>   
 </ion-header>
-
-<ion-content padding>
-  <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
+<ion-content>
+<ion-card> 
+    <ion-card-content>
+    <ion-item color="nav" item-start>
+      <!-- <ion-navbar style="width: 100%" color="nav"> -->
+    <ion-avatar>
+       <img class="img-profile" src={{profile.photo.data.url}} *ngIf="!!profile"/>
+    </ion-avatar>
+    <h2 class="card-title">{{name}}</h2>
+    <p class="card-subtitle">Organization Info</p>
+   </ion-item>
+   <img class="item-image" src={{profile.cover.source}} *ngIf="!!profile"/>
+  </ion-card-content>
+    <ion-card-content>
+        <p class="card-title" *ngIf="!edit">{{description}}</p> 
+        <ion-textarea class="vol_textarea" placeholder="Tell us about your organization. This will only be seen by the volunteers who sign up to help." [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
+        <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"> Submit</ion-icon>
+        <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+  <!-- <img src={{profile.photo.data.url}} *ngIf="!!profile" style="display:inline-block;width:auto;position:relative"/>
   <div *ngIf="!edit" style="display:inline-block;width:75%;position:relative">{{description}}</div> 
   <textarea *ngIf="!!edit" style="display:inline-block;width:75%;position:relative" [(ngModel)]="newDescription">{{description}}</textarea>
   <ion-icon *ngIf="!!edit" (click)="submitDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
-  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon>
-  <ion-content>
+  <ion-icon *ngIf="!edit" (click)="editDescription()" style="width:6%;display:inline-block;position:relative;float:right" name="md-create"></ion-icon> -->
+  <ion-card-content>
   <ion-navbar color="primary">  
     <ion-title>{{viewTitle}}</ion-title>
     <ion-buttons end>
@@ -41,8 +60,8 @@
             (mouseleave)="mouseup()"
             step="30">
   </calendar>
-  </ion-content>
+  </ion-card-content>
   <div>
     <button class="logout-button" (click)="logout()">Log out</button>
   </div>
-</ion-content>
+</ion-card>

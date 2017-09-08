@@ -22,20 +22,20 @@
    <ion-item color="nav" item-start>
      <!-- <ion-navbar style="width: 100%" color="nav"> -->
    <ion-avatar>
-      <img class="vol_image" src={{profile.photo.data.url}} *ngIf="!!profile"/>
+      <img class="img-profile" src={{profile.photo.data.url}} *ngIf="!!profile"/>
    </ion-avatar>
-   <h2 style="float: left">About Me</h2>
-   <p>Volunteer Info</p>
+   <h2 class="card-title">About Me</h2>
+   <p class="card-subtitle">Volunteer Info</p>
   </ion-item>
-  <img src={{this.covers}} *ngIf="!!profile"/>
+  <img class="item-image" src={{this.covers}} *ngIf="!!profile"/>
   <!-- </ion-navbar>
   </ion-card-header> -->
 
  <ion-card-content>
-  <p class="vol_textarea" *ngIf="!edit">{{description}}</p> 
+  <p class="card-title" *ngIf="!edit">{{description}}</p> 
   <ion-textarea class="vol_textarea" placeholder="Tell us about yousrself. This will only be seen by the non-profits you sign up to help." [(ngModel)]="newDescription" *ngIf="!!edit">{{description}}</ion-textarea>
-  <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"></ion-icon>
-  <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"></ion-icon>
+  <ion-icon class="vol_pencil" *ngIf="!!edit" (click)="submitDescription()" name="md-create"> Submit</ion-icon>
+  <ion-icon class="vol_pencil" *ngIf="!edit" (click)="editDescription()" name="md-create"> Edit</ion-icon>
  </ion-card-content>
   </ion-card>
   <div *ngIf="notifications.length">
@@ -65,8 +65,8 @@ Badges Earned
 
 <ion-card *ngFor="let id of ids"> 
     <ion-item style="white-space: normal">
-        <ion-avatar item-left>
-          <img [src]="badgeSrcArray[id]">
+        <ion-avatar>
+          <img class="col-33" [src]="badgeSrcArray[id]">
         </ion-avatar>
         <h2 style="white-space: normal">You've earned the {{badgeNameArray[id]}} Badge!</h2>
         <!-- <p>{{ c.email }}</p> -->

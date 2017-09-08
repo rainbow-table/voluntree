@@ -52,3 +52,5 @@ docker-compose.yml
 
 gradlew
 gradlew.bat
+
+config.xml
