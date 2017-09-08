@@ -47,16 +47,16 @@
       <h1 style="color: white" class="card-title">Notice!</h1>
     </ion-item>
     <ion-item *ngFor="let notification of notifications; let i = index;" text-wrap>
-    <h2>We're sorry to inform you that you have been removed from <b>{{notification.event.description}}</b> beginning <b>{{notification.event.time}}</b> by <b>{{notification.ngo.username}}</b>.
-      <b>{{notification.ngo.username}}</b> apologizes for any inconvenience.</h2>
+      <h2>We're sorry to inform you that you have been removed from <b>{{notification.event.description}}</b> beginning <b>{{notification.event.time}}</b>        by <b>{{notification.ngo.username}}</b>.
+        <b>{{notification.ngo.username}}</b> apologizes for any inconvenience.</h2>
     </ion-item>
   </ion-card>
   <br>
   <ion-card>
-      <ion-card-title>
-        Badges Earned
-      </ion-card-title>
-      <ion-card-content>
+    <ion-card-title>
+      Badges Earned
+    </ion-card-title>
+    <ion-card-content>
       <!-- <p>
   You've Earned A
     </p> -->
@@ -79,9 +79,10 @@
       </ion-card-title>  -->
     <!-- </ion-card-content> -->
   </ion-card>
-  <br>
-  <br>
-  <div>
-    <button class="logout-button" (click)="logout()">Log out</button>
-  </div>
+
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="nav">
+    <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline item-start>Log out</button>
+  </ion-toolbar>
+</ion-footer>

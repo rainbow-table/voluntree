@@ -42,7 +42,7 @@
     </ion-list>
   </ion-content>
   <ion-content>
-    <ion-list>
+    <!-- <ion-list> -->
       <ion-item *ngFor="let item of npEvents; let i = index;" (click)="openModal(item)" text-wrap>
         <ion-avatar item-left>
           <!-- <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/148483-200.png">  -->
@@ -52,8 +52,10 @@
         <h2>{{item.description}}</h2>
         <p>{{item.event_address}} {{item.start}}, {{item.end}}</p>
       </ion-item>
-    </ion-list>
-    <div>
-      <button class="logout-button" (click)="logout()">Log out</button>
-    </div>
+    <!-- </ion-list> -->
   </ion-content>
+  <ion-footer>
+    <ion-toolbar color="nav">
+      <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline item-start>Log out</button>
+    </ion-toolbar>
+  </ion-footer>

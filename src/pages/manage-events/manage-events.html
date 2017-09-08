@@ -5,66 +5,92 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    
+      <ion-navbar color="nav">
+        <ion-title>Manage Events</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
+    
+    <ion-content padding>
+        <ion-card>
+        <ion-card-header>Upcoming Events</ion-card-header>
+         <ion-item *ngFor="let item of npevents; let i = index;" text-wrap>
+          <ion-item>
+            <h2>{{item.description}}</h2>
+            <p>{{item.event_address}}</p> 
+          <p>{{item.start}} to {{item.end}}</p>
+          <ion-avatar item-right>
+            <ion-icon (click)="showVolunteers(item.id, i)" style="font-size: 30px;" name="md-cog"></ion-icon>
+          </ion-avatar>
+          </ion-item>
+          <ion-item *ngIf="npevents[i].vol" text-wrap>
+          <div *ngFor="let vol of npevents[i].vol; let j = index"> 
+            <div>{{vol.volunteer}}</div>
+            <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
+            <div style="display:inline-block;width:55%;position:relative">{{vol.description}}</div>
+            <div>{{vol.start}}</div>  
+            <div>{{vol.end}}</div>
+            <ion-avatar item-right>
+              <ion-icon (click)="removeVolunteer(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-remove-circle"></ion-icon>
+            </ion-avatar>   
+            <br>
+          </div>  
+          </ion-item>
+        </ion-item>
+        </ion-card>
+      </ion-content>
 
-  <ion-navbar color="nav">
-    <ion-title>Manage Events</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding>
-    <ion-content>
-    <ion-header>Upcoming Events</ion-header>
-     <ion-item *ngFor="let item of npevents; let i = index;" text-wrap>
-      <ion-item>
-        <h2>{{item.description}}</h2>
-        <p>{{item.event_address}}</p> 
-      <p>{{item.start}} to {{item.end}}</p>
-      <ion-avatar item-right>
-        <ion-icon (click)="showVolunteers(item.id, i)" style="font-size: 30px;" name="md-cog"></ion-icon>
+      <!-- <ion-card *ngIf="notifications.length">
+    <ion-item color="danger" *ngFor="let notification of notifications; let i = index;" text-wrap>
+      <ion-avatar item-start>
+        <ion-icon (click)="deleteNotice(notification.id)" style="font-size: 30px;" name="md-close-circle"></ion-icon>
       </ion-avatar>
-      </ion-item>
-      <ion-item *ngIf="npevents[i].vol" text-wrap>
-      <div *ngFor="let vol of npevents[i].vol; let j = index"> 
-        <div>{{vol.volunteer}}</div>
-        <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
-        <div style="display:inline-block;width:55%;position:relative">{{vol.description}}</div>
-        <div>{{vol.start}}</div>  
-        <div>{{vol.end}}</div>
-        <ion-avatar item-right>
-          <ion-icon (click)="removeVolunteer(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-remove-circle"></ion-icon>
-        </ion-avatar>   
-        <br>
-      </div>  
-      </ion-item>
+      <h1 style="color: white" class="card-title">Notice!</h1>
     </ion-item>
-    </ion-content>
+    <ion-item *ngFor="let notification of notifications; let i = index;" text-wrap>
+      <h2>We're sorry to inform you that you have been removed from <b>{{notification.event.description}}</b> beginning <b>{{notification.event.time}}</b>        by <b>{{notification.ngo.username}}</b>.
+        <b>{{notification.ngo.username}}</b> apologizes for any inconvenience.</h2>
+    </ion-item>
+  </ion-card>
+     -->
 
-    <ion-content>
-    <ion-header>Past Events</ion-header>
-     <ion-item *ngFor="let item of pastEvents; let i = index;" text-wrap>
-      <ion-item>
-        <h2>{{item.description}}</h2>
-        <p>{{item.event_address}}</p> 
-      <p>{{item.event_start}} to {{item.event_end}}</p>
-      <ion-avatar item-right>
-        <ion-icon (click)="showVolunteers(item.id, i, true)" style="font-size: 30px;" name="md-cog"></ion-icon>
-      </ion-avatar>
-      </ion-item>
-      <ion-item *ngIf="pastEvents[i].vol">
-      <div *ngFor="let vol of pastEvents[i].vol; let i = index" text-wrap> 
-        <div>{{vol.volunteer}}</div>
-        <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
-        <div style="display:inline-block;width:75%;position:relative">{{vol.description}}</div> 
-        <div>{{vol.start}}</div>  
-        <div>{{vol.end}}</div>  
-        <ion-avatar item-right>
-          <ion-icon (click)="volunteerAttended(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-checkmark-circle-outline"></ion-icon>
-        </ion-avatar>          
-        <br>
-      </div>  
-      </ion-item>
-    </ion-item>
-    </ion-content>
-</ion-content>
+
+    <ion-content padding>
+        <ion-card color="nav">
+        <ion-card-header>Past Events</ion-card-header>
+         <ion-card *ngFor="let item of pastEvents; let i = index;" text-wrap>
+            <ion-card-header style="color:black">{{item.description}}</ion-card-header>
+          <ion-item>
+            <p>{{item.event_address}}</p> 
+          <p>{{item.event_start}} to {{item.event_end}}</p>
+          <ion-item color="danger">
+          <ion-avatar item-right>
+            <ion-icon (click)="showVolunteers(item.id, i, true)" style="font-size: 30px;" name="md-cog"></ion-icon>
+          </ion-avatar>
+          </ion-item>
+        </ion-item>
+          <ion-item *ngIf="pastEvents[i].vol">
+          <div *ngFor="let vol of pastEvents[i].vol; let i = index" text-wrap> 
+            <div>{{vol.volunteer}}</div>
+            <img src={{vol.img}} style="display:inline-block;width:auto;position:relative"/>
+            <div style="display:inline-block;width:75%;position:relative">{{vol.description}}</div> 
+            <div>{{vol.start}}</div>  
+            <div>{{vol.end}}</div>  
+            <ion-avatar item-right>
+              <ion-icon (click)="volunteerAttended(vol, item.id, i)" style="width:30%;position:relative;display:inline-block" name="md-checkmark-circle-outline"></ion-icon>
+            </ion-avatar>          
+            <br>
+          </div>  
+          </ion-item>
+        </ion-card>
+        </ion-card>
+      </ion-content>
+        <ion-footer>
+            <ion-toolbar color="nav">
+              <button color="light" style="color: white; float: right;" (click)="logout()" ion-button outline item-start>Log out</button>
+            </ion-toolbar>
+          </ion-footer>
+    <!-- </ion-content> -->
