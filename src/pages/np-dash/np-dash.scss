@@ -23,8 +23,10 @@ page-np-dash {
   // }
 
   .scroll {
-    height: 100%
+    height: 100%;
 }
+
+
 .home {
   height: 70%;
   margin-bottom: -10%;
@@ -60,7 +62,8 @@ ion-card-title {
 .vol_pencil {
   float: right;
   padding: 2%;
-  clear: right;
+  // margin-left: 200px;
+  // clear: left;
 
 }
 .col-33 {
