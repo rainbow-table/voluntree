@@ -182,7 +182,6 @@ export class VolunteerMapSearchPage {
             })
           // return el;
         })
-        alert(`${this.geoCoords[0]}`)
 
         let latLng = [position.coords.latitude, position.coords.longitude];
         this.map = new GoogleMap('map_canvas');
